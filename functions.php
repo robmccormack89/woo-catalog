@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* Rmcc Theme functions and definitions
+* Rmcc Theme functions and definitions...
 *
 * @package Rmcc_Theme
 *
