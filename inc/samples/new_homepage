@@ -1,0 +1,51 @@
+<!-- wp:acf/cover-section {"id":"block_626066f71283e","name":"acf/cover-section","data":{"field_61d76f01c14b7":"632","field_620e46bf11699":"Zone A, Mullingar Business Park, Mullingar, Co. Westmeath, N91 R761 | Tel: 0449345884 Email: info@serchek.com","field_626065c11af7d":"light"},"align":"full","mode":"preview","full_height":false} -->
+<!-- wp:heading {"level":1,"style":{"color":{"text":"#262b4d"}},"className":"uk-heading-medium"} -->
+<h1 class="uk-heading-medium has-text-color" style="color:#262b4d">Specialist provider of<br><span style="color:#c81825">Loading Dock</span><br>Engineering Services</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"className":"uk-text-lead"} -->
+<p class="uk-text-lead">Loading Dock Installations, Maintenance,<br>Repairs and Consultation. Specialised providers<br>– Dock Levellers, Sectional Overhead Doors,<br>Dock Lights &amp; Loading Dock Accessories</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:spacer {"height":"20px"} -->
+<div style="height:20px" aria-hidden="true" class="wp-block-spacer"></div>
+<!-- /wp:spacer -->
+<!-- /wp:acf/cover-section -->
+
+<!-- wp:acf/cta-section {"id":"block_62606a921283f","name":"acf/cta-section","data":{"field_61d756573afe1":"#262b4d","field_6220f490bf828":"enabled"},"align":"full","mode":"preview"} -->
+<!-- wp:acf/video-popup-button {"id":"block_62606ada12840","name":"acf/video-popup-button","data":{"field_61d6ff16b532a":"","field_622170bc65eb5":"light"},"align":"","mode":"preview","align_text":"center"} /-->
+
+<!-- wp:heading {"textAlign":"center","style":{"color":{"text":"#c81825"}},"className":"uk-text-boldest"} -->
+<h2 class="has-text-align-center uk-text-boldest has-text-color" style="color:#c81825">Loading Dock by Serchek Industrial Ireland Ltd.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Serchek installs, maintains and repairs Industrial and Commercial doors, Loading bays, Automatic gates and entry systems.</p>
+<!-- /wp:paragraph -->
+<!-- /wp:acf/cta-section -->
+
+<!-- wp:acf/highlight-card-section {"id":"block_62606b2a12841","name":"acf/highlight-card-section","data":{"field_6221629a4ffd1":"left","field_6221629a50311":""},"align":"full","mode":"preview","align_content":"center"} -->
+<!-- wp:heading {"textAlign":"center"} -->
+<h2 class="has-text-align-center">Loading Dock by Serchek Industrial Ireland Ltd.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Serchek installs, maintains and repairs Industrial and Commercial doors, Loading bays, Automatic gates and entry systems.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:acf/gallery-button {"id":"block_623c87ccf5593","name":"acf/gallery-button","data":{"gallery":["686","687","685","684","683","682","681","680","679","678","677","676","675","674","673","672","671","670","669","668","667","666","665","664","663","662","661","660","659","658","657","656","655","654","653","652","651","650","649","648","647","646","645","644","643","642","641","640","639","638","637","636","635","634","633","632","631","630","629","628","627","626","625","624","623","622","609","476","475","474"],"_gallery":"field_61d867329e0e4","btn_txt":"","_btn_txt":"field_62111331a43dd","btn_classes":"","_btn_classes":"field_622176f5a58b0"},"align":"","mode":"preview","align_text":"center"} /-->
+<!-- /wp:acf/highlight-card-section -->
+
+<!-- wp:acf/half-and-half-section {"id":"block_623c87b2f558c","name":"acf/half-and-half-section","data":{"field_61d6f23c2068b":"476","field_620e7b33c8ad2":"left","field_6220ea51b4656":"#262b4d","field_6220eac8b4658":"enabled"},"align":"full","mode":"preview","align_content":"center"} -->
+<!-- wp:heading {"textAlign":"center","style":{"color":{"text":"#c81825"}},"className":"uk-text-boldest"} -->
+<h2 class="has-text-align-center uk-text-boldest has-text-color" style="color:#c81825">Contact us</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Zone A, Mullingar Business Park<br>Mullingar, Co. Westmeath, N91 R761</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">Tel: 044 9345884<br>Email: info@serchek.com</p>
+<!-- /wp:paragraph -->
+<!-- /wp:acf/half-and-half-section -->
