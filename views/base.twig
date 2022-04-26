@@ -17,19 +17,21 @@
     {% do action('theme_before_header') %}
 
     {% block header %}
-      {# include 'header.twig' #}
+      {% include '_header.twig' %}
     {% endblock %}
     
     <main id="Main" role="main" style="background-color: #fff;">
       <div id="ContentSection">
         {% block main %}
-          Sorry, nothing to display here...
+          <div class="uk-section uk-container">
+            Sorry, nothing to display here...
+          </div>
         {% endblock %}
       </div>
     </main>
     
     {% block footer %}
-      {# include 'footer.twig' #}
+      {% include '_footer.twig' %}
     {% endblock %}
     
     {% do action('theme_above_footer') %}

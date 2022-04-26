@@ -29,6 +29,10 @@ class Theme extends Timber {
     
     global $configs;
     
+    // set some Theme class properties, to be used below or elsewhere
+    $this->logo_width = '223';
+    $this->logo_height = '36';
+    
     // theme & twig stuff
     add_action('after_setup_theme', array($this, 'theme_supports'));
 		add_filter('timber/context', array($this, 'add_to_context'));
@@ -130,6 +134,7 @@ class Theme extends Timber {
       }
       
     });
+    
   }
   
   // change the seperator for yoast's breadcrumb
@@ -169,8 +174,8 @@ class Theme extends Timber {
       'caption'
     ));
     add_theme_support('custom-logo', array(
-      'height' => 30,
-      'width' => 261,
+      'height' => $this->logo_height,
+      'width' => $this->logo_width,
       'flex-width' => true,
       'flex-height' => true
     ));
@@ -194,9 +199,16 @@ class Theme extends Timber {
     $context['theme_img_src'] = 'https://picsum.photos/id/' . $snippets['theme_img_id'] . '/1920/800';
 
     // wp customizer logo
-    $theme_logo_id = get_theme_mod('custom_logo');
-    $theme_logo_url = wp_get_attachment_image_url($theme_logo_id , 'full');
-    $context['theme_logo_src'] = $theme_logo_url;
+    $theme_logo_src = wp_get_attachment_image_url(get_theme_mod('custom_logo') , 'full');
+    if($theme_logo_src){
+      $context['theme']->logo = (object)[];
+      $context['theme']->logo->src = $theme_logo_src;
+      $context['theme']->logo->alt = '';
+      $context['theme']->logo->w = $this->logo_width;
+      $context['theme']->logo->h = $this->logo_height;
+    }
+    // $context['theme']['logo']['alt'] = '';
+    // $context['theme_logo_src'] = $theme_logo_src;
     
     // menu register & args
     $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));
