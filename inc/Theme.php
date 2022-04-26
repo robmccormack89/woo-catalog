@@ -16,7 +16,6 @@ use Twig\Extra\String\StringExtension;
 // Define paths to Twig templates
 Timber::$dirname = array(
   'views',
-  'views/archive',
   'views/single',
 );
 
