@@ -1,1 +1,12 @@
 {% extends 'single.twig' %}
+
+{% block single_content_wrap %}
+  <div class="single-content uk-margin-large-bottom">
+    {% block single_content %}
+      {{parent()}}
+    {% endblock %}
+  </div>
+{% endblock %}
+
+{% block single_footer %}
+{% endblock %}

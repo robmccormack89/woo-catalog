@@ -17,6 +17,7 @@ $context = Theme::context();
 
 // set some context vars
 $context['post'] = new Post(); // the singlualr post object
+$context['description'] = false;
 
 // set templates variable as an array (requires $context['post'])
 $templates  = array(

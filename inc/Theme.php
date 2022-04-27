@@ -187,7 +187,7 @@ class Theme extends Timber {
   */
   
   public function filter_wpseo_breadcrumb_separator($this_options_breadcrumbs_sep) {
-  	return '<i class="fas fa-circle fa-xs"></i>';
+  	return '<i uk-icon="icon: chevron-double-right; ratio: .8"></i>';
   }
   
   /**
