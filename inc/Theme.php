@@ -281,8 +281,6 @@ class Theme extends Timber {
       $context['theme']->logo->w = $this->logo_width;
       $context['theme']->logo->h = $this->logo_height;
     }
-    // $context['theme']['logo']['alt'] = '';
-    // $context['theme_logo_src'] = $theme_logo_src;
     
     // menu register & args
     $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));
