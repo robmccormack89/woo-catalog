@@ -3,6 +3,9 @@
 /**
 *
 * Theme helper functions
+* Functions to be called from elsehwre to do different things.
+* Actions & filters should go in Theme.php or a new class altogether
+* In most cases actions & filters are used to add or change core features of a theme at setup, so this makes sense.
 *
 * @package Rmcc_Theme
 *
@@ -19,12 +22,3 @@ function yoast_breadcrumb_enabled() {
   
   return false;
 }
-
-// add uk-active to active menu items
-function special_nav_class ($classes, $item) {
-  if (in_array('current-menu-item', $classes) ){
-    $classes[] = 'uk-active ';
-  }
-  return $classes;
-}
-add_filter('nav_menu_css_class' , 'special_nav_class' , 10 , 2);
