@@ -28,13 +28,23 @@ class Theme extends Timber {
   public function __construct() {
     parent::__construct();
     
-    global $configs;
+    /**
+    *
+    * Class properties & globals
+    *
+    */
     
-    // set some Theme class properties, to be used below or elsewhere
+    global $configs;
+    $this->configs = $configs;
     $this->logo_width = '223';
     $this->logo_height = '36';
     
-    // theme & twig stuff
+    /**
+    *
+    * theme & twig
+    *
+    */
+    
     add_action('after_setup_theme', array($this, 'theme_supports'));
 		add_filter('timber/context', array($this, 'add_to_context'));
 		add_filter('timber/twig', array($this, 'add_to_twig'));
@@ -44,106 +54,164 @@ class Theme extends Timber {
     add_action('init', array($this, 'register_navigation_menus'));
     add_action('enqueue_block_assets', array($this, 'theme_enqueue_assets')); // use 'theme_enqueue_assets' for frontend-only
     
-    // yoast breadcrumbs mod
-    add_filter('wpseo_breadcrumb_separator', array($this, 'filter_wpseo_breadcrumb_separator'), 10, 1);
+    /**
+    *
+    * remove <p> tags from archive descriptions & other stuff
+    *
+    */
     
-    // remove <p> tags from archive descriptions
     remove_filter('term_description', 'wpautop');
     remove_filter('the_content', 'wpautop');
     remove_filter('the_excerpt', 'wpautop');
     remove_filter('widget_text_content', 'wpautop');
     remove_filter('widget_custom_html', 'wpautop' , 10, 3 );
     
-    // adds svg support to theme
-    add_filter('wp_check_filetype_and_ext', function($data, $file, $filename, $mimes) {
+    /**
+    *
+    * svgs
+    *
+    */
     
-      global $wp_version;
-      if ($wp_version !== '4.7.1') {
-        return $data;
-      }
-    
-      $filetype = wp_check_filetype($filename, $mimes);
-    
-      return [
-        'ext'             => $filetype['ext'],
-        'type'            => $filetype['type'],
-        'proper_filename' => $data['proper_filename']
-      ];
-    
-    }, 10, 4 );
+    add_filter('wp_check_filetype_and_ext', array($this, 'check_filetype'), 10, 4);
     add_filter('upload_mimes', array($this, 'cc_mime_types'));
     add_action('admin_head', array($this, 'fix_svg'));
     
-    // add custom classes to the body classes, the WP way
-    if($configs['theme_preloader']){
-      add_filter('body_class', function($classes){
-      	$stack = $classes;
-      	array_push($stack, 'no-overflow');
-      	return $stack;
-      });
+    /**
+    *
+    * Yoast breadcrumbs
+    *
+    */
+    
+    if(yoast_breadcrumb_enabled()) add_filter('wpseo_breadcrumb_separator', array($this, 'filter_wpseo_breadcrumb_separator'), 10, 1);
+        
+    /**
+    *
+    * Theme's CSS classes
+    *
+    */
+    
+    add_filter('nav_menu_css_class', array($this, 'special_nav_class'), 10, 2);
+    if($configs['theme_preloader']) add_filter('body_class', array($this, 'add_body_classes'));
+    
+    /**
+    *
+    * Singular-only
+    *
+    */
+    
+    add_action('parse_query', array($this, 'redirect_all_archives_to_home'));
+    $this->set_page_to_front(get_page_by_path('homepage'));
+    
+    /**
+    *
+    * Disable comments
+    *
+    */
+    
+    add_filter('comments_array', array($this, 'disable_comments_hide_existing_comments'), 10, 2);
+    add_action('admin_menu', array($this, 'disable_comments_admin_menu'));
+    add_action('admin_init', array($this, 'disable_comments_admin_menu_redirect'));
+    add_action('admin_init', array($this, 'disable_comments_dashboard'));
+    add_action('init', array($this, 'disable_comments_admin_bar'));
+    
+  }
+  
+  /**
+  *
+  * Disable Wordpress comments from backend & posts etc
+  *
+  */
+  
+  function disable_comments_hide_existing_comments($comments) {
+    $comments = array();
+    return $comments;
+  }
+  function disable_comments_admin_menu() {
+    remove_menu_page('edit-comments.php');
+  }
+  function disable_comments_admin_menu_redirect() {
+    global $pagenow;
+    if ($pagenow === 'edit-comments.php') {
+      wp_redirect(admin_url()); exit;
     }
-    
-    // removes sticky posts from main loop
-    // this function fixes issue of duplicate posts on archive
-    // see https://wordpress.stackexchange.com/questions/225015/sticky-post-from-page-2-and-on
-    add_action('pre_get_posts', function ($q) {
-      
-      // Only target the blog page // Only target the main query
-      if ($q->is_home() && $q->is_main_query()) {
-        
-        // Remove sticky posts
-        $q->set('ignore_sticky_posts', 1);
-    
-        // Get the sticky posts array
-        $stickies = get_option('sticky_posts');
-    
-        // Make sure we have stickies before continuing, else, bail
-        if (!$stickies) {
-          return;
-        }
-    
-        // Great, we have stickies, lets continue
-        // Lets remove the stickies from the main query
-        $q->set('post__not_in', $stickies);
-    
-        // Lets add the stickies to page one via the_posts filter
-        if ($q->is_paged()) {
-          return;
-        }
-    
-        add_filter('the_posts', function ($posts, $q) use ($stickies) {
-          
-          // Make sure we only target the main query
-          if (!$q->is_main_query()) {
-            return $posts;
-          }
-    
-          // Get the sticky posts
-          $args = [
-            'posts_per_page' => count($stickies),
-            'post__in'       => $stickies
-          ];
-          $sticky_posts = get_posts($args);
-    
-          // Lets add the sticky posts in front of our normal posts
-          $posts = array_merge($sticky_posts, $posts);
-    
-          return $posts;
-            
-        }, 10, 2);
-        
-      }
-      
-    });
-    
+  }
+  function disable_comments_dashboard() {
+    remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+  }
+  function disable_comments_admin_bar() {
+    if (is_admin_bar_showing()) {
+      remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+    }
   }
   
-  // change the seperator for yoast's breadcrumb
+  /**
+  *
+  * Singular-only
+  *
+  */
+  
+  public function set_page_to_front($page){ // set a page as the frontpage (requires a page object) 
+    if($page){
+      update_option('page_on_front', $page->ID);
+      update_option('show_on_front', 'page');
+    }
+  }
+  public function redirect_all_archives_to_home($query){ // Redirect all archives to the homepage (disable archives) 
+    if(is_archive()) {
+      wp_redirect( home_url() );
+      exit;
+    }
+  }
+  
+  /**
+  *
+  * Theme's CSS classes
+  *
+  */
+  
+  public function add_body_classes($classes){ // Add some classes to the body classes array 
+    if($this->configs['theme_preloader']) array_push($classes, 'no-overflow');
+    return $classes;
+  }
+  public function special_nav_class($classes, $item) { // Add uk-active class to wordpress' active menu items  
+    if (in_array('current-menu-item', $classes) ){
+      $classes[] = 'uk-active ';
+    }
+    return $classes;
+  }
+  
+  /**
+  *
+  * Yoast breadcrumbs
+  *
+  */
+  
   public function filter_wpseo_breadcrumb_separator($this_options_breadcrumbs_sep) {
-  	return '<i class="fas fa-circle fa-xs"></i>';
+  	return '<i uk-icon="icon: chevron-double-right; ratio: .8"></i>';
   }
   
-  // svg
+  /**
+  *
+  * svg support
+  *
+  */
+  
+  public function check_filetype($data, $file, $filename, $mimes) {
+  
+    global $wp_version;
+    if ($wp_version !== '4.7.1') {
+      return $data;
+    }
+  
+    $filetype = wp_check_filetype($filename, $mimes);
+  
+    return [
+      'ext'             => $filetype['ext'],
+      'type'            => $filetype['type'],
+      'proper_filename' => $data['proper_filename']
+    ];
+  
+  }
   public function cc_mime_types( $mimes ){
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
@@ -152,7 +220,12 @@ class Theme extends Timber {
     echo '<style type="text/css"> .attachment-266x266, .thumbnail img { width: 100%!important; height: auto!important; } </style>';
   }
   
-  // theme & twig
+  /**
+  *
+  * theme & twig setups
+  *
+  */
+  
   public function theme_supports() {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
@@ -208,8 +281,6 @@ class Theme extends Timber {
       $context['theme']->logo->w = $this->logo_width;
       $context['theme']->logo->h = $this->logo_height;
     }
-    // $context['theme']['logo']['alt'] = '';
-    // $context['theme_logo_src'] = $theme_logo_src;
     
     // menu register & args
     $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));

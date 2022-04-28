@@ -1,0 +1,23 @@
+{% if not fn('post_password_required', post.id) %}
+  <footer class="single-footer uk-container uk-container-small uk-margin-large-bottom">
+        
+    {% block single_share %}
+      {% if configs.theme_post_share %}
+        {# share goes here... #}
+      {% endif %}
+    {% endblock %}
+
+    {% block single_pagination %}
+      {% if configs.theme_post_paging %}
+        {% include '_single-pagination.twig' %}
+      {% endif %}
+    {% endblock %}
+
+    {% block single_comments %}
+      {% if configs.theme_post_comments %}
+        {# comments go here... #}
+      {% endif %}
+    {% endblock %}
+    
+  </footer>
+{% endif %}

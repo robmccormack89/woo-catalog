@@ -1,7 +1,37 @@
 {% extends 'base.twig' %}
 
+{% block styles %}
+  <link rel='stylesheet' href='{{theme.link}}/assets/css/editor.css' type='text/css' media='all' />
+{% endblock %}
+
 {% block main %}
-  <div class="uk-section uk-container">
-    Sorry, nothing to display here (single)...
-  </div>
+  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }}">
+
+    {# single header #}
+    {% block single_header %}
+      {% include '_single-header.twig' with {title: post.title, description: description} %}
+    {% endblock %}
+    
+    {% block single_content_wrap %}
+      <div class="single-content">
+        {% block single_content %}
+          {% if not fn('post_password_required', post.id) %}
+            <div class="content-editor gutenberg-editor">
+              {{ post.content }}
+            </div>
+          {% else %}
+            <div class="password-protected-form uk-container uk-container-small">
+              {% include '_password-protected-form.twig' %}
+            </div>
+          {% endif %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+    
+    {# single footer #}
+    {% block single_footer %}
+      {% include '_single-footer.twig' %}
+    {% endblock %}
+  
+  </article>
 {% endblock %}
