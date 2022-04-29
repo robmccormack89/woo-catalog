@@ -17,6 +17,7 @@ use Twig\Extra\String\StringExtension;
 Timber::$dirname = array(
   'views',
   'views/single',
+  'views/archive',
 );
 
 // set the $autoescape value
@@ -95,15 +96,6 @@ class Theme extends Timber {
     
     /**
     *
-    * Singular-only
-    *
-    */
-    
-    add_action('parse_query', array($this, 'redirect_all_archives_to_home'));
-    $this->set_page_to_front(get_page_by_path('homepage'));
-    
-    /**
-    *
     * Disable comments
     *
     */
@@ -114,6 +106,72 @@ class Theme extends Timber {
     add_action('admin_init', array($this, 'disable_comments_dashboard'));
     add_action('init', array($this, 'disable_comments_admin_bar'));
     
+    /**
+    *
+    * Removes sticky posts from main loop
+    * this function fixes issue of duplicate posts on archive
+    * see https://wordpress.stackexchange.com/questions/225015/sticky-post-from-page-2-and-on
+    *
+    */
+    
+    add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop'));
+    
+  }
+  
+  /**
+  *
+  * Removes sticky posts from main loop
+  *
+  */
+  
+  public function remove_stickies_from_main_loop($q) {
+    
+    // Only target the blog page // Only target the main query
+    if ($q->is_home() && $q->is_main_query()) {
+      
+      // Remove sticky posts
+      $q->set('ignore_sticky_posts', 1);
+  
+      // Get the sticky posts array
+      $stickies = get_option('sticky_posts');
+  
+      // Make sure we have stickies before continuing, else, bail
+      if (!$stickies) {
+        return;
+      }
+  
+      // Great, we have stickies, lets continue
+      // Lets remove the stickies from the main query
+      $q->set('post__not_in', $stickies);
+  
+      // Lets add the stickies to page one via the_posts filter
+      if ($q->is_paged()) {
+        return;
+      }
+  
+      add_filter('the_posts', function ($posts, $q) use ($stickies) {
+        
+        // Make sure we only target the main query
+        if (!$q->is_main_query()) {
+          return $posts;
+        }
+  
+        // Get the sticky posts
+        $args = [
+          'posts_per_page' => count($stickies),
+          'post__in'       => $stickies
+        ];
+        $sticky_posts = get_posts($args);
+  
+        // Lets add the sticky posts in front of our normal posts
+        $posts = array_merge($sticky_posts, $posts);
+  
+        return $posts;
+          
+      }, 10, 2);
+      
+    }
+    
   }
   
   /**
@@ -122,44 +180,25 @@ class Theme extends Timber {
   *
   */
   
-  function disable_comments_hide_existing_comments($comments) {
+  public function disable_comments_hide_existing_comments($comments) {
     $comments = array();
     return $comments;
   }
-  function disable_comments_admin_menu() {
+  public function disable_comments_admin_menu() {
     remove_menu_page('edit-comments.php');
   }
-  function disable_comments_admin_menu_redirect() {
+  public function disable_comments_admin_menu_redirect() {
     global $pagenow;
     if ($pagenow === 'edit-comments.php') {
       wp_redirect(admin_url()); exit;
     }
   }
-  function disable_comments_dashboard() {
+  public function disable_comments_dashboard() {
     remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
   }
-  function disable_comments_admin_bar() {
+  public function disable_comments_admin_bar() {
     if (is_admin_bar_showing()) {
       remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
-    }
-  }
-  
-  /**
-  *
-  * Singular-only
-  *
-  */
-  
-  public function set_page_to_front($page){ // set a page as the frontpage (requires a page object) 
-    if($page){
-      update_option('page_on_front', $page->ID);
-      update_option('show_on_front', 'page');
-    }
-  }
-  public function redirect_all_archives_to_home($query){ // Redirect all archives to the homepage (disable archives) 
-    if(is_archive()) {
-      wp_redirect( home_url() );
-      exit;
     }
   }
   
