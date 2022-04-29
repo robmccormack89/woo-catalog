@@ -16,7 +16,7 @@ $snippets = require_once(get_template_directory() . '/inc/extra/snippets.php');
   using tgm-plugin-activation
 
 */
-require_once get_template_directory() . '/inc/lib/plugin-activation.php';
+// require_once get_template_directory() . '/inc/lib/plugin-activation.php';
 
 /* composer autoloader of classes 
 
@@ -31,23 +31,3 @@ if (file_exists($composer_autoload = __DIR__.'/vendor/autoload.php')) require_on
 
 */
 if (class_exists('Timber\Timber')) new Rmcc\Theme;
-
-/* if Woocommerce is available (plugin is installed), do the ThemeWoo class & all the includes 
-
-  Woocommerce should be installed via required plugins
-
-*/
-if (class_exists('Timber\Timber') && class_exists('Woocommerce')) {
-  // function timber_set_product( $post ) {
-  //   global $product;
-  //   $product = wc_get_product( $post->ID );
-  // }
-  // new Rmcc\ThemeWoo;
-}
-
-/* if ACF is available (plugin is installed), do the Theme ACF class 
-
-  ACf should be installed via required plugins
-
-*/
-// if(class_exists('ACF')) new Rmcc\Fields;
