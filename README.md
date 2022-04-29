@@ -1,4 +1,4 @@
-# Base Theme (single-only)
+# Base Theme (master)
 
 ---
 
