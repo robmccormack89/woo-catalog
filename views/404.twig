@@ -1,0 +1,24 @@
+{% extends 'single.twig' %}
+{% import "_snippets.twig" as snippets %}
+
+{% block single_header %}
+  {% include '_single-header.twig' with {title: title, description: description} %}
+{% endblock %}
+
+{% block single_content_wrap %}
+  <section class="article-content">
+    <div class="password-protected-form uk-container uk-container-small">
+      <p>{{ message|e('esc_html') }}</p>
+      <form class="password-form uk-width-large" role="search" action="{{ site.url|e('esc_url') }}" method="get">
+        <div class="uk-grid-collapse uk-flex uk-flex-middle" uk-grid>
+          <div class="uk-width-expand">
+            <input class="password-box uk-input" name="s" id="404-search" type="search" placeholder="{{ snippets.searchform_text()|e('esc_html') }}" size="20" required maxlength="100" pattern=".*\S+.*" autocomplete="off" />
+          </div>
+          <div class="uk-width-auto">
+            <input class="password-btn uk-button uk-button-primary uk-text-bold" type="submit" value="{{ snippets.error_search_btn()|e('esc_html') }}" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

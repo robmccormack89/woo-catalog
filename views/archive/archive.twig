@@ -12,7 +12,7 @@
         {% block archive_content %}
           <div class="archive-content uk-container uk-container-small">
             {% if posts is not empty %}
-              <div class="masonry-container uk-child-width-1-1 uk-child-width-1-2@m uk-grid-collapse uk-positionnn-relative" uk-grid uk-griddd="masonry: true">
+              <div class="masonry-container">
                 {% for post in posts %}
                   <div>
                     {% include '_tease.twig' %}
@@ -35,11 +35,18 @@
       var masonry = MasonryGrid({
         container: '.masonry-container',
         trueOrder: false,
-        waitForImages: false,
-        margin: 20,
-        columns: 2,
+        waitForImages: true,
+        mobileFirst: true,
+        margin: 10,
+        columns: 1,
         breakAt: {
-          940: 1
+          960: {
+            margin: {
+              x: 20,
+              y: 20,
+            },
+            columns: 2
+          }
         }
       });
     </script>

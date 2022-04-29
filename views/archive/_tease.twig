@@ -1,5 +1,5 @@
 
-<div class="uk-card uk-card-default uk-card-small">
+<div class="uk-card uk-card-default uk-card-small" hidden>
 {% if post.thumbnail %}
 <div class="uk-card-media-top">
 <img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" data-height alt="">
@@ -11,11 +11,11 @@
 </div>
 </div>
 
-<article id="{{ post.id|e('esc_html') }}" class="theme-border uk-box-shadow-small uk-padding-small uk-padding-remove-horizontal uk-padding-remove-top {{ post.class|e('esc_html') }}" style="height:400px" hidden>
+<article id="{{ post.id|e('esc_html') }}" class="theme-border uk-box-shadow-small uk-padding-small uk-padding-remove-horizontal uk-padding-remove-top {{ post.class|e('esc_html') }}">
   
   {% if post.thumbnail %}
     <figure class="uk-margin-remove">
-      <img src="{{ post.thumbnail.src|resize(900, 400, 'center')|e('esc_html') }}" width="900" width="400" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+      <img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" width="" alt="{{ post.thumbnail.alt|e('esc_html') }}">
       {% if post.thumbnail.caption %}
         <figcaption class="uk-margin-small-top uk-text-center uk-text-muted uk-text-small">{{ post.thumbnail.caption|e('esc_html') }}</figcaption>
       {% endif %}
