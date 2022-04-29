@@ -4,7 +4,7 @@
       
       {# logo/site_title #}
       <div class="uk-navbar-left">
-        <a class="uk-navbar-item uk-logo pull-left-15" href="{{ site.link|e('esc_url') }}">
+        <a class="uk-navbar-item uk-logo uk-text-bold pull-left-15" href="{{ site.link|e('esc_url') }}">
           {% if theme.logo %}
             <img src="{{ theme.logo.src|e('esc_url') }}" width="{{ theme.logo.w }}" height="{{ theme.logo.h }}" alt="{{ theme.logo.alt|e('esc_html') }}">
           {% else %}
