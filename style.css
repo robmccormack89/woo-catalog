@@ -35,7 +35,7 @@ Base Theme is built using Timber WP https://github.com/timber/timber
   font-weight: 500;
 }
 .site-header {
-  background-color: #0000001a;
+  /* background-color: #0000001a; */
 }
 
 .uk-light .uk-background-muted {

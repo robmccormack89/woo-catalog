@@ -1,0 +1,117 @@
+{#
+/**
+ * Block Name: Advanced search section
+ *
+ * This is the template that displays the CTA section block.
+ */
+#}
+
+{% extends "block.twig" %}
+
+{% block block_content %}
+
+  <section class="uk-background-defaulttt">
+    <div class="uk-containerrr uk-sectionnn">
+      <form action="/" class="advform uk-overlay-faint uk-background-muteddd uk-border-rounded uk-padding-small theme-border uk-position-relative toggle-class" method="get" role="search">
+        <fieldset class="uk-fieldset">
+          
+          <div class="advform-main">
+          
+            <div class="advform-searchtext form-group uk-width-1-1 uk-margin-small-bottom">
+              <input class="form-control uk-searchhh-input uk-input uk-width-1-1" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search_adv" value="" placeholder="Search by sku, title or anything else!" autocomplete="off"
+                aria-invalid="true">
+            </div>
+            
+        		<div class="advform-main uk-child-width-1-2@l uk-grid-small" uk-grid>
+              
+              {# cat -> sub_cat #}
+              <div class="advform-product_cats form-group">
+              
+                {% set product_parent_cats = fn('get_parent_product_terms', 'product_cat') %}
+                
+                <div class="advform-main uk-child-width-1-2@m uk-grid-small" uk-grid>
+
+            			<div class="advform-product_cat">
+            				<select name="product_cat" id="product_cat" class="form-control uk-select">
+            					<option value="" selected="true" disabled="disabled">Select Category</option>
+                      {% if product_parent_cats is not empty %}
+                        {% for cat in product_parent_cats %}
+                					<option id="{{ cat.term_id|e('esc_html') }}" value="{{ cat.slug|e('esc_html') }}">{{ cat.name|e('esc_html') }}</option>
+                        {% endfor %}
+                      {% endif %}
+            				</select>
+            			</div>
+
+                  <div class="advform-product_cat_sub">
+                    <select name="product_cat" id="product_cat_sub" class="form-control uk-select" disabled>
+            					<option value="" selected="true" disabled="disabled">Select Sub-category</option>
+            				</select>
+            			</div>
+                
+                </div>
+              
+              </div>
+              
+              {# series -> model #}
+              <div class="advform-product_seriess form-group">
+              
+                {% set product_parent_series = fn('get_parent_product_terms', 'product_series') %}
+                
+                <div class="uk-child-width-1-2@m uk-grid-small" uk-grid>
+
+            			<div class="advform-product_series">
+                    <select name="product_series" id="product_series" class="form-control uk-select">
+            					<option value="" selected="true" disabled="disabled">Select Series</option>
+                      {% if product_parent_series is not empty %}
+                        {% for series in product_parent_series %}
+                					<option id="{{ series.term_id|e('esc_html') }}" value="{{ series.slug|e('esc_html') }}">{{ series.name|e('esc_html') }}</option>
+                        {% endfor %}
+                      {% endif %}
+            				</select>
+            			</div>
+
+                  <div class="advform-product_series advform-product_series_models">
+                    <select name="product_series" id="product_series_sub" class="form-control uk-select" disabled>
+            					<option value="" selected="true" disabled="disabled">Select Model</option>
+            				</select>
+            			</div>
+                
+                </div>
+              
+              </div>
+              
+        		</div>
+          
+          </div>
+          
+          {# reset #}
+      		<div class="advform-reset uk-margin-small-top">
+            <button type="button" class="uk-button uk-button-text uk-text-capitalize" uk-toggle="target: .toggle-class">Live search</button>
+      		</div>
+          
+          {# submit #}
+          <div class="advform-submit uk-position-bottom-center pull-up-20">
+            <button type="submit" class="uk-button uk-button-primary uk-text-bolder uk-border-rounded">Search Parts</button>
+            <button id="adv_reset" type="reset" class="uk-button uk-button-secondary uk-text-bolder uk-border-rounded">Reset</button>
+      		</div>
+          
+        </fieldset>
+      </form>
+      <div class="uk-border-rounded uk-padding-small theme-border toggle-class" hidden>
+        <form id="form_validate_search" class="form_search_main uk-width-1-1 uk-position-relative uk-inline uk-flex uk-flex-center" role="search" method="get" action="{{ site.url }}" accept-charset="utf-8" novalidate="novalidate">
+          <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark">
+            <a href="#" title="Submit" class="uk-search-icon-flip uk-icon uk-search-icon">
+              <i class="fas fa-search fa-lg"></i>
+            </a>
+            <input class="form-control uk-searchhh-input uk-input" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search" value="" placeholder="Search by sku, title or anything else!" required="" autocomplete="off"
+              aria-invalid="true">
+            <input type="hidden" name="post_type" value="product" />
+          </div>
+          <div id="response_search_results" class="search-results-ajax uk-height-max-medium uk-overflow-auto"></div>
+        </form>
+        <button type="button" class="uk-button uk-button-text uk-text-capitalize uk-margin-small-top" uk-toggle="target: .toggle-class">Advanced search</button>
+      </div>
+    </div>
+  <section>
+    
+{% endblock %}

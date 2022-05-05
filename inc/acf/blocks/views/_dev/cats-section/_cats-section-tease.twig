@@ -1,0 +1,23 @@
+{% import "snippets.twig" as snippets %}
+
+{% set cat_thumb_data = fn('get_product_term_attachments', term.term_id ) %}
+
+<div>
+  <div class="theme-border-bottom theme-border-right">
+    <a {% if not is_preview %}href="{{ fn('get_term_link', term.slug, 'product_cat') }}"{% endif %} class="uk-link-reset">
+      <div class="cat-box uk-flex uk-flex-middle uk-grid-small" uk-grid>
+        <div class="left cat-img uk-width-1-5 uk-width-1-3@m">
+          <div class="uk-padding-small">
+            <img 
+             {% if not is_preview %}data-{% endif %}src="{{ cat_thumb_data.src|resize(86, 86)|default(def_image_src) }}"
+             width="86" height="86" alt="{{ cat_thumb_data.alt|default(def_image_alt) }}" 
+             {% if not is_preview %}uk-img{% endif %}>
+          </div>
+        </div>
+        <div class="right cat-details uk-width-4-5 uk-width-2-3@m push-right-15">
+          <h5 class="uk-margin-remove">{{ term.name }}</h5>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

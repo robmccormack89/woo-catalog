@@ -44,3 +44,7 @@ $global-secondary-background: #0e1b2b;
 
 // 6. finally, import our custom sass styles. this is our own custom stuff which can now also use uikit variables
 @import "assets/scss/theme/_import.scss";
+
+.editor-styles-wrapper {
+  background-color: $global-secondary-background;
+}

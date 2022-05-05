@@ -14,7 +14,7 @@ namespace Rmcc;
 use Timber\Post;
 
 // globals
-global $theme_config; // theme config settings
+global $configs; // theme config settings
 
 // set the context
 $context = Theme::context();
