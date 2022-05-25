@@ -1,0 +1,13 @@
+<div id="{{ product.id|e('esc_html') }}" class="product-item uk-text-center">
+  
+  {# term image #}
+  <a href="{{ product.link|e('esc_url') }}" class="uk-inline-clip uk-transition-toggle" tabindex="0">
+    <img class="uk-transition-scale-up uk-transition-opaque" src="{{ product.thumbnail.src|resize(560, 360, 'center')|e('esc_url') }}" alt="">
+  </a>
+  
+  {# term heading #}
+  <h3 class="uk-margin-small-top uk-h6">
+    <a class="uk-link-heading" href="{{ product.link|e('esc_url') }}">{{ product.name|e('esc_html') }}</a>
+  </h3>
+  
+</div>

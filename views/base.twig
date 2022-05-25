@@ -6,7 +6,7 @@
   </head>
   {% endblock %}
 
-  <body class="{{ body_class }}">
+  <body class="uk-background-secondary uk-lighttt {{ body_class }}">
     
     {% block theme_preloader_markup %}
       {% if configs.theme_preloader %}
@@ -20,7 +20,7 @@
       {% include '_header.twig' %}
     {% endblock %}
     
-    <main id="Main" role="main" style="background-color: #fff;">
+    <main id="Main" role="main">
       <div id="ContentSection">
         {% block main %}
           <div class="uk-section uk-container">

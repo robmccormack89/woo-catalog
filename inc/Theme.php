@@ -61,7 +61,7 @@ class Theme extends Timber {
     *
     */
     
-    remove_filter('term_description', 'wpautop');
+    if(!$configs['single_only']) remove_filter('term_description', 'wpautop');
     remove_filter('the_content', 'wpautop');
     remove_filter('the_excerpt', 'wpautop');
     remove_filter('widget_text_content', 'wpautop');
@@ -113,9 +113,43 @@ class Theme extends Timber {
     * see https://wordpress.stackexchange.com/questions/225015/sticky-post-from-page-2-and-on
     *
     */
+    if(!$configs['single_only']) add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop')); // NOT NEEDED IN SINGLE-ONLY
     
-    add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop'));
+    /**
+    *
+    * Singular-only
+    *
+    */
+    if($configs['single_only']){
+      add_action('parse_query', array($this, 'redirect_all_archives_to_home'));
+      $this->set_page_to_front(get_page_by_path('homepage'));
+    }
     
+  }
+  
+  /**
+  *
+  * Singular-only
+  *
+  */
+  
+  public function set_page_to_front($page){ // set a given page as the frontpage, or use the sample page if it exists
+    $sample_page = get_page_by_path('sample-page');
+    if($page or $sample_page){
+      update_option('show_on_front', 'page'); // set 'Your homepage displays' to 'A static page'
+      update_option('page_for_posts', null); // unset Posts page
+      if($page){
+        update_option('page_on_front', $page->ID); // set Homepage to given page if exists
+      } else {
+        if($sample_page) update_option('page_on_front', $sample_page->ID); // or set to sample page if exists. should be '2' on wordpress installation
+      }
+    }
+  }
+  public function redirect_all_archives_to_home($query){ // Redirect all archives to the homepage (disable archives) 
+    if(is_archive()) { // can exclude some archives here if necessary. perhaps the search archive, for example
+      wp_redirect( home_url() );
+      exit;
+    }
   }
   
   /**

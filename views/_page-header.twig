@@ -1,18 +1,22 @@
-<header class="single-header uk-container uk-container-small">
-    
-  {# breadcrumbs #}
-  {% if fn('yoast_breadcrumb_enabled') %}
-    <nav class="uk-navbar-container uk-navbar-transparent uk-margin-small-top">
-      {{ fn('yoast_breadcrumb') }}
-    </nav>
-  {% endif %}
-
-  {# post title #}
-  <h1 class="uk-text-bold uk-heading-small uk-margin-medium-top {{ (description) ? 'uk-margin-bottom' : 'uk-margin-medium-bottom' }}">{{ title|e('esc_html') }}</h1>
+<header class="single-header uk-background-secondary uk-light">
   
-  {# post description #}
-  {% if description %}
-    <p class="uk-text-lead uk-margin-medium-bottom">{{ description|e('esc_html') }}</p>
-  {% endif %}
+  <div class="uk-container uk-container-xlarge ">
+    
+    {# breadcrumbs #}
+    {% if fn('yoast_breadcrumb_enabled') %}
+      <nav class="uk-navbar-container uk-navbar-transparent uk-margin-small-top">
+        {{ fn('yoast_breadcrumb') }}
+      </nav>
+    {% endif %}
+
+    {# post title #}
+    <h1 class="uk-text-bold uk-heading-small uk-margin-medium-top {{ (description) ? 'uk-margin-bottom' : 'uk-margin-medium-bottom' }}">{{ title|e('esc_html') }}</h1>
+    
+    {# post description #}
+    {% if description %}
+      <p class="uk-text-lead uk-margin-medium-bottom">{{ description|e('esc_html') }}</p>
+    {% endif %}
+  
+  </div>
 
 </header>

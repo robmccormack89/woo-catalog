@@ -1,0 +1,34 @@
+{#
+/**
+ * Block Name: Cover section
+ *
+ * This is the template that displays the Cover section block.
+ */
+#}
+
+{% extends "block.twig" %}
+
+{% block block_content %}
+
+  {% set _img_h = (fullheight) ? '975' : null %}
+  {% set _placeholder_h = (fullheight) ? '975' : '500' %}
+  {% set img_src = _block_img.src|resize(1920, _img_h)|default('https://picsum.photos/id/' ~ theme_img_id ~ '/1920/' ~ _placeholder_h) %}
+  
+  {% set mehh = (fullheight) ? 'uk-flex uk-flex-middle uk-padding-remove' : 'uk-section-large' %}
+  {% set blech = (fullheight) ? 'uk-height-viewport="offset-bottom: 20"' %}
+  
+  <div class="uk-background-cover" style="background-image: url({{ img_src }});">
+    <div class="{{ overlay }} uk-position-relative">
+      <div class="uk-container {{ mehh }}" {{ blech }}>
+        <div class="uk-width-1-1">
+          <InnerBlocks />
+        </div>
+      </div>
+      <div class="uk-position-bottom">
+        <div class="uk-container">
+          <p class="uk-text-center uk-margin-remove">{{ bottom_msg|e('wp_kses_post') }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
