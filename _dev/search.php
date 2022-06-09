@@ -14,9 +14,6 @@ use Timber\PostQuery;
 use Timber\Term;
 use Timber\Pagination;
 
-// globals
-global $snippets; // php text snippets (translatable strings)
-
 // set templates variable as an array
 $templates = array('search.twig', 'archive.twig', 'base.twig');
 
@@ -26,9 +23,12 @@ $context = Theme::context();
 // set some context vars
 $context['posts'] = new PostQuery(); // archive posts
 
+// print_r($snippets['search_results_title']); // doesnt work
+// print_r(_x( 'Search results', 'Search results', 'base-theme' )); // but does work
+
 // set title & description vars
-$context['title'] = $snippets['search_results_title'];
-$context['description'] = $snippets['search_results_description'] . ' "' . get_search_query() . '"';
+$context['title'] = _x( 'Search results', 'Search results', 'base-theme' );
+$context['description'] = _x( 'You have searched for:', 'Search results', 'base-theme' ) . ' "' . get_search_query() . '"';
 
 // & render the template with the context
 Theme::render($templates, $context);

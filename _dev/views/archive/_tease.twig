@@ -1,65 +1,54 @@
+{% import "_snippets.twig" as snippets %}
 
-<div class="uk-card uk-card-default uk-card-small" hidden>
-{% if post.thumbnail %}
-<div class="uk-card-media-top">
-<img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" data-height alt="">
-</div>
-{% endif %}
-<div class="uk-card-body">
-<h3 class="uk-card-title">Media Top</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-</div>
-</div>
-
-<article id="{{ post.id|e('esc_html') }}" class="theme-border uk-box-shadow-small uk-padding-small uk-padding-remove-horizontal uk-padding-remove-top {{ post.class|e('esc_html') }}">
+<article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }}">
   
-  {% if post.thumbnail %}
-    <figure class="uk-margin-remove">
-      <img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" width="" alt="{{ post.thumbnail.alt|e('esc_html') }}">
-      {% if post.thumbnail.caption %}
-        <figcaption class="uk-margin-small-top uk-text-center uk-text-muted uk-text-small">{{ post.thumbnail.caption|e('esc_html') }}</figcaption>
+  <header class="tease-header uk-margin-bottom">
+    <ul class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
+      
+      {% if post.title %}
+        <li class="uk-width-1-1 uk-width-expand@m">
+          <h2 class="uk-text-bold uk-margin-remove uk-h1">
+            {{ post.title|e('esc_html') }}
+          </h2>
+        </li>
       {% endif %}
-    </figure>
-  {% endif %}
+      
+      {% if post.categories or (post.date and post.post_type == 'post') %}
+        <li class="uk-width-1-1 uk-width-auto@m">
+          <div class="uk-text-meta uk-text-small">
+            
+            {# post date #}
+            {% set _post_date %}{% spaceless %}
+              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
+            {% endspaceless %}{% endset %}
+            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+          
+            {# post cats #}
+            {% if post.categories %}
+              {% set _post_cats %}{% spaceless %}
+                <span class="post-terms">{{ post.categories|join(', ') }}</span>
+              {% endspaceless %}{% endset %}
+              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+            {% endif %}
+            
+          </div>
+        </li>
+      {% endif %}
+      
+    </ul>
+  </header>
   
-	<header class="uk-padding-small uk-padding-remove-vertical">
-		<h2 class="uk-text-bold uk-margin-small-top uk-margin-remove-bottom">
-      <a title="{{ post.title|e('esc_html') }}" class="uk-link-reset" href="{{ post.link|e('esc_url') }}">{{ post.title|e('esc_html') }}</a>
-    </h2>
-    {% if post.post_type == 'post' or post.date %}
-      <ul class="article-meta uk-subnav uk-subnav-divider uk-subnav-small uk-text-meta uk-text-small uk-margin-small">
-        {% if post.post_type == 'post' %}
-          <li>
-            <div>
-              Written on 
-              <time class="post-date">
-                {{ post.date|date('j F Y')|e('esc_html') }}.
-              </time>
-            </div>
-          </li>
-        {% endif %}
-        {% if post.date %}
-          <li>
-            <div>
-              Posted in 
-              <span class="post-terms">
-                {{ post.categories|join(', ') }}.
-              </span>
-            </div>
-          </li>
-        {% endif %}
-      </ul>
+  <div class="tease-content">
+    {% if not fn('post_password_required', post.id) %}
+      <div class="tease-preview">
+        <p class="uk-margin-bottom">{{ post.preview.length(32).force.read_more('') }}</p>
+        <a href="{{post.link|e('esc_url')}}" class="uk-button uk-button-default">{{ snippets.read_more|e('esc_html') }}</a>
+      </div>
+    {% else %}
+      <div class="password-protected-form">
+        {% include '_password-protected-form.twig' with {small: true} %}
+      </div>
     {% endif %}
-	</header>
-  
-  {% if post.preview %}
-    <div class="uk-padding-small uk-padding-remove-vertical">
-      <p class="uk-margin-top">{{ post.preview.length(23).force.read_more('') }}</p>
-    </div>
-  {% endif %}
-  
-  <div class="uk-padding-small uk-padding-remove-vertical">
-    <a href="{{ post.link|e('esc_url') }}" title="Read More" class="uk-button uk-button-primary uk-button-small uk-text-bold">Read More</a>
   </div>
   
 </article>

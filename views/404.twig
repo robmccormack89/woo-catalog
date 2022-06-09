@@ -2,11 +2,32 @@
 {% import "_snippets.twig" as snippets %}
 
 {% block single_header %}
-  {% include '_single-header.twig' with {title: title, description: description} %}
+  <header class="404-header uk-container uk-container-small {{ (description) ? 'uk-margin-bottom' : 'uk-margin-medium-bottom' }}">
+      
+    {% include '_breadcrumbs.twig' %}
+
+    {# 404 title #}
+    <ul class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
+      
+      {# single title #}
+      <li class="uk-width-1-1 uk-width-expand@m">
+        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
+          {{ title|e('esc_html') }}
+        </h1>
+      </li>
+      
+    </ul>
+    
+    {# 404 description #}
+    {% if description %}
+      <p class="uk-text-lead uk-margin-remove-bottom">{{ description|e('esc_html') }}</p>
+    {% endif %}
+
+  </header>
 {% endblock %}
 
-{% block single_content_wrap %}
-  <section class="article-content">
+{% block single_content %}
+  <section class="404-content">
     <div class="password-protected-form uk-container uk-container-small">
       <p>{{ message|e('esc_html') }}</p>
       <form class="password-form uk-width-large" role="search" action="{{ site.url|e('esc_url') }}" method="get">

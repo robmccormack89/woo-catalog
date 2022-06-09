@@ -9,14 +9,14 @@
 
 require get_template_directory() . '/inc/extra/helpers.php';
 $configs = require_once(get_template_directory() . '/inc/extra/configs.php');
-$snippets = require_once(get_template_directory() . '/inc/extra/snippets.php');
+
 
 /* plugin activation 
 
   using tgm-plugin-activation
 
 */
-require_once get_template_directory() . '/inc/lib/plugin-activation.php';
+// require_once get_template_directory() . '/inc/lib/plugin-activation.php';
 
 /* composer autoloader of classes 
 
