@@ -16,8 +16,9 @@ use Twig\Extra\String\StringExtension;
 // Define paths to Twig templates
 Timber::$dirname = array(
   'views',
-  'views/single',
   'views/archive',
+  'views/parts',
+  'views/single',
 );
 
 // set the $autoescape value
@@ -301,15 +302,14 @@ class Theme extends Timber {
   }
   public function add_to_context($context) {
     
-    global $snippets;
     global $configs;
     
     $context['site'] = new \Timber\Site;
     $context['configs'] = $configs;
     
     // some nice image ids: 1015, 1036, 1038, 1041, 1042, 1044, 1045, 1051, 1056, 1057, 1067, 1069, 1068, 1078, 1080, 1083, 10
-    $context['theme_img_id'] = $snippets['theme_img_id'];
-    $context['theme_img_src'] = 'https://picsum.photos/id/' . $snippets['theme_img_id'] . '/1920/800';
+    $context['theme_img_id'] = _x( '1036', 'Lorem picsum base image id', 'base-theme' );
+    $context['theme_img_src'] = 'https://picsum.photos/id/' . _x( '1036', 'Lorem picsum base image id', 'base-theme' ) . '/1920/800';
 
     // wp customizer logo
     $theme_logo_src = wp_get_attachment_image_url(get_theme_mod('custom_logo') , 'full');
@@ -345,11 +345,10 @@ class Theme extends Timber {
     
   }
   public function register_navigation_menus() {
-    global $snippets;
     register_nav_menus(array(
-      'main_menu' => $snippets['main_menu_title'],
-      'mobile_menu' => $snippets['mobile_menu_title'],
-      'footer_menu' => $snippets['footer_menu_title'],
+      'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
+      'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
+      'footer_menu' => _x( 'Footer Menu', 'Menu locations', 'base-theme' ),
     ));
   }
   public function theme_enqueue_assets() {

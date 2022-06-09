@@ -1,55 +1,72 @@
 {% extends 'base.twig' %}
+{% import "_snippets.twig" as snippets %}
 
 {% block main %}
-  <div id="Archive" class="theme-archive uk-margin-large-bottom">
+  <div id="Archive" class="theme-archive uk-section">
 
     {% block archive_header %}
-      {% include '_archive-header.twig' with {title: title, description: description} %}
+      {% include '_sub-header.twig' %}
     {% endblock %}
-    
-    {% block archive_content_wrap %}
-      <div class="archive-content-wrap">
-        {% block archive_content %}
-          <div class="archive-content uk-container uk-container-small">
-            {% if posts is not empty %}
-              <div class="masonry-container">
-                {% for post in posts %}
-                  <div>
-                    {% include '_tease.twig' %}
-                  </div>
-                {% endfor %}
-              </div>
-            {% else %}
-              No posts found...
-            {% endif %}
-          </div>
-        {% endblock %}
+
+    {% block archive_content %}
+      <div class="archive-content uk-container uk-container-small">
+        
+        {# archive loop #}
+        {% if posts is not empty %}
+          <ul class="uk-child-width-1-1 uk-grid-large uk-margin-top" uk-grid>
+            {% for post in posts %}
+              <li>
+                {% include '_tease.twig' %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          No posts found...
+        {% endif %}
+        
       </div>
     {% endblock %}
     
     {% block archive_footer %}
-      {% include '_archive-footer.twig' %}
+      <footer class="archive-footer">
+        
+        {# archive pagination #}
+        {% if (posts.pagination.next or posts.pagination.prev) %}
+          <nav class="pagination uk-margin-large-top">
+            <ul class="uk-pagination uk-flex-center uk-margin-remove">
+              
+              {% if posts.pagination.prev %}
+                <li>
+                  <a href="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
+                    <i uk-icon="icon: chevron-double-left; ratio: .8"></i> {{ snippets.prev_page|e('esc_html') }}
+                  </a>
+                </li>
+              {% endif %}
+              
+              {% for page in posts.pagination.pages %}
+                <li>
+                  {% if page.link %}
+                    <a href="{{ page.link|e('esc_url') }}" class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</a>
+                  {% else %}
+                    <span class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+              
+              {% if posts.pagination.next %}
+                <li>
+                  <a href="{{ posts.pagination.next.link|e('esc_url') }}" class="next">
+                    {{ snippets.next_page|e('esc_html') }} <i uk-icon="icon: chevron-double-right; ratio: .8"></i>
+                  </a>
+                </li>
+              {% endif %}
+              
+            </ul>
+          </nav>
+        {% endif %}
+        
+      </footer>
     {% endblock %}
-    
-    <script>
-      var masonry = MasonryGrid({
-        container: '.masonry-container',
-        trueOrder: false,
-        waitForImages: true,
-        mobileFirst: true,
-        margin: 10,
-        columns: 1,
-        breakAt: {
-          960: {
-            margin: {
-              x: 20,
-              y: 20,
-            },
-            columns: 2
-          }
-        }
-      });
-    </script>
   
   </div>
 {% endblock %}

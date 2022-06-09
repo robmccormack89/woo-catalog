@@ -1,0 +1,18 @@
+{% extends 'single.twig' %}
+{% import "_snippets.twig" as snippets %}
+
+{% block main %}
+  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} {{ (fn('post_password_required', post.id)) ? 'uk-section' }}">
+    
+    {% block single_header %}
+      {% if fn('post_password_required', post.id) %}
+        {{ parent() }}
+      {% endif %}
+    {% endblock %}
+    
+    {% block single_content %}
+      {{ parent() }}
+    {% endblock %}
+  
+  </article>
+{% endblock %}

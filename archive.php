@@ -11,9 +11,6 @@
 // namespace & use
 namespace Rmcc;
 use Timber\PostQuery;
-
-// globals
-global $snippets; // php text snippets (translatable strings)
  
 // set templates variable as an array
 $templates = array('archive.twig', 'base.twig');
@@ -26,11 +23,11 @@ $context['posts'] = new PostQuery(); // archive posts
 
 // set $title & modify $templates depending on archive
 if (is_day()) {
-	$title = $snippets['general_archive_title'] . ': ' . get_the_date('D M Y');
+	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('D M Y');
 } elseif (is_month()) {
-	$title = $snippets['general_archive_title'] . ': ' . get_the_date('M Y');
+	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('M Y');
 } elseif (is_year()) {
-	$title = $snippets['general_archive_title'] . ': ' . get_the_date('Y');
+	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('Y');
 } elseif (is_tag()) {
 	$title = single_tag_title('', false);
 } elseif (is_category()) {

@@ -1,0 +1,120 @@
+{% extends 'base.twig' %}
+
+{% block main %}
+  <div id="Archive" class="theme-archive uk-margin-large-bottom">
+
+    {% block archive_header %}
+      {% include '_archive-header.twig' with {title: title, description: description} %}
+    {% endblock %}
+    
+    {% block archive_content_wrap %}
+      <div class="archive-content-wrap">
+        {% block archive_content %}
+          <div class="archive-content uk-container uk-container-small">
+            {% if posts is not empty %}
+              <div class="masonry-container">
+                {% for post in posts %}
+                  <div>
+                    
+                    <div class="uk-card uk-card-default uk-card-small" hidden>
+                    {% if post.thumbnail %}
+                    <div class="uk-card-media-top">
+                    <img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" data-height alt="">
+                    </div>
+                    {% endif %}
+                    <div class="uk-card-body">
+                    <h3 class="uk-card-title">Media Top</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                    </div>
+                    </div>
+                    
+                    <article id="{{ post.id|e('esc_html') }}" class="theme-border uk-box-shadow-small uk-padding-small uk-padding-remove-horizontal uk-padding-remove-top {{ post.class|e('esc_html') }}">
+                      
+                      {% if post.thumbnail %}
+                        <figure class="uk-margin-remove">
+                          <img src="{{ post.thumbnail.src|resize(900)|e('esc_html') }}" width="900" width="" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+                          {% if post.thumbnail.caption %}
+                            <figcaption class="uk-margin-small-top uk-text-center uk-text-muted uk-text-small">{{ post.thumbnail.caption|e('esc_html') }}</figcaption>
+                          {% endif %}
+                        </figure>
+                      {% endif %}
+                      
+                    	<header class="uk-padding-small uk-padding-remove-vertical">
+                    		<h2 class="uk-text-bold uk-margin-small-top uk-margin-remove-bottom">
+                          <a title="{{ post.title|e('esc_html') }}" class="uk-link-reset" href="{{ post.link|e('esc_url') }}">{{ post.title|e('esc_html') }}</a>
+                        </h2>
+                        {% if post.post_type == 'post' or post.date %}
+                          <ul class="article-meta uk-subnav uk-subnav-divider uk-subnav-small uk-text-meta uk-text-small uk-margin-small">
+                            {% if post.post_type == 'post' %}
+                              <li>
+                                <div>
+                                  Written on 
+                                  <time class="post-date">
+                                    {{ post.date|date('j F Y')|e('esc_html') }}.
+                                  </time>
+                                </div>
+                              </li>
+                            {% endif %}
+                            {% if post.date %}
+                              <li>
+                                <div>
+                                  Posted in 
+                                  <span class="post-terms">
+                                    {{ post.categories|join(', ') }}.
+                                  </span>
+                                </div>
+                              </li>
+                            {% endif %}
+                          </ul>
+                        {% endif %}
+                    	</header>
+                      
+                      {% if post.preview %}
+                        <div class="uk-padding-small uk-padding-remove-vertical">
+                          <p class="uk-margin-top">{{ post.preview.length(23).force.read_more('') }}</p>
+                        </div>
+                      {% endif %}
+                      
+                      <div class="uk-padding-small uk-padding-remove-vertical">
+                        <a href="{{ post.link|e('esc_url') }}" title="Read More" class="uk-button uk-button-primary uk-button-small uk-text-bold">Read More</a>
+                      </div>
+                      
+                    </article>
+                    
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              No posts found...
+            {% endif %}
+          </div>
+        {% endblock %}
+      </div>
+    {% endblock %}
+    
+    {% block archive_footer %}
+      {% include '_archive-footer.twig' %}
+    {% endblock %}
+    
+    <script>
+      var masonry = MasonryGrid({
+        container: '.masonry-container',
+        trueOrder: false,
+        waitForImages: true,
+        mobileFirst: true,
+        margin: 10,
+        columns: 1,
+        breakAt: {
+          960: {
+            margin: {
+              x: 20,
+              y: 20,
+            },
+            columns: 2
+          }
+        }
+      });
+    </script>
+  
+  </div>
+{% endblock %}

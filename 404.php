@@ -11,9 +11,6 @@
 // namespace & use
 namespace Rmcc;
 
-// globals
-global $snippets; // php text snippets (translatable strings)
-
 // set templates variable as an array
 $templates = array('404.twig', 'base.twig');
 
@@ -21,9 +18,9 @@ $templates = array('404.twig', 'base.twig');
 $context = Theme::context();
 
 // set some context vars
-$context['title'] = $snippets['404_title'];
-$context['description'] = $snippets['404_description'];
-$context['message'] = $snippets['404_msg'];
+$context['title'] = _x( 'Error: Page not found', '404', 'base-theme' );
+$context['description'] = _x( 'Sorry, there has been an error locating a resource for your query.', '404', 'base-theme' );
+$context['message'] = _x( 'Try using the search form below to search this website for something else', '404', 'base-theme' );
 
 // & render the template with the context
 Theme::render($templates, $context);
