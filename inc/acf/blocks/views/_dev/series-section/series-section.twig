@@ -1,0 +1,85 @@
+{#
+/**
+ * Block Name: Series section
+ *
+ * This is the template that displays the Series section block.
+ */
+#}
+
+{% extends "block.twig" %}
+{% import "block-functions.twig" as functions %}
+{% import "block-snippets.twig" as snippets %}
+{# import "snippets.twig" as snippets #}
+
+{% if fields.series_image %}
+  {% set the_image = Image(fields.series_image).src|resize(215, 150, 'center') %}
+  {% set the_image_alt = Image(fields.series_image).alt %}
+{% endif %}
+{% set def_image_src = the_image|default('https://via.placeholder.com/215x150?text=+') %}
+{% set def_image_alt = the_image_alt|default('') %}
+      
+{% block block_content %}
+  {% if series is not empty %}
+    {% set wrap_style = (series|length > 1) ? 'style="padding-bottom:30px;"' %}
+    <div class="products-carousel-swiper uk-container uk-position-relative">
+      <div id="slideshow_info" class="swiper-container" {{ wrap_style }}>
+        <div class="swiper-wrapper">
+          
+          {% for term in series %}
+            {% include '_series-section-tease.twig' %}
+          {% endfor %}
+          
+          {% include '_series-section-all.twig' %}
+          
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  {% else %}
+    {{ functions.preview_text(is_preview, 'No Series') }}
+  {% endif %}
+  <script>
+    var info_swiper = new Swiper('#slideshow_info', {
+      slidesPerView: 3,
+      spaceBetween: 10,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: true,
+      },
+      // init: false,
+      pagination: {
+        el: '.swiper-pagination',
+        // dynamicBullets: true,
+        {% if not is_preview %}
+          clickable: true,
+        {% endif %}
+      },
+      navigation: {
+        nextEl: '.swiper-button-next-uniquee',
+        prevEl: '.swiper-button-prev-uniquee',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 4,
+          spaceBetween: 10,
+        },
+        768: {
+          slidesPerView: 5,
+          spaceBetween: 10,
+        },
+        960: {
+          slidesPerView: 6,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 7,
+          spaceBetween: 20,
+        },
+        // 1290: {
+        //   slidesPerView: 10,
+        //   spaceBetween: 50,
+        // },
+      }
+    });
+  </script>
+{% endblock %}

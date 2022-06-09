@@ -1,0 +1,17 @@
+{% set all_series_link = fields.all_series_link|default('#') %}
+{% set all_series_text = fields.all_series_text|default('View all') %}
+<div class="swiper-slide">
+  <div>
+  <a {% if not is_preview %}href="{{ all_series_link }}"{% endif %} class="uk-link-reset">
+    <div class="uk-text-center">
+      <div>
+        <img 
+        {% if not is_preview %}data-{% endif %}src="{{ def_image_src }}" 
+        width="215" height="150" alt="" 
+        {% if not is_preview %}uk-img{% endif %}>
+      </div>
+      <span class="uk-text-xsmall uk-text-bolder uk-text-emphasis">{{ all_series_text }}</span>
+    </div>
+  </a>
+  </div>
+</div>

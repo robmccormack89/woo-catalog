@@ -1,0 +1,16 @@
+{% set series_thumb_data = function ('get_product_term_attachments', term.term_id ) %}
+<div class="swiper-slide">
+  <div>
+  <a {% if not is_preview %}href="{{ fn('get_term_link', term.slug, 'product_series') }}"{% endif %} class="uk-link-reset">
+    <div class="uk-text-center">
+      <div>
+        <img 
+        {% if not is_preview %}data-{% endif %}src="{{ series_thumb_data.src|resize(215, 150, 'center')|default(def_image_src) }}" 
+        width="215" height="150" 
+        alt="{{ series_thumb_data.alt|default(def_image_alt) }}" {% if not is_preview %}uk-img{% endif %}>
+      </div>
+      <span class="uk-text-xsmall uk-text-bolder uk-text-emphasis">{{ term.name }}</span>
+    </div>
+  </a>
+  </div>
+</div>

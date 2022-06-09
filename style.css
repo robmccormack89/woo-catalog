@@ -18,3 +18,48 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 
 Base Theme is built using Timber WP https://github.com/timber/timber
 */
+
+.single-header .uk-navbar-container.uk-margin-small-top {
+  margin-top: 15px!important;
+}
+.uk-light .uk-button-primary {
+  background-color: #13acba;
+  color: #fff;
+}
+.uk-light a,
+.site-footer svg {
+  color: #13acba;
+}
+.single-header .uk-navbar-container a,
+.site-footer a,
+.uk-button {
+  font-weight: 500;
+}
+.site-header {
+  /* background-color: #0000001a; */
+}
+
+.uk-light .uk-background-muted {
+  background-color: #12253c;
+}
+
+/* fonts */
+html,
+.uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6,
+.uk-logo,
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+#ff-stream-1, #ff-stream-1 .ff-popup, #ff-stream-1 .ff-search input {
+    /* background-color: rgb(20 17 52); */
+}
+
+.ff-stream-wrapper {
+  padding: 0!important;
+  margin: 0!important;
+}
