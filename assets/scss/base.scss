@@ -18,23 +18,20 @@
 
 // A CUSTOM UIKIT BUILD WITH SELECTIVE COMPONENTS (ALL SELECTED)
 
-// 1. then, any custom variable overwrites. we can use this themed or not
-// $offcanvas-bar-background: #fff;
-// $offcanvas-bar-color-mode: none;
-$global-muted-background: #f7f7f7;
-$global-primary-background: #13acba;
-$global-secondary-background: #0e1b2b;
-
-// 2. Import themed variables & mixins
+// 1. Import themed variables & mixins
 // @import "assets/scss/lib/uikit/variables-theme.scss";
 // @import "assets/scss/lib/uikit/mixins-theme.scss";
 
-// 2. Or import the default variables & mixins
+// 1. Or import the default variables & mixins
 @import "assets/scss/lib/uikit/variables.scss";
 @import "assets/scss/lib/uikit/mixins.scss";
 
-// 3. If importing the theme, import themed uikit components (with custom variables) next
+// 2. If importing the theme, import themed uikit components (with custom variables) next
 // @import "assets/scss/lib/uikit/theme/_import.scss";
+
+// 3. then, any custom variable overwrites. we can use this themed or not
+// $offcanvas-bar-background: #fff;
+// $offcanvas-bar-color-mode: none;
 
 // 4. next, we do any custom mixin overwrites. we can use this themed or not also
 // @import "assets/scss/theme/accordion-mixins.scss";
@@ -44,7 +41,3 @@ $global-secondary-background: #0e1b2b;
 
 // 6. finally, import our custom sass styles. this is our own custom stuff which can now also use uikit variables
 @import "assets/scss/theme/_import.scss";
-
-.editor-styles-wrapper {
-  background-color: $global-secondary-background;
-}
