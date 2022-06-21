@@ -38,7 +38,7 @@ return array(
     'Symfony\\Bundle\\TwigBundle\\' => array($vendorDir . '/symfony/twig-bundle'),
     'Symfony\\Bundle\\FrameworkBundle\\' => array($vendorDir . '/symfony/framework-bundle'),
     'Symfony\\Bridge\\Twig\\' => array($vendorDir . '/symfony/twig-bridge'),
-    'Rmcc\\' => array($baseDir . '/inc', $baseDir . '/inc/acf', $baseDir . '/inc/acf/blocks'),
+    'Rmcc\\' => array($baseDir . '/inc', $baseDir . '/inc/acf'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Psr\\EventDispatcher\\' => array($vendorDir . '/psr/event-dispatcher/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),

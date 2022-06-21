@@ -1,45 +1,24 @@
-{% extends 'single.twig' %}
+{% extends 'archive.twig' %}
 {% import "_snippets.twig" as snippets %}
 
-{% block single_header %}
-  <header class="404-header uk-container uk-container-small {{ (description) ? 'uk-margin-bottom' : 'uk-margin-medium-bottom' }}">
-      
-    {% include '_breadcrumbs.twig' %}
-
-    {# 404 title #}
-    <ul class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
-      
-      {# single title #}
-      <li class="uk-width-1-1 uk-width-expand@m">
-        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
-          {{ title|e('esc_html') }}
-        </h1>
-      </li>
-      
-    </ul>
+{% block archive_content %}
+  <div class="search-form uk-container">
     
-    {# 404 description #}
-    {% if description %}
-      <p class="uk-text-lead uk-margin-remove-bottom">{{ description|e('esc_html') }}</p>
-    {% endif %}
-
-  </header>
-{% endblock %}
-
-{% block single_content %}
-  <section class="404-content">
-    <div class="password-protected-form uk-container uk-container-small">
-      <p>{{ message|e('esc_html') }}</p>
-      <form class="password-form uk-width-large" role="search" action="{{ site.url|e('esc_url') }}" method="get">
-        <div class="uk-grid-collapse uk-flex uk-flex-middle" uk-grid>
-          <div class="uk-width-expand">
-            <input class="password-box uk-input" name="s" id="404-search" type="search" placeholder="{{ snippets.searchform_text()|e('esc_html') }}" size="20" required maxlength="100" pattern=".*\S+.*" autocomplete="off" />
-          </div>
-          <div class="uk-width-auto">
-            <input class="password-btn uk-button uk-button-primary uk-text-bold" type="submit" value="{{ snippets.error_search_btn()|e('esc_html') }}" />
-          </div>
+    <p>{{ snippets.search_form_msg|e('esc_html') }}</p>
+    
+    <form class="search-form uk-width-large" role="search" action="{{ site.url|e('esc_url') }}" method="get">
+      <div class="uk-grid-collapse uk-flex uk-flex-middle" uk-grid>
+        
+        <div class="search-form-input uk-width-expand">
+          <input class="password-box uk-input" name="s" id="404-search" type="search" placeholder="{{ snippets.search_form_placeholder()|e('esc_html') }}" size="20" required maxlength="100" pattern=".*\S+.*" autocomplete="off" />
         </div>
-      </form>
-    </div>
-  </section>
+        
+        <div class="search-form-button uk-width-auto">
+          <input class="password-btn uk-button uk-button-primary uk-text-bold" type="submit" value="{{ snippets.search_btn_text()|e('esc_html') }}" />
+        </div>
+        
+      </div>
+    </form>
+    
+  </div>
 {% endblock %}

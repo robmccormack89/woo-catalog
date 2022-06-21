@@ -1,21 +1,33 @@
 {% import "_snippets.twig" as snippets %}
 
-<article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }}">
+<article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-card uk-flex uk-flex-middle" uk-grid data-template="_tease.twig">
   
-  <header class="tease-header uk-margin-bottom">
-    <ul class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
-      
-      {% if post.title %}
-        <li class="uk-width-1-1 uk-width-expand@m">
-          <h2 class="uk-text-bold uk-margin-remove uk-h1">
-            {{ post.title|e('esc_html') }}
-          </h2>
-        </li>
-      {% endif %}
-      
-      {% if post.categories or (post.date and post.post_type == 'post') %}
-        <li class="uk-width-1-1 uk-width-auto@m">
-          <div class="uk-text-meta uk-text-small">
+  {% if post.thumbnail %}
+    <li class="uk-width-1-3@m">
+      <figure class="uk-inline">
+        <img class="" src="{{ post.thumbnail.src|resize(520)|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+        {% if post.thumbnail.caption %}
+          <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
+            {{ post.thumbnail.caption|e('esc_html') }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    </li>
+  {% endif %}
+  
+  <li class="uk-width-2-3@m">
+  
+    {% block single_header %}
+      <header class="tease-header uk-card-header uk-padding-remove uk-margin-bottom">
+        
+        {# tease title #}
+        <h2 class="uk-text-bold uk-h1 uk-margin-remove">
+          {{ post.title|e('esc_html') }}
+        </h2>
+        
+        {# tease meta #}
+        {% if post.categories or (post.date and post.post_type == 'post') %}
+          <div class="uk-text-meta">
             
             {# post date #}
             {% set _post_date %}{% spaceless %}
@@ -32,23 +44,32 @@
             {% endif %}
             
           </div>
-        </li>
-      {% endif %}
-      
-    </ul>
-  </header>
+        {% endif %}
+        
+      </header>
+    {% endblock %}
   
-  <div class="tease-content">
+    {% block single_content %}
+      <div class="uk-card-body uk-padding-remove tease-content">
+        
+        {# single content or password form #}
+        {% if not fn('post_password_required', post.id) %}
+          <p class="uk-margin-bottom">{{ post.preview.length(32).force.read_more('') }}</p>
+        {% else %}
+          <div class="password-protected-form">
+            {% include '_password-protected-form.twig' with {small: true} %}
+          </div>
+        {% endif %}
+        
+      </div>
+    {% endblock %}
+  
     {% if not fn('post_password_required', post.id) %}
-      <div class="tease-preview">
-        <p class="uk-margin-bottom">{{ post.preview.length(32).force.read_more('') }}</p>
-        <a href="{{post.link|e('esc_url')}}" class="uk-button uk-button-default">{{ snippets.read_more|e('esc_html') }}</a>
-      </div>
-    {% else %}
-      <div class="password-protected-form">
-        {% include '_password-protected-form.twig' with {small: true} %}
-      </div>
+      <footer class="uk-card-footer uk-padding-remove tease-footer">
+        <a href="{{ post.link|e('esc_url') }}" class="uk-button uk-button-primary">{{ snippets.read_more|e('esc_html') }}</a>
+      </footer>
     {% endif %}
-  </div>
   
+  </li>
+
 </article>

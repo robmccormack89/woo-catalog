@@ -19,7 +19,6 @@ Timber::$dirname = array(
   'views/archive',
   'views/parts',
   'views/single',
-  'views/v2',
 );
 
 // set the $autoescape value
@@ -36,7 +35,6 @@ class Theme extends Timber {
     * Class properties & globals
     *
     */
-    
     global $configs;
     $this->configs = $configs;
     $this->logo_width = '223';
@@ -47,7 +45,6 @@ class Theme extends Timber {
     * theme & twig
     *
     */
-    
     add_action('after_setup_theme', array($this, 'theme_supports'));
 		add_filter('timber/context', array($this, 'add_to_context'));
 		add_filter('timber/twig', array($this, 'add_to_twig'));
@@ -62,8 +59,7 @@ class Theme extends Timber {
     * remove <p> tags from archive descriptions & other stuff
     *
     */
-    
-    if(!$configs['single_only']) remove_filter('term_description', 'wpautop');
+    remove_filter('term_description', 'wpautop');
     remove_filter('the_content', 'wpautop');
     remove_filter('the_excerpt', 'wpautop');
     remove_filter('widget_text_content', 'wpautop');
@@ -71,10 +67,9 @@ class Theme extends Timber {
     
     /**
     *
-    * svgs
+    * svg support
     *
     */
-    
     add_filter('wp_check_filetype_and_ext', array($this, 'check_filetype'), 10, 4);
     add_filter('upload_mimes', array($this, 'cc_mime_types'));
     add_action('admin_head', array($this, 'fix_svg'));
@@ -84,7 +79,6 @@ class Theme extends Timber {
     * Yoast breadcrumbs
     *
     */
-    
     if(yoast_breadcrumb_enabled()) add_filter('wpseo_breadcrumb_separator', array($this, 'filter_wpseo_breadcrumb_separator'), 10, 1);
         
     /**
@@ -92,7 +86,6 @@ class Theme extends Timber {
     * Theme's CSS classes
     *
     */
-    
     add_filter('nav_menu_css_class', array($this, 'special_nav_class'), 10, 2);
     if($configs['theme_preloader']) add_filter('body_class', array($this, 'add_body_classes'));
     
@@ -101,12 +94,13 @@ class Theme extends Timber {
     * Disable comments
     *
     */
-    
-    add_filter('comments_array', array($this, 'disable_comments_hide_existing_comments'), 10, 2);
-    add_action('admin_menu', array($this, 'disable_comments_admin_menu'));
-    add_action('admin_init', array($this, 'disable_comments_admin_menu_redirect'));
-    add_action('admin_init', array($this, 'disable_comments_dashboard'));
-    add_action('init', array($this, 'disable_comments_admin_bar'));
+    if($configs['theme_post_comments']) {
+      add_filter('comments_array', array($this, 'disable_comments_hide_existing_comments'), 10, 2);
+      add_action('admin_menu', array($this, 'disable_comments_admin_menu'));
+      add_action('admin_init', array($this, 'disable_comments_admin_menu_redirect'));
+      add_action('admin_init', array($this, 'disable_comments_dashboard'));
+      add_action('init', array($this, 'disable_comments_admin_bar'));
+    }
     
     /**
     *
@@ -115,43 +109,8 @@ class Theme extends Timber {
     * see https://wordpress.stackexchange.com/questions/225015/sticky-post-from-page-2-and-on
     *
     */
-    if(!$configs['single_only']) add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop')); // NOT NEEDED IN SINGLE-ONLY
+    add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop'));
     
-    /**
-    *
-    * Singular-only
-    *
-    */
-    if($configs['single_only']){
-      add_action('parse_query', array($this, 'redirect_all_archives_to_home'));
-      $this->set_page_to_front(get_page_by_path('homepage'));
-    }
-    
-  }
-  
-  /**
-  *
-  * Singular-only
-  *
-  */
-  
-  public function set_page_to_front($page){ // set a given page as the frontpage, or use the sample page if it exists
-    $sample_page = get_page_by_path('sample-page');
-    if($page or $sample_page){
-      update_option('show_on_front', 'page'); // set 'Your homepage displays' to 'A static page'
-      update_option('page_for_posts', null); // unset Posts page
-      if($page){
-        update_option('page_on_front', $page->ID); // set Homepage to given page if exists
-      } else {
-        if($sample_page) update_option('page_on_front', $sample_page->ID); // or set to sample page if exists. should be '2' on wordpress installation
-      }
-    }
-  }
-  public function redirect_all_archives_to_home($query){ // Redirect all archives to the homepage (disable archives) 
-    if(is_archive()) { // can exclude some archives here if necessary. perhaps the search archive, for example
-      wp_redirect( home_url() );
-      exit;
-    }
   }
   
   /**
@@ -257,7 +216,7 @@ class Theme extends Timber {
   
   /**
   *
-  * Yoast breadcrumbs
+  * Yoast breadcrumbs - customize the sep icon
   *
   */
   
@@ -267,7 +226,7 @@ class Theme extends Timber {
   
   /**
   *
-  * svg support
+  * add svg support
   *
   */
   
@@ -341,10 +300,6 @@ class Theme extends Timber {
     
     $context['site'] = new \Timber\Site;
     $context['configs'] = $configs;
-    
-    // some nice image ids: 1015, 1036, 1038, 1041, 1042, 1044, 1045, 1051, 1056, 1057, 1067, 1069, 1068, 1078, 1080, 1083, 10
-    $context['theme_img_id'] = _x( '1036', 'Lorem picsum base image id', 'base-theme' );
-    $context['theme_img_src'] = 'https://picsum.photos/id/' . _x( '1036', 'Lorem picsum base image id', 'base-theme' ) . '/1920/800';
 
     // wp customizer logo
     $theme_logo_src = wp_get_attachment_image_url(get_theme_mod('custom_logo') , 'full');
@@ -358,13 +313,7 @@ class Theme extends Timber {
     
     // menu register & args
     $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));
-    $context['menu_mobile'] = new \Timber\Menu('mobile_menu', array('depth' => 3));
-    $context['menu_footer'] = new \Timber\Menu('footer_menu', array('depth' => 1));
-    
-    // check menus
     $context['has_menu_main'] = has_nav_menu('main_menu');
-    $context['has_menu_mobile'] = has_nav_menu('mobile_menu');
-    $context['has_menu_footer'] = has_nav_menu('footer_menu');
     
     // return context
     return $context;    
@@ -382,8 +331,6 @@ class Theme extends Timber {
   public function register_navigation_menus() {
     register_nav_menus(array(
       'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
-      'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
-      'footer_menu' => _x( 'Footer Menu', 'Menu locations', 'base-theme' ),
     ));
   }
   public function theme_enqueue_assets() {

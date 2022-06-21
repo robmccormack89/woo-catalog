@@ -1,19 +1,22 @@
-<footer id="SiteFooter" class="site-footer">
+{% import "_snippets.twig" as snippets %}
+
+<footer class="site-footer">
   <nav class="uk-navbar-container">
     <div class="uk-container" uk-navbar>
       
       {# copyright #}
-      <div class="uk-navbar-center">
-        <div class="uk-navbar-item">
-          <p class="uk-text-center">
-            © {{ now|date('Y') }} - 
-            <a href="https://github.com/robmccormack89">
-              Created by robmccormack89
-            </a> | Built with 
-            <a href="http://getuikit.com" class="uk-link" target="_blank" title="UIkit" uk-tooltip="UIkit" aria-expanded="false">
-              <span uk-icon="uikit"></span>
-            </a>
+      <div class="uk-navbar-left">
+        <div class="uk-navbar-item pull-left-15">
+          <p class="uk-margin-remove">
+            {{ snippets.copyright()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
           </p>
+        </div>
+    	</div>
+      
+      {# back to top #}
+      <div class="uk-navbar-right">
+        <div class="uk-navbar-item pull-right-15">
+          <a href="#" uk-totop uk-scroll uk-tooltip="{{ snippets.go_to_top()|e('esc_html') }}"></a>
         </div>
     	</div>
       

@@ -1,3 +1,5 @@
+{% import "_snippets.twig" as snippets %}
+
 {% block html_head_container %}
 
   {% include '_html-head.twig' %}
@@ -6,7 +8,7 @@
   </head>
   {% endblock %}
 
-  <body class="uk-background-secondaryyy uk-lighttt {{ body_class }}">
+  <body class="{{ body_class }}">
     
     {% block theme_preloader_markup %}
       {% if configs.theme_preloader %}
@@ -20,11 +22,21 @@
       {% include '_header.twig' %}
     {% endblock %}
     
-    <main id="Main" role="main" class="uk-background-default">
+    {% block breads %}
+      {% if fn('yoast_breadcrumb_enabled') and not fn('is_front_page') %}
+        <nav class="uk-navbar-container uk-navbar-transparent">
+          <div class="uk-container padding-top-10">
+            {{ fn('yoast_breadcrumb') }}
+          </div>
+        </nav>
+      {% endif %}
+    {% endblock %}
+    
+    <main id="Main" role="main">
       <div id="ContentSection">
         {% block main %}
           <div class="uk-section uk-container">
-            Sorry, nothing to display here...
+            {{ snippets.nothing_here()|e('esc_html') }}
           </div>
         {% endblock %}
       </div>

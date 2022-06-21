@@ -4,10 +4,10 @@
     "fields": [
         {
             "key": "field_61d76f01c14b7",
-            "label": "Image",
+            "label": "Background Image",
             "name": "img",
             "type": "image",
-            "instructions": "A placeholder (1920x800) will be used when image is not set",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -27,10 +27,10 @@
             "mime_types": ""
         },
         {
-            "key": "field_620e46bf11699",
-            "label": "Bottom message",
-            "name": "bottom_msg",
-            "type": "textarea",
+            "key": "field_626756573afe1",
+            "label": "Background colour",
+            "name": "bg_colour",
+            "type": "color_picker",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -40,16 +40,14 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
-            "maxlength": "",
-            "rows": 4,
-            "new_lines": ""
+            "enable_opacity": 1,
+            "return_format": "string"
         },
         {
-            "key": "field_626065c11af7d",
-            "label": "Overlay",
-            "name": "overlay",
-            "type": "radio",
+            "key": "field_620e46bf11699",
+            "label": "Custom Classes",
+            "name": "block_custom_classes",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -58,16 +56,8 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "light": "Light",
-                "dark": "Dark"
-            },
-            "allow_null": 0,
-            "other_choice": 0,
-            "default_value": "light",
-            "layout": "horizontal",
-            "return_format": "value",
-            "save_other_choice": 0
+            "default_value": "",
+            "placeholder": ""
         }
     ],
     "location": [

@@ -23,11 +23,11 @@ $context['posts'] = new PostQuery(); // archive posts
 
 // set $title & modify $templates depending on archive
 if (is_day()) {
-	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('D M Y');
+	$title = _x( 'Archive', 'Archives', 'base-theme' ) . ': ' . get_the_date('D M Y');
 } elseif (is_month()) {
-	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('M Y');
+	$title = _x( 'Archive', 'Archives', 'base-theme' ) . ': ' . get_the_date('M Y');
 } elseif (is_year()) {
-	$title = _x( 'Archive', 'Arhives', 'base-theme' ) . ': ' . get_the_date('Y');
+	$title = _x( 'Archive', 'Archives', 'base-theme' ) . ': ' . get_the_date('Y');
 } elseif (is_tag()) {
 	$title = single_tag_title('', false);
 } elseif (is_category()) {

@@ -1,6 +1,6 @@
-<header id="SiteHeader" class="site-header">
+<header class="site-header">
   <nav class="uk-navbar-container">
-    <div class="uk-container uk-container-expand" uk-navbar>
+    <div class="uk-container" uk-navbar>
       
       {# logo/site_title #}
       <div class="uk-navbar-left">
@@ -14,10 +14,8 @@
     	</div>
       
       {# main menu/s #}
-      <div class="uk-navbar-right">
-        
-        {# main menu #}
-        {% if has_menu_main %}
+      {% if has_menu_main %}
+        <div class="uk-navbar-right">
           <ul class="uk-navbar-nav uk-visible@m pull-right-15">
             {% for item in menu_main.get_items %}
               {% if item.get_children %}
@@ -51,22 +49,17 @@
               {% endif %}
             {% endfor %}
           </ul>
-        {% endif %}
-        
-        {# mobile menu toggle #}
-        {% if has_menu_mobile %}
-          <a class="uk-navbar-toggle uk-icon uk-navbar-toggle-icon pull-right-15 uk-hidden@m" uk-navbar-toggle-icon="" uk-toggle="target: #MobileOffCanvas"></a>
-        {% endif %}
-        
-    	</div>
+          <a class="uk-navbar-toggle uk-icon uk-navbar-toggle-icon pull-right-15 uk-hidden@m" uk-navbar-toggle-icon uk-toggle="target: #SlideInMenu"></a>
+      	</div>
+      {% endif %}
       
     </div>
   </nav>
 </header>
 
 {# mobile menu offcanvas #}
-{% if has_menu_mobile %}
-  <nav id="MobileOffCanvas" class="mobile-slide-navbar" uk-offcanvas="mode: push; overlay: true">
+{% if has_menu_main %}
+  <nav id="SlideInMenu" class="mobile-slide-navbar" uk-offcanvas="mode: push; overlay: true">
     <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide uk-padding-small">
       
       <a class="uk-offcanvas-close uk-position-top-right uk-position-small" uk-close></a>
@@ -76,41 +69,39 @@
         
         {# mobile menu header #}
         <li class="uk-nav-header uk-padding-remove uk-margin-small-bottom">
-          {{ site.title|e('esc_html') }}
+          {{ menu_main.title|e('esc_html') }}
         </li>
         
         <li class="uk-nav-divider"></li>
         
         {# mobile menu #}
-        {% if has_menu_mobile %}
-          {% for item in menu_mobile.get_items %}
-            {% if item.get_children %}
-              <li class="{{ item.classes|join(' ')|e('esc_html') }} uk-parent">
-                <a href="{{ item.link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
-                <ul class="uk-nav-sub">
-                  {% for child in item.get_children %}
-                    <li class="{{ child.classes|join(' ')|e('esc_html') }}">
-                      <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
-                      {% if child.children %}
-                        <ul class="uk-nav-sub">
-                          {% for third in child.children %}
-                            <li class="{{ child.classes|join(' ')|e('esc_html') }}">
-                              <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% endif %}
-                    </li>
-                  {% endfor %}
-                </ul>
-              </li>
-            {% else %}
-              <li class="{{ item.classes|join(' ')|e('esc_html') }}">
-                <a href="{{ item.get_link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
+        {% for item in menu_main.get_items %}
+          {% if item.get_children %}
+            <li class="{{ item.classes|join(' ')|e('esc_html') }} uk-parent">
+              <a href="{{ item.link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
+              <ul class="uk-nav-sub">
+                {% for child in item.get_children %}
+                  <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                    {% if child.children %}
+                      <ul class="uk-nav-sub">
+                        {% for third in child.children %}
+                          <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                            <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+            <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+              <a href="{{ item.get_link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
         
       </ul>
       
