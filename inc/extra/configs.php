@@ -18,6 +18,6 @@ $configs['acf_blocks'] = true;
 $configs['acf_template_settings'] = false;
 $configs['acf_options_page'] = false;
 
-$configs['single_only'] = true;
+$configs['single_only'] = false;
 
 return $configs;

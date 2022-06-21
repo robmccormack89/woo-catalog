@@ -1,7 +1,0 @@
-<div hidden>
-  <a class="uk-button uk-button-primary uk-button-small uk-margin-small-left uk-text-boldest">Contact</a>
-</div>
-
-<div class="mobile">
-  <a href="#" class="uk-button uk-button-text uk-margin-top uk-text-boldest">Contact us</a>
-</div>

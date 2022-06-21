@@ -19,6 +19,7 @@ Timber::$dirname = array(
   'views/archive',
   'views/parts',
   'views/single',
+  'views/v2',
 );
 
 // set the $autoescape value
