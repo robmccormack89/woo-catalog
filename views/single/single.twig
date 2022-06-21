@@ -24,39 +24,33 @@
 
     {% block single_header %}
       <header class="single-header uk-margin-medium-bottom">
-        
-        
 
+        {# single title #}
+        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
+          {{ post.title|e('esc_html') }}
+        </h1>
         
-        <div class="uk-container">
-          {# single title #}
-          <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
-            {{ post.title|e('esc_html') }}
-          </h1>
-          
-          {# single meta #}
-          {% if post.categories or (post.date and post.post_type == 'post') %}
-            <div class="uk-text-meta">
-              
-              {# post date #}
-              {% set _post_date %}{% spaceless %}
-                <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
-              {% endspaceless %}{% endset %}
-              {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+        {# single meta #}
+        {% if post.categories or (post.date and post.post_type == 'post') %}
+          <div class="uk-text-meta">
             
-              {# post cats #}
-              {% if post.categories %}
-                {% set _post_cats %}{% spaceless %}
-                  <span class="post-terms">{{ post.categories|join(', ') }}</span>
-                {% endspaceless %}{% endset %}
-                {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
-              {% endif %}
-              
-            </div>
-          {% endif %}
-        </div>
+            {# post date #}
+            {% set _post_date %}{% spaceless %}
+              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
+            {% endspaceless %}{% endset %}
+            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+          
+            {# post cats #}
+            {% if post.categories %}
+              {% set _post_cats %}{% spaceless %}
+                <span class="post-terms">{{ post.categories|join(', ') }}</span>
+              {% endspaceless %}{% endset %}
+              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+            {% endif %}
+            
+          </div>
+        {% endif %}
 
-        
       </header>
     {% endblock %}
     

@@ -15,6 +15,6 @@ simple archives with header (title) & footer (pagination)
 
 todo:
 
-featured images
 text strings for translation
+proper escaping
 working translations
