@@ -9,10 +9,10 @@ const rename = require('gulp-rename');
 const config = {
   "text_domain" : "base-theme",
   "twig_files"  : "views/**/*.twig",
-  "twig_blocks"  : "inc/acf/blocks/views/**/*.twig",
+  // "twig_blocks"  : "inc/acf/blocks/views/**/*.twig",
   "php_files"   : "{*.php,!(vendor|node_modules|_dev|_bin)/**/*.php}", // all php files in all folders incl. root except page-templates
   "cacheFolder" : "views/temp",
-  "blocksCacheFolder" : "inc/acf/blocks/views/temp",
+  // "blocksCacheFolder" : "inc/acf/blocks/views/temp",
   "destFolder"  : "languages",
 };
 
@@ -64,7 +64,8 @@ gulp.task('clean-blocks-temp', function(){
    return del(['inc/acf/blocks/views/temp/**', 'inc/acf/blocks/views/temp'], {force: true});
 });
 
-gulp.task('pot', gulp.series('compile-twig', 'compile-blocks-twig', 'generate-pot', 'clean-temp', 'clean-blocks-temp'));
+// gulp.task('pot', gulp.series('compile-twig', 'compile-blocks-twig', 'generate-pot', 'clean-temp', 'clean-blocks-temp'));
+gulp.task('pot', gulp.series('compile-twig', 'generate-pot', 'clean-temp'));
 
 // gulp style
 'use strict';

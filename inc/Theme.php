@@ -59,6 +59,7 @@ class Theme extends Timber {
     * remove <p> tags from archive descriptions & other stuff
     *
     */
+    remove_filter('term_description', 'wpautop');
     remove_filter('the_content', 'wpautop');
     remove_filter('the_excerpt', 'wpautop');
     remove_filter('widget_text_content', 'wpautop');

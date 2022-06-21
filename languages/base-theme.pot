@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-06-09 12:55+0000\n"
+"POT-Creation-Date: 2022-06-21 18:03+0000\n"
 "Project-Id-Version: undefined\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -25,34 +25,19 @@ msgctxt "404"
 msgid "Sorry, there has been an error locating a resource for your query."
 msgstr ""
 
-#: 404.php:23
-msgctxt "404"
-msgid "Try using the search form below to search this website for something else"
-msgstr ""
-
 #: archive.php:30, archive.php:28, archive.php:26
-msgctxt "Arhives"
+msgctxt "Archives"
 msgid "Archive"
 msgstr ""
 
-#: inc/Theme.php:345, inc/Theme.php:346
+#: inc/Theme.php:303, inc/Theme.php:304
 msgctxt "Lorem picsum base image id"
 msgid "1036"
 msgstr ""
 
-#: inc/Theme.php:383
+#: inc/Theme.php:335
 msgctxt "Menu locations"
 msgid "Main Menu"
-msgstr ""
-
-#: inc/Theme.php:384
-msgctxt "Menu locations"
-msgid "Mobile Menu"
-msgstr ""
-
-#: inc/Theme.php:385
-msgctxt "Menu locations"
-msgid "Footer Menu"
 msgstr ""
 
 #: search.php:30
@@ -69,98 +54,63 @@ msgstr ""
 msgid "Custom Template"
 msgstr ""
 
-#: views/temp/blocks/macros/block-snippets.php:2
-msgctxt "Block - Featured gallery section - default button text"
-msgid "View Gallery"
-msgstr ""
-
-#: views/temp/blocks/macros/block-snippets.php:6
-msgctxt "Block - Featured items section"
-msgid "No featured items have been added yet..."
-msgstr ""
-
-#: views/temp/blocks/macros/block-snippets.php:10
-msgctxt "Block - Slider section"
-msgid "No slides have been added yet..."
-msgstr ""
-
-#: views/temp/blocks/macros/block-snippets.php:14
-msgctxt "Block - Testimonials section"
-msgid "No testimonials have been added yet..."
-msgstr ""
-
-#: views/temp/blocks/macros/block-snippets.php:18
-msgctxt "Block - Products carousel section"
-msgid "No products have been added yet..."
-msgstr ""
-
-#: views/temp/blocks/macros/block-snippets.php:22
-msgctxt "Block - Blog posts section"
-msgid "View all"
-msgstr ""
-
-#: views/temp/parts/_snippets.php:1
-msgctxt "Example"
-msgid "Some text..."
-msgstr ""
-
-#: views/temp/parts/_snippets.php:7
+#: views/temp/parts/_snippets.php:5
 msgctxt "Password-protected content"
 msgid "This content is password protected. To view it please enter your password below:"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:8
+#: views/temp/parts/_snippets.php:6
 msgctxt "Password-protected content"
 msgid "Password"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:9
+#: views/temp/parts/_snippets.php:7
 msgctxt "Password-protected content"
 msgid "Enter"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:15
+#: views/temp/parts/_snippets.php:13
 msgctxt "Archive pagination"
 msgid "Newer posts"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:16
+#: views/temp/parts/_snippets.php:14
 msgctxt "Archive pagination"
 msgid "Older posts"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:17
+#: views/temp/parts/_snippets.php:15
 msgctxt "Single"
 msgid "Newer Article"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:18
+#: views/temp/parts/_snippets.php:16
 msgctxt "Single"
 msgid "Older Article"
 msgstr ""
 
-#: views/temp/parts/_snippets.php:24
-msgctxt "Single"
-msgid "Share:"
-msgstr ""
-
-#: views/temp/parts/_snippets.php:25
+#: views/temp/parts/_snippets.php:22
 msgctxt "Single"
 msgid "Written on %s."
 msgstr ""
 
-#: views/temp/parts/_snippets.php:26
+#: views/temp/parts/_snippets.php:23
 msgctxt "Single"
 msgid "Posted in %s."
 msgstr ""
 
+#: views/temp/parts/_snippets.php:29
+msgctxt "Search form"
+msgid "Try using the search form below to search this website for something else."
+msgstr ""
+
 #: views/temp/parts/_snippets.php:30
-msgctxt "Navigations: Header top"
+msgctxt "Search form"
 msgid "Start typing..."
 msgstr ""
 
 #: views/temp/parts/_snippets.php:31
-msgctxt "404"
+msgctxt "Search form"
 msgid "Submit"
 msgstr ""
 

@@ -7,7 +7,7 @@
             "label": "Background Image",
             "name": "img",
             "type": "image",
-            "instructions": "A placeholder (1920x800) will be used when image is not set",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -31,7 +31,6 @@
             "label": "Background colour",
             "name": "bg_colour",
             "type": "color_picker",
-            "instructions": "Can also be used as an overlay for the Background image",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,

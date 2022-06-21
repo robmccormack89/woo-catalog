@@ -1,13 +1,14 @@
 {% extends 'single.twig' %}
-{% import "_snippets.twig" as snippets %}
+
+{% block header %}
+  {{ (fn('post_password_required', post.id)) ? parent() }}
+{% endblock %}
 
 {% block main %}
   <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} {{ (fn('post_password_required', post.id)) ? 'uk-section' }}">
     
     {% block single_header %}
-      {% if fn('post_password_required', post.id) %}
-        {{ parent() }}
-      {% endif %}
+      {{ (fn('post_password_required', post.id)) ? parent() }}
     {% endblock %}
     
     {% block single_content %}
@@ -15,4 +16,8 @@
     {% endblock %}
   
   </article>
+{% endblock %}
+
+{% block footer %}
+  {{ (fn('post_password_required', post.id)) ? parent() }}
 {% endblock %}

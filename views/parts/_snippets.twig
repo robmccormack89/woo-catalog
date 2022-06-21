@@ -1,6 +1,4 @@
-{% macro example_text() %}{{ _x('Some text...', 'Example', 'base-theme') }}{% endmacro %}
-
-{# password protected content
+{# password protect form
 
 #}
 
@@ -17,18 +15,20 @@
 {% macro prev_post() %}{{ _x('Newer Article', 'Single', 'base-theme') }}{% endmacro %}
 {% macro next_post() %}{{ _x('Older Article', 'Single', 'base-theme') }}{% endmacro %}
 
-{# single pages/posts
+{# post meta (single & tease)
 
 #}
 
-{% macro share_text() %}{{ _x('Share:', 'Single', 'base-theme') }}{% endmacro %}
 {% macro written_on() %}{{ _x('Written on %s.', 'Single', 'base-theme') }}{% endmacro %}
 {% macro posted_in() %}{{ _x('Posted in %s.', 'Single', 'base-theme') }}{% endmacro %}
 
-{# 404 #}
+{# search form 
 
-{% macro searchform_text() %}{{ _x('Start typing...', 'Navigations: Header top', 'base-theme') }}{% endmacro %}
-{% macro error_search_btn() %}{{ _x('Submit', '404', 'base-theme') }}{% endmacro %}
+#}
+
+{% macro search_form_msg() %}{{ _x('Try using the search form below to search this website for something else.', 'Search form', 'base-theme') }}{% endmacro %}
+{% macro search_form_placeholder() %}{{ _x('Start typing...', 'Search form', 'base-theme') }}{% endmacro %}
+{% macro search_btn_text() %}{{ _x('Submit', 'Search form', 'base-theme') }}{% endmacro %}
 
 
 {# tease 

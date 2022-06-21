@@ -1,54 +1,58 @@
 {% import "_snippets.twig" as snippets %}
 
-<article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }}">
-  
-  <header class="tease-header uk-margin-bottom">
-    <ul class="uk-flex uk-flex-middle uk-grid-small" uk-grid>
+<article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }}" data-template="_tease.twig">
+
+  {% block single_header %}
+    <header class="tease-header uk-margin-medium-bottom">
       
-      {% if post.title %}
-        <li class="uk-width-1-1 uk-width-expand@m">
-          <h2 class="uk-text-bold uk-margin-remove uk-h1">
-            {{ post.title|e('esc_html') }}
-          </h2>
-        </li>
-      {% endif %}
+      {# tease title #}
+      <h2 class="uk-text-bold uk-h1 uk-margin-remove">
+        {{ post.title|e('esc_html') }}
+      </h2>
       
+      {# tease meta #}
       {% if post.categories or (post.date and post.post_type == 'post') %}
-        <li class="uk-width-1-1 uk-width-auto@m">
-          <div class="uk-text-meta uk-text-small">
-            
-            {# post date #}
-            {% set _post_date %}{% spaceless %}
-              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
-            {% endspaceless %}{% endset %}
-            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+        <div class="uk-text-meta">
           
-            {# post cats #}
-            {% if post.categories %}
-              {% set _post_cats %}{% spaceless %}
-                <span class="post-terms">{{ post.categories|join(', ') }}</span>
-              {% endspaceless %}{% endset %}
-              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
-            {% endif %}
-            
-          </div>
-        </li>
+          {# post date #}
+          {% set _post_date %}{% spaceless %}
+            <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
+          {% endspaceless %}{% endset %}
+          {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+        
+          {# post cats #}
+          {% if post.categories %}
+            {% set _post_cats %}{% spaceless %}
+              <span class="post-terms">{{ post.categories|join(', ') }}</span>
+            {% endspaceless %}{% endset %}
+            {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+          {% endif %}
+          
+        </div>
       {% endif %}
       
-    </ul>
-  </header>
+    </header>
+  {% endblock %}
   
-  <div class="tease-content">
-    {% if not fn('post_password_required', post.id) %}
-      <div class="tease-preview">
+  {% block single_content %}
+    <div class="tease-content">
+      
+      {# single content or password form #}
+      {% if not fn('post_password_required', post.id) %}
         <p class="uk-margin-bottom">{{ post.preview.length(32).force.read_more('') }}</p>
-        <a href="{{post.link|e('esc_url')}}" class="uk-button uk-button-default">{{ snippets.read_more|e('esc_html') }}</a>
-      </div>
-    {% else %}
-      <div class="password-protected-form">
-        {% include '_password-protected-form.twig' with {small: true} %}
-      </div>
-    {% endif %}
-  </div>
+      {% else %}
+        <div class="password-protected-form">
+          {% include '_password-protected-form.twig' with {small: true} %}
+        </div>
+      {% endif %}
+      
+    </div>
+  {% endblock %}
   
+  {% if not fn('post_password_required', post.id) %}
+    <footer class="tease-footer">
+      <a href="{{post.link|e('esc_url')}}" class="uk-button uk-button-primary">{{ snippets.read_more|e('esc_html') }}</a>
+    </footer>
+  {% endif %}
+
 </article>

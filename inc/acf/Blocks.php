@@ -7,10 +7,6 @@ use Timber\PostQuery;
 array_unshift(
   Timber::$dirname, 
   'views/blocks',
-  'views/blocks/featured-items-row-section',
-  'views/blocks/slider-section',
-  'views/blocks/testimonials-section',
-  'views/blocks/buttons',
 );
 
 class Blocks {
@@ -18,7 +14,6 @@ class Blocks {
   public function __construct() {
     add_action('acf/init', array($this, 'register_blocks'));
     add_action('enqueue_block_assets', array($this, 'acf_blocks_editor_scripts')); // use 'enqueue_block_editor_assets' for backend-only
-    add_filter('style_loader_tag', array($this, 'preconnects_filter'), 10, 2);
   }
   
   /*
@@ -89,32 +84,7 @@ class Blocks {
       '',
       false
     );
-    
-    // preconnects
-    wp_enqueue_style('picsum-preconnect', 'https://picsum.photos', '', null);
-    wp_enqueue_style('lorem-picsum-preconnect', 'https://i.picsum.photos', '', null);
-    wp_enqueue_style('picsum-prefetch', 'https://picsum.photos', '', null);
-    wp_enqueue_style('lorem-picsum-prefetch', 'https://i.picsum.photos', '', null);
   
-  }
-  public function preconnects_filter($html, $handle) {
-    if ($handle === 'picsum-preconnect') {
-      return str_replace("rel='stylesheet'",
-        "rel='preconnect'", $html);
-    }
-    if ($handle === 'lorem-picsum-preconnect') {
-      return str_replace("rel='stylesheet'",
-        "rel='preconnect'", $html);
-    }
-    if ($handle === 'picsum-prefetch') {
-      return str_replace("rel='stylesheet'",
-        "rel='dns-prefetch'", $html);
-    }
-    if ($handle === 'lorem-picsum-prefetch') {
-      return str_replace("rel='stylesheet'",
-        "rel='dns-prefetch'", $html);
-    }
-    return $html;
   }
   
   /*

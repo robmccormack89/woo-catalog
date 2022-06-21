@@ -2,37 +2,46 @@
 {% import "_snippets.twig" as snippets %}
 
 {% block main %}
-  <div id="Archive" class="theme-archive uk-section">
+  <div class="theme-archive uk-section" data-template="archive.twig">
 
     {% block archive_header %}
-      {% include '_sub-header.twig' %}
+      <header class="archive-header uk-container uk-margin-medium-bottom">
+    
+        <h1 class="archive-title uk-text-bold uk-heading-small uk-margin-remove">
+          {{ title|e('esc_html') }}
+        </h1>
+        
+        {% if description %}
+          <p class="archive-description uk-text-lead uk-margin-remove-bottom">
+            {{ description|e('esc_html') }}
+          </p>
+        {% endif %}
+    
+      </header>
     {% endblock %}
 
     {% block archive_content %}
-      <div class="archive-content uk-container uk-container-small">
-        
-        {# archive loop #}
-        {% if posts is not empty %}
-          <ul class="uk-child-width-1-1 uk-grid-large uk-margin-top" uk-grid>
-            {% for post in posts %}
-              <li>
-                {% include '_tease.twig' %}
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          No posts found...
-        {% endif %}
-        
+      <div class="archive-content uk-container">
+        <div class="archive-loop uk-margin-top">
+          {% if posts is not empty %}
+            <ul class="uk-child-width-1-1 uk-grid-large" uk-grid>
+              {% for post in posts %}
+                <li>
+                  {% include '_tease.twig' %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            No posts found...
+          {% endif %}
+        </div>
       </div>
     {% endblock %}
     
     {% block archive_footer %}
       <footer class="archive-footer">
-        
-        {# archive pagination #}
         {% if (posts.pagination.next or posts.pagination.prev) %}
-          <nav class="pagination uk-margin-large-top">
+          <nav class="pagination archive-pagination uk-margin-large-top">
             <ul class="uk-pagination uk-flex-center uk-margin-remove">
               
               {% if posts.pagination.prev %}
@@ -64,7 +73,6 @@
             </ul>
           </nav>
         {% endif %}
-        
       </footer>
     {% endblock %}
   

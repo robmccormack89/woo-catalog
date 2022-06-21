@@ -6,10 +6,38 @@
 {% endblock %}
 
 {% block main %}
-  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-section">
+  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-section" data-template="single.twig">
 
     {% block single_header %}
-      {% include '_single-header.twig' %}
+      <header class="single-header uk-container uk-margin-medium-bottom">
+        
+        {# single title #}
+        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
+          {{ post.title|e('esc_html') }}
+        </h1>
+        
+        {# single meta #}
+        {% if post.categories or (post.date and post.post_type == 'post') %}
+          <div class="uk-text-meta">
+            
+            {# post date #}
+            {% set _post_date %}{% spaceless %}
+              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
+            {% endspaceless %}{% endset %}
+            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+          
+            {# post cats #}
+            {% if post.categories %}
+              {% set _post_cats %}{% spaceless %}
+                <span class="post-terms">{{ post.categories|join(', ') }}</span>
+              {% endspaceless %}{% endset %}
+              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+            {% endif %}
+            
+          </div>
+        {% endif %}
+        
+      </header>
     {% endblock %}
     
     {% block single_content %}
@@ -21,7 +49,7 @@
             {{ post.content }}
           </div>
         {% else %}
-          <div class="password-protected-form uk-container uk-container-small">
+          <div class="password-protected-form uk-container">
             {% include '_password-protected-form.twig' %}
           </div>
         {% endif %}
@@ -31,7 +59,7 @@
     
     {% block single_footer %}
       {% if (post.next or post.prev) and (post.post_type == 'post') and not fn('post_password_required', post.id) %}
-        <footer class="single-footer uk-container uk-container-small uk-margin-large-top">
+        <footer class="single-footer uk-container uk-margin-medium-top">
               
           {% block single_share %}
             {% if configs.theme_post_share %}
