@@ -1,3 +1,5 @@
+{% import "_snippets.twig" as snippets %}
+
 {# rmcc-block styles 
 
   Extend this downstream to add inline styles for specific blocks
@@ -76,7 +78,7 @@
 <div class="{{ align_break }} rmcc-block">
   <div id="{{ block.id|e('esc_html') }}" class="{{ align_container }} {{ block.className|e('esc_html') }}" {{ align_style }}>
     {% block block_content %}
-      Sorry, nothing to display here...
+      {{ snippets.nothing_here()|e('esc_html') }}
     {% endblock %}
   </div>
 </div>

@@ -1,3 +1,5 @@
+{% import "_snippets.twig" as snippets %}
+
 {% block html_head_container %}
 
   {% include '_html-head.twig' %}
@@ -34,7 +36,7 @@
       <div id="ContentSection">
         {% block main %}
           <div class="uk-section uk-container">
-            Sorry, nothing to display here...
+            {{ snippets.nothing_here()|e('esc_html') }}
           </div>
         {% endblock %}
       </div>

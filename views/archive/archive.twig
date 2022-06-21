@@ -32,7 +32,7 @@
               {% endfor %}
             </ul>
           {% else %}
-            No posts found...
+            {{ snippets.no_posts()|e('esc_html') }}
           {% endif %}
         </div>
       </div>

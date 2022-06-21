@@ -1,3 +1,5 @@
+{% import "_snippets.twig" as snippets %}
+
 <footer class="site-footer">
   <nav class="uk-navbar-container">
     <div class="uk-container" uk-navbar>
@@ -6,7 +8,7 @@
       <div class="uk-navbar-left">
         <div class="uk-navbar-item pull-left-15">
           <p class="uk-margin-remove">
-            © {{ now|date('Y') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="Back to Homepage">{{ site.title|e('esc_html') }}</a>
+            {{ snippets.copyright()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
           </p>
         </div>
     	</div>
@@ -14,7 +16,7 @@
       {# back to top #}
       <div class="uk-navbar-right">
         <div class="uk-navbar-item pull-right-15">
-          <a href="#" class="" uk-totop uk-scroll uk-tooltip="Go to Top"></a>
+          <a href="#" uk-totop uk-scroll uk-tooltip="{{ snippets.go_to_top()|e('esc_html') }}"></a>
         </div>
     	</div>
       

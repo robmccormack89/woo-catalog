@@ -1,17 +1,37 @@
+{# base
+
+#}
+
+{% macro nothing_here() %}{{ _x('Sorry, nothing to display here...', 'Base', 'base-theme') }}{% endmacro %}
+
+{# footer
+
+#}
+
+{% macro back_to_home() %}{{ _x('Back to Homepage', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro go_to_top() %}{{ _x('Go to Top', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro copyright() %}{{ _x('©', 'Footer', 'base-theme') }}{% endmacro %}
+
+{# archive
+
+#}
+
+{% macro no_posts() %}{{ _x('No posts found...', 'Archive', 'base-theme') }}{% endmacro %}
+
 {# password protect form
 
 #}
 
-{% macro pass_protect_text() %}{{ _x('This content is password protected. To view it please enter your password below:', 'Password-protected content', 'base-theme') }}{% endmacro %}
-{% macro pass_label() %}{{ _x('Password', 'Password-protected content', 'base-theme') }}{% endmacro %}
-{% macro pass_enter_text() %}{{ _x('Enter', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{% macro pword_protect_text() %}{{ _x('This content is password protected. To view it please enter your password below:', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{% macro pword_protect_label() %}{{ _x('Password', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{% macro pword_protect_enter_text() %}{{ _x('Enter', 'Password-protected content', 'base-theme') }}{% endmacro %}
 
 {# pagination 
 
 #}
 
-{% macro prev_page() %}{{ _x('Newer posts', 'Archive pagination', 'base-theme') }}{% endmacro %}
-{% macro next_page() %}{{ _x('Older posts', 'Archive pagination', 'base-theme') }}{% endmacro %}
+{% macro prev_page() %}{{ _x('Newer posts', 'Archive', 'base-theme') }}{% endmacro %}
+{% macro next_page() %}{{ _x('Older posts', 'Archive', 'base-theme') }}{% endmacro %}
 {% macro prev_post() %}{{ _x('Newer Article', 'Single', 'base-theme') }}{% endmacro %}
 {% macro next_post() %}{{ _x('Older Article', 'Single', 'base-theme') }}{% endmacro %}
 

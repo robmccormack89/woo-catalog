@@ -2,19 +2,4 @@
 
 ---
 
-This theme is intended to be as simple as possible. This theme contains:
-
-1 Menu
-1 starter block with acf (internal)
-Starter builds with uikit/fontawesome & packages up-to-date
-Working translations
-simple singles with header (title) & footer (pagination)
-simple archives with header (title) & footer (pagination)
-1 custom template
-404 template
-
-todo:
-
-text strings for translation
-proper escaping
-working translations
+This theme is intended to be used as a starting point for other projects & be as simple/barebones as possible. New variations etc can be branched out from this.

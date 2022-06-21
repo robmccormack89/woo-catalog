@@ -94,11 +94,13 @@ class Theme extends Timber {
     * Disable comments
     *
     */
-    add_filter('comments_array', array($this, 'disable_comments_hide_existing_comments'), 10, 2);
-    add_action('admin_menu', array($this, 'disable_comments_admin_menu'));
-    add_action('admin_init', array($this, 'disable_comments_admin_menu_redirect'));
-    add_action('admin_init', array($this, 'disable_comments_dashboard'));
-    add_action('init', array($this, 'disable_comments_admin_bar'));
+    if($configs['theme_post_comments']) {
+      add_filter('comments_array', array($this, 'disable_comments_hide_existing_comments'), 10, 2);
+      add_action('admin_menu', array($this, 'disable_comments_admin_menu'));
+      add_action('admin_init', array($this, 'disable_comments_admin_menu_redirect'));
+      add_action('admin_init', array($this, 'disable_comments_dashboard'));
+      add_action('init', array($this, 'disable_comments_admin_bar'));
+    }
     
     /**
     *
@@ -107,7 +109,7 @@ class Theme extends Timber {
     * see https://wordpress.stackexchange.com/questions/225015/sticky-post-from-page-2-and-on
     *
     */
-    add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop')); // NOT NEEDED IN SINGLE-ONLY
+    add_action('pre_get_posts', array($this, 'remove_stickies_from_main_loop'));
     
   }
   
@@ -214,7 +216,7 @@ class Theme extends Timber {
   
   /**
   *
-  * Yoast breadcrumbs
+  * Yoast breadcrumbs - customize the sep icon
   *
   */
   
@@ -224,7 +226,7 @@ class Theme extends Timber {
   
   /**
   *
-  * svg support
+  * add svg support
   *
   */
   
@@ -298,10 +300,6 @@ class Theme extends Timber {
     
     $context['site'] = new \Timber\Site;
     $context['configs'] = $configs;
-    
-    // some nice image ids: 1015, 1036, 1038, 1041, 1042, 1044, 1045, 1051, 1056, 1057, 1067, 1069, 1068, 1078, 1080, 1083, 10
-    $context['theme_img_id'] = _x( '1036', 'Lorem picsum base image id', 'base-theme' );
-    $context['theme_img_src'] = 'https://picsum.photos/id/' . _x( '1036', 'Lorem picsum base image id', 'base-theme' ) . '/1920/800';
 
     // wp customizer logo
     $theme_logo_src = wp_get_attachment_image_url(get_theme_mod('custom_logo') , 'full');
