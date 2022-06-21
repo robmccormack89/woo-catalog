@@ -5,37 +5,57 @@
   <link rel='stylesheet' href='{{theme.link}}/assets/css/editor.css' type='text/css' media='all' />
 {% endblock %}
 
+{% block breads %}
+  {% if post.thumbnail %}
+    <figure class="uk-inline uk-margin-remove">
+      <img class="cover-img min-height-medium uk-height-max-large" src="{{ post.thumbnail.src|resize(1920, 450, 'center')|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+      {% if post.thumbnail.caption %}
+        <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
+          {{ post.thumbnail.caption|e('esc_html') }}
+        </figcaption>
+      {% endif %}
+    </figure>
+  {% endif %}
+  {{ parent() }}
+{% endblock %}
+
 {% block main %}
   <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-section" data-template="single.twig">
 
     {% block single_header %}
-      <header class="single-header uk-container uk-margin-medium-bottom">
+      <header class="single-header uk-margin-medium-bottom">
         
-        {# single title #}
-        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
-          {{ post.title|e('esc_html') }}
-        </h1>
         
-        {# single meta #}
-        {% if post.categories or (post.date and post.post_type == 'post') %}
-          <div class="uk-text-meta">
-            
-            {# post date #}
-            {% set _post_date %}{% spaceless %}
-              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
-            {% endspaceless %}{% endset %}
-            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+
+        
+        <div class="uk-container">
+          {# single title #}
+          <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
+            {{ post.title|e('esc_html') }}
+          </h1>
           
-            {# post cats #}
-            {% if post.categories %}
-              {% set _post_cats %}{% spaceless %}
-                <span class="post-terms">{{ post.categories|join(', ') }}</span>
+          {# single meta #}
+          {% if post.categories or (post.date and post.post_type == 'post') %}
+            <div class="uk-text-meta">
+              
+              {# post date #}
+              {% set _post_date %}{% spaceless %}
+                <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
               {% endspaceless %}{% endset %}
-              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
-            {% endif %}
+              {{ snippets.written_on|e('esc_html')|format(_post_date) }}
             
-          </div>
-        {% endif %}
+              {# post cats #}
+              {% if post.categories %}
+                {% set _post_cats %}{% spaceless %}
+                  <span class="post-terms">{{ post.categories|join(', ') }}</span>
+                {% endspaceless %}{% endset %}
+                {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+              {% endif %}
+              
+            </div>
+          {% endif %}
+        </div>
+
         
       </header>
     {% endblock %}

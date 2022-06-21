@@ -12,3 +12,9 @@ simple singles with header (title) & footer (pagination)
 simple archives with header (title) & footer (pagination)
 1 custom template
 404 template
+
+todo:
+
+featured images
+text strings for translation
+working translations

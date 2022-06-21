@@ -1,3 +1,16 @@
+.cover-img {
+  object-fit: cover
+}
+.min-height-small {
+  min-height: 150px;
+}
+.min-height-medium {
+  min-height: 300px;
+}
+.min-height-large {
+  min-height: 450px;
+}
+
 // additions of utility classes that modify existing uikit elements
 .uk-subnav-small {
   margin-left: -20px;
