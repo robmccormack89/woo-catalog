@@ -8,6 +8,7 @@ $theme_solid_border: 2px solid 1px solid #eeeeee91;
 
 // 2. import the theme components
 
+@import "blocks.scss";
 @import "borders.scss";
 @import "loaders.scss";
 @import "utility.scss";

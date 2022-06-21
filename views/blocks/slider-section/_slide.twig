@@ -1,0 +1,35 @@
+{% import "block-functions.twig" as functions %}
+
+{% set _img_h = (fullheight) ? 975 : 500 %}
+{% set _placeholder_h = (fullheight) ? '975' : 500 %}
+
+{% set _the_image = (slide.img) ? Image(slide.img) : null %}
+{% set img_src = _the_image.src|resize(1920, _img_h, 'center')|default('https://picsum.photos/id/1' ~ loop.index ~ '/1920/' ~ _placeholder_h) %}
+
+{% set overlay = (fields.overlay == 'dark') ? 'uk-overlay uk-overlay-primary' : 'uk-overlay uk-overlay-default' %}
+{% set mehh = (fullheight) ? 'uk-flex uk-flex-middle uk-padding-remove' : 'uk-section-large' %}
+{% set blech = (fullheight) ? 'uk-height-viewport' %}
+
+<div class="swiper-slide">
+  <div class="uk-background-cover" style="background-image: url({{ img_src }});">
+    <div class="uk-overlay uk-overlay-primary uk-position-relative">
+      <div class="uk-container {{ mehh }}" {{ blech }}>
+        <div class="uk-width-1-1 uk-text-center">
+          {% if slide.heading %}
+            <h1 class="uk-margin-remove-top">{{ slide.heading|e('esc_html') }}</h1>
+          {% endif %}
+          {% if slide.msg %}
+            {% set msg_class = (slide.btn_txt and slide.btn_url) ? 'uk-margin-medium-bottom' : 'uk-margin-remove-bottom' %}
+            <hr class="uk-divider-small">
+            <p class="uk-text-emphasis uk-text-lead {{ msg_class }}">
+              {{ slide.msg|e('esc_html') }}
+            </p>
+          {% endif %}
+          {% if slide.btn_txt and slide.btn_url %}
+            {{ functions.block_link(is_preview, slide.btn_url, slide.btn_txt, {class: 'uk-button uk-button-default scroll'}) }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

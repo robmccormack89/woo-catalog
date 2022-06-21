@@ -9,8 +9,10 @@ const rename = require('gulp-rename');
 const config = {
   "text_domain" : "base-theme",
   "twig_files"  : "views/**/*.twig",
+  "twig_blocks"  : "inc/acf/blocks/views/**/*.twig",
   "php_files"   : "{*.php,!(vendor|node_modules|_dev|_bin)/**/*.php}", // all php files in all folders incl. root except page-templates
   "cacheFolder" : "views/temp",
+  "blocksCacheFolder" : "inc/acf/blocks/views/temp",
   "destFolder"  : "languages",
 };
 
@@ -33,6 +35,18 @@ gulp.task('compile-twig', () => {
     .pipe(gulp.dest(config.cacheFolder));
 });
 
+gulp.task('compile-blocks-twig', () => {
+  return gulp.src(config.twig_blocks)
+    .pipe(replace(gettext_regex.simple, match => `<?php ${match}; ?>`))
+    .pipe(replace(gettext_regex.plural, match => `<?php ${match}; ?>`))
+    .pipe(replace(gettext_regex.disambiguation, match => `<?php ${match}; ?>`))
+    .pipe(replace(gettext_regex.noop, match => `<?php ${match}; ?>`))
+    .pipe(rename({
+      extname: '.php',
+    }))
+    .pipe(gulp.dest(config.blocksCacheFolder));
+});
+
 gulp.task('generate-pot', () => {
   const output = gulp.src(config.php_files)
     .pipe(wpPot({
@@ -46,7 +60,11 @@ gulp.task('clean-temp', function(){
    return del(['views/temp/**', 'views/temp'], {force: true});
 });
 
-gulp.task('pot', gulp.series('compile-twig', 'generate-pot', 'clean-temp'));
+gulp.task('clean-blocks-temp', function(){
+   return del(['inc/acf/blocks/views/temp/**', 'inc/acf/blocks/views/temp'], {force: true});
+});
+
+gulp.task('pot', gulp.series('compile-twig', 'compile-blocks-twig', 'generate-pot', 'clean-temp', 'clean-blocks-temp'));
 
 // gulp style
 'use strict';
