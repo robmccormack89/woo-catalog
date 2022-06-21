@@ -49,6 +49,7 @@
 
 #}
 
+{% set custom_classes = fields.block_custom_classes %}
 {% set heading = fields.heading %}
 {% set message = fields.msg %}
 {% set button_text = fields.btn_txt %}
@@ -57,8 +58,8 @@
 {% set gallery = fields.gallery %}
 {% set first_class = (fields.layout == 'right') ? 'uk-flex-first' %}
 {% set bottom_msg = fields.bottom_msg %}
-{# set top_msg = fields.top_msg #}
-{% set bg_colour = fields.bg_colour|default('#008ce1') %}
+{% set top_msg = fields.top_msg %}
+{% set bg_colour = fields.bg_colour %}
 {% set embed_url = fields.embed_url  %}
 {% set _block_img = (fields.img) ? Image(fields.img) : null %}
 {% set light_class = (fields.light_mode == 'enabled') ? 'uk-light' : 'uk-dark' %}

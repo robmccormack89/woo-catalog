@@ -314,13 +314,7 @@ class Theme extends Timber {
     
     // menu register & args
     $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));
-    $context['menu_mobile'] = new \Timber\Menu('mobile_menu', array('depth' => 3));
-    $context['menu_footer'] = new \Timber\Menu('footer_menu', array('depth' => 1));
-    
-    // check menus
     $context['has_menu_main'] = has_nav_menu('main_menu');
-    $context['has_menu_mobile'] = has_nav_menu('mobile_menu');
-    $context['has_menu_footer'] = has_nav_menu('footer_menu');
     
     // return context
     return $context;    
@@ -338,8 +332,6 @@ class Theme extends Timber {
   public function register_navigation_menus() {
     register_nav_menus(array(
       'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
-      'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
-      'footer_menu' => _x( 'Footer Menu', 'Menu locations', 'base-theme' ),
     ));
   }
   public function theme_enqueue_assets() {
