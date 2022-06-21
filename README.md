@@ -1,4 +1,4 @@
-# Base Theme (barebones)
+# Base Theme (master)
 
 ---
 
