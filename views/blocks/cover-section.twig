@@ -11,8 +11,8 @@
 {% block block_content %}
 
   {# image logic #}
-  {% set img_src = _block_img.src|resize(1920, (fullheight) ? '975' : null) %}
-  {% set the_bg_img = (img_src) ? 'style="background-image: url( ' ~ img_src|e('esc_html') ~ ' );"' %}
+  {% set img_src = _block_img.src|resize(1920, (fullheight) ? '975' : null)|e('esc_url') %}
+  {% set the_bg_img = (img_src) ? 'style="background-image: url( ' ~ img_src ~ ' );"' %}
   
   {# styles logic #}
   {% set fullheight_classes = (fullheight) ? 'uk-flex uk-flex-middle uk-height-viewport' %}
@@ -21,7 +21,7 @@
   {# block html #}
   <div class="uk-background-cover" {{ the_bg_img }}>
     <div class="uk-padding-remove uk-position-relative" {{ the_bg_colour }}>
-      <div class="uk-container uk-section {{ custom_classes }} {{ fullheight_classes }}">
+      <div class="uk-container uk-section {{ custom_classes|e('esc_html') }} {{ fullheight_classes }}">
         <div class="cover-block-content uk-width-1-1">
           <InnerBlocks />
         </div>
