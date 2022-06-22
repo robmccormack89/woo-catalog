@@ -6,16 +6,18 @@
 {% endblock %}
 
 {% block breads %}
-  {% if post.thumbnail %}
-    <figure class="uk-inline uk-margin-remove">
-      <img class="cover-img min-height-medium uk-height-max-large" src="{{ post.thumbnail.src|resize(1920, 450, 'center')|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
-      {% if post.thumbnail.caption %}
-        <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
-          {{ post.thumbnail.caption|e('esc_html') }}
-        </figcaption>
-      {% endif %}
-    </figure>
-  {% endif %}
+  {% block single_thumb %}
+    {% if post.thumbnail %}
+      <figure class="uk-inline uk-margin-remove">
+        <img class="cover-img min-height-medium uk-height-max-large" src="{{ post.thumbnail.src|resize(1920, 450, 'center')|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+        {% if post.thumbnail.caption %}
+          <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
+            {{ post.thumbnail.caption|e('esc_html') }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    {% endif %}
+  {% endblock %}
   {{ parent() }}
 {% endblock %}
 
