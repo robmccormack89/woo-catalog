@@ -32,6 +32,23 @@ if (file_exists($composer_autoload = __DIR__.'/vendor/autoload.php')) require_on
 */
 if (class_exists('Timber\Timber')) new Rmcc\Theme;
 
+/* if Woocommerce is available (plugin is installed), do the ThemeWoo class & all the includes 
+
+  Woocommerce should be installed via required plugins
+
+*/
+if (class_exists('Timber\Timber') && class_exists('Woocommerce')) {
+  function timber_set_product( $post ) {
+    global $product;
+    $product = wc_get_product( $post->ID );
+  }
+  new Rmcc\ThemeWoo;
+  // require get_template_directory() . '/inc/extra/woo/woo-snippets.php';
+  // require_once get_template_directory() . '/inc/extra/woo/woo-helpers.php';
+  // require_once get_template_directory() . '/inc/extra/woo/woo-live-search.php';
+  // require_once get_template_directory() . '/inc/extra/woo/woo-shop-filters.php';
+}
+
 /* if ACF is available (plugin is installed), do the Theme ACF class 
 
   ACf should be installed via required plugins
