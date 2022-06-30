@@ -1,4 +1,4 @@
-# Base Theme (woo)
+# Base Theme (solaris-shop)
 
 ---
 
