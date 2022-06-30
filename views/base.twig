@@ -46,14 +46,26 @@
       {% include '_footer.twig' %}
     {% endblock %}
     
-    {% do action('theme_above_footer') %}
-    
     {{ fn('wp_footer') }}
+    
+    {% block fixednav %}
+      {% include 'fixednav.twig' %}
+    {% endblock %}
+    
+    <div id="MiniCartModal" class="minicart-modal" uk-modal>
+      <div class="uk-modal-dialog">
+        <div class="uk-modal-body height-content uk-padding-remove" uk-overflow-auto>
+          <div class="widget_shopping_cart_content">
+            {{ fn('woocommerce_mini_cart') }}
+          </div>
+        </div>
+      </div>
+    </div>
     
     {% block theme_preloader_scripts %}
       {% if configs.theme_preloader %}
         <script type='text/javascript'>
-          document.body.addEventListener("load", window.parent.PreloadMe());
+          document.body.addEventListener("load", preloadMe());
         </script>
       {% endif %}
     {% endblock %}

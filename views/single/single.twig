@@ -28,7 +28,7 @@
       <header class="single-header uk-container uk-margin-medium-bottom">
 
         {# single title #}
-        <h1 class="uk-text-bold uk-heading-small uk-margin-remove">
+        <h1 class="uk-heading-small uk-margin-remove">
           {{ post.title|e('esc_html') }}
         </h1>
         
@@ -74,7 +74,7 @@
     {% endblock %}
     
     {% block single_footer %}
-      {% if (post.next or post.prev) and (post.post_type == 'post') and not fn('post_password_required', post.id) %}
+      {% if (post.next or post.prev) and (post.post_type == 'post' or post.post_type == 'product') and not fn('post_password_required', post.id) %}
         <footer class="single-footer uk-container uk-margin-medium-top">
               
           {% block single_share %}
@@ -93,7 +93,7 @@
                     {% if post.next %}
                       <a href="{{ post.next.link|e('esc_url') }}" class="uk-link-reset">
                         <div class="uk-text-emphasis">
-                          <i uk-icon="icon: chevron-double-left; ratio: .8"></i> {{ snippets.prev_post|e('esc_html') }}
+                          {{ snippets.pagi_left_icon_small()|e('wp_kses_post') }} {{ snippets.prev_post|e('esc_html') }}
                         </div>
                         <div class="uk-text-small uk-text-meta uk-text-truncate uk-visible@m">{{ post.next.title|e('esc_html') }}</div>
                       </a>
@@ -105,7 +105,7 @@
                     {% if post.prev %}
                       <a href="{{ post.prev.link|e('esc_url') }}" class="uk-link-reset">
                         <div class="uk-text-emphasis">
-                          {{ snippets.next_post|e('esc_html') }} <i uk-icon="icon: chevron-double-right; ratio: .8"></i>
+                          {{ snippets.next_post|e('esc_html') }} {{ snippets.pagi_right_icon_small()|e('wp_kses_post') }}
                         </div>
                         <div class="uk-text-small uk-text-meta uk-text-truncate uk-visible@m">{{ post.prev.title|e('esc_html') }}</div>
                       </a>

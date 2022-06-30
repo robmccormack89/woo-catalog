@@ -7,7 +7,7 @@
     {% block archive_header %}
       <header class="archive-header uk-container uk-margin-medium-bottom">
     
-        <h1 class="archive-title uk-text-bold uk-heading-small uk-margin-remove">
+        <h1 class="archive-title uk-heading-small uk-margin-remove">
           {{ title|e('esc_html') }}
         </h1>
         
@@ -47,7 +47,7 @@
               {% if posts.pagination.prev %}
                 <li>
                   <a href="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
-                    <i uk-icon="icon: chevron-double-left; ratio: .8"></i> {{ snippets.prev_page|e('esc_html') }}
+                    {{ snippets.pagi_left_icon_small()|e('wp_kses_post') }} {{ snippets.prev_page|e('esc_html') }}
                   </a>
                 </li>
               {% endif %}
@@ -65,7 +65,7 @@
               {% if posts.pagination.next %}
                 <li>
                   <a href="{{ posts.pagination.next.link|e('esc_url') }}" class="next">
-                    {{ snippets.next_page|e('esc_html') }} <i uk-icon="icon: chevron-double-right; ratio: .8"></i>
+                    {{ snippets.next_page|e('esc_html') }}  {{ snippets.pagi_right_icon_small()|e('wp_kses_post') }}
                   </a>
                 </li>
               {% endif %}

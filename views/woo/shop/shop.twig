@@ -1,0 +1,193 @@
+{% extends 'archive.twig' %}
+{% import "_snippets.twig" as snippets %}
+
+{% block styles %}
+  {{ parent() }}
+  <!-- <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' /> -->
+{% endblock %}
+
+{% block main %}
+  <div id="IndexArchive" class="index-archive shop-archive theme-archive uk-section" data-template="shop.twig">
+    
+    {% block archive_header %}
+      {{ parent() }}
+    {% endblock %}
+    
+    {% block archive_content %}
+      <div class="uk-container">
+        <div class="shop-container" uk-grid>
+          
+          <div class="sidebar-filters uk-width-1-4@m uk-visible@m">
+            {% block shop_filters %}
+              <nav id="ProductFilters" class="uk-position-relative">
+                {% include '_shop-filters.twig' %}
+              </nav>
+            {% endblock %}
+          </div>
+          
+          <div class="shop-right uk-width-3-4@m">
+            {% do action('woocommerce_before_main_content') %}
+          
+            <div class="shop-toolbar-loop-pagination">
+
+              {% block shop_toolbar %}
+                <section class="shop-toolbar uk-margin-bottom">
+                  {% include '_shop-toolbar.twig' %}
+                </section>
+              {% endblock %}
+      
+              {% block shop_loop %}
+                <section id="TheLoop" class="products-loop uk-position-relative">
+                  {% if posts is not empty %}
+                    <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
+                      {% for post in posts %}
+                        <li>
+                          {% include tease_template %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    {{ snippets.no_products_found_text()|e('esc_html') }}
+                  {% endif %}
+                </section>
+              {% endblock %}
+              
+              {% block archive_footer %}
+                <footer class="archive-footer">
+                  {% block shop_pagination %}
+                    {% if (posts.pagination.next or posts.pagination.prev) %}
+                      <nav class="pagination archive-pagination uk-margin-medium-top">
+                        <ul class="uk-pagination uk-flex-center uk-margin-remove">
+                          
+                          {% if posts.pagination.prev %}
+                            <li>
+                              <a data-link="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
+                                {{ snippets.pagi_left_icon_small|e('wp_kses_post') }} {{ snippets.prev_page|e('esc_html') }}
+                              </a>
+                            </li>
+                          {% endif %}
+                          
+                          {% for page in posts.pagination.pages %}
+                            <li>
+                              {% if page.link %}
+                                <a data-link="{{ page.link|e('esc_url') }}" class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</a>
+                              {% else %}
+                                <span class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</span>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                          
+                          {% if posts.pagination.next %}
+                            <li>
+                              <a data-link="{{ posts.pagination.next.link|e('esc_url') }}" class="next">
+                                {{ snippets.next_page|e('esc_html') }} {{ snippets.pagi_right_icon_small|e('wp_kses_post') }}
+                              </a>
+                            </li>
+                          {% endif %}
+                          
+                        </ul>
+                      </nav>
+                    {% endif %}
+                  {% endblock %}
+                </footer>
+              {% endblock %}
+            
+            </div>
+            
+            {% do action('woocommerce_after_shop_loop') %}
+            {% do action('woocommerce_after_main_content') %}
+          </div>
+        
+        </div>
+      </div>
+    {% endblock %}
+    
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{parent()}}
+  <script type='text/javascript'>
+  
+    jQuery(function($) {
+
+      // woocommerce shop sorting options: makes additional product_cats functionality work like regular sorting options
+    	$(".woocommerce-ordering").on("change", "select.product_cats", function() {
+    		$(this).closest("form").trigger("submit")
+    	});
+      
+      // this will force the browser's back button to load up the last page.
+    	// this is useful for cases when, after filtering, the address-bar's url has been forcibly changed,
+    	// & we want to allow for the back button's normal behaviour...
+    	// ...maybe this could be triggered elsewhere
+    	$(window).bind("popstate", function() {
+    		window.location = location.href;
+    	});
+      
+    });
+    
+    // listen for click event in the main, & if target of click has data-link attr, do the shop filtering
+    document.querySelector('main').addEventListener('click', function(event) {
+      if (event.target.hasAttribute('data-link')) {
+        
+        // THE SHOP FILTERING...
+        
+        // 1. first, we scroll to top..
+        UIkit.scroll('', {
+          offset: 90
+        }).scrollTo('#Top');
+        
+        // 2. then, we add the .quickloader class where necessary
+        if(document.getElementById("ProductFiltersOffcanvas")){
+          document.getElementById('ProductFiltersOffcanvas').classList.add('quickloader');
+        }
+        
+        document.querySelector('.products-loop').classList.add('quickloader');
+        
+        // 3. set var for 'data_link', the data-link attribute we need the value of (should be a valid url)
+        var data_link = event.target.getAttribute("data-link");
+        
+        // 4. then we do a fetch request with the clicked data-llnk using FetchAPI
+        fetch(data_link).then(function(response) {
+          
+          // If the API call was successful, we get the response text first...
+          return response.text();
+          
+        }).then(function(html) { // then we...
+          
+          // define our variables
+          var parser = new DOMParser();
+          
+          // set the main container & it's child to be replaed
+          var main_container = document.getElementById("ContentSection");
+          var current_content = document.querySelector('.index-archive');
+          
+          // replace the old with the new
+          var doc_obj = parser.parseFromString(html, 'text/html');
+          var new_content = doc_obj.querySelector('.index-archive');
+          main_container.replaceChild(new_content, current_content);
+          
+          // then we add new url to the browser address bar
+          window.history.pushState({}, '', data_link);
+          
+          // & finally we redo some functions like restyling some previously javascript-styled elements
+          wooGlobalStyles();
+          
+        }).catch(function(error) { // or if theres an error... 
+          
+          // add new url to the browser address bar, even if its an error
+          window.history.pushState({}, '', data_link);
+          
+          // Replace contents for #TheLoop with the 'no products' message
+          document.getElementById("TheLoop").innerHTML = "{{ snippets.no_products_found_text() }}";
+          console.warn('Something went wrong.', error);
+      		
+      		document.querySelector('.products-loop').classList.remove('quickloader');
+          
+        });
+      
+      };
+    });
+  
+  </script>
+{% endblock %}

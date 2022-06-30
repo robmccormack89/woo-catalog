@@ -14,6 +14,7 @@ class Blocks {
   public function __construct() {
     add_action('acf/init', array($this, 'register_blocks'));
     add_action('enqueue_block_assets', array($this, 'acf_blocks_editor_scripts')); // use 'enqueue_block_editor_assets' for backend-only
+    // add_action('enqueue_block_assets', array($this, 'enqueue_google_fonts'));
   }
   
   /*
@@ -23,6 +24,38 @@ class Blocks {
   public function register_blocks() {
     
     if(!function_exists('acf_register_block')) return;
+    
+    acf_register_block(array( // Advanced search section 
+      
+      // *required
+      'name' => 'advanced_search_section',
+      'title' => 'Advanced search section',
+      
+      // the callback function
+      'render_callback' => array($this, 'advanced_search_section_render_callback'),
+      
+      // what block settings does this block allow
+      'supports' => array(
+        'align' => array('full', 'wide', 'center', ''), 
+        'align_text' => false,
+        'align_content' => false, 
+        'full_height' => false, 
+        // 'mode' => false,
+        'jsx' => false
+      ),
+      
+      // the defaults for various block settings
+      'align' => '',
+      // 'align_content' => 'center',
+      
+      // category & icon
+      'category' => 'design',
+      'icon' => 'align-pull-right',
+      
+      // keywords by which to search for the block
+      'keywords' => array('advanced', 'search', 'ajax', 'rmcc'),
+      
+    ));
     
     acf_register_block(array( // cover section 
     
@@ -46,6 +79,7 @@ class Blocks {
       // the defaults for various block settings
       'align' => 'full',
       'full_height' => false,
+      // 'align_content' => '',
       'mode' => 'preview',
     
       // category & icon
@@ -57,6 +91,14 @@ class Blocks {
     
     ));
       
+  }
+  public function enqueue_google_fonts() {
+    // wp_enqueue_style( 'rmcc-google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Sarabun:wght@400;700;800&display=swap', array(), null );
+    // preconnects
+    // wp_enqueue_style('picsum-preconnect', 'https://picsum.photos', '', null);
+    // wp_enqueue_style('lorem-picsum-preconnect', 'https://i.picsum.photos', '', null);
+    // wp_enqueue_style('picsum-prefetch', 'https://picsum.photos', '', null);
+    // wp_enqueue_style('lorem-picsum-prefetch', 'https://i.picsum.photos', '', null);
   }
   public function acf_blocks_editor_scripts() {
     
@@ -84,7 +126,28 @@ class Blocks {
       '',
       false
     );
+    // theme stylesheet (theme)
+    wp_enqueue_style(
+      'base-theme-styles', get_stylesheet_uri()
+    );
+    
+    wp_enqueue_script(
+      'rmcc-advanced-search',
+      get_template_directory_uri() . '/assets/js/woo/advanced-search.js',
+      '',
+      '1.0.0',
+      true
+    );
   
+  }
+  
+  public function advanced_search_section_render_callback($block, $content = '', $is_preview = false) {
+    $context = Timber::context();
+    $context['block'] = $block;
+    $context['fields'] = get_fields();
+    $context['is_preview'] = $is_preview;
+    
+    Timber::render('advanced-search-section.twig', $context);
   }
   
   /*

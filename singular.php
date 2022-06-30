@@ -28,5 +28,17 @@ $templates  = array(
   'base.twig'
 );
 
+if(is_cart()){
+  array_unshift($templates, 'basket.twig');
+}
+
+elseif(is_checkout()) {
+  array_unshift($templates, 'checkout.twig');
+}
+
+elseif(is_account_page()) {
+  array_unshift($templates, 'account.twig');
+}
+
 // & render the template with the context
 Theme::render($templates, $context);

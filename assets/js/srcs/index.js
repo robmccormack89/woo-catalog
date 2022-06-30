@@ -16,3 +16,6 @@ require('lg-fullscreen.js');
 require('lg-share.js');
 require('lg-hash.js');
 // import swiper
+
+// require debounce & make available in window
+window.debounce = require('debounce');

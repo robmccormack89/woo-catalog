@@ -8,7 +8,7 @@
 *
 */
 
-$configs['theme_preloader'] = false;
+$configs['theme_preloader'] = true;
 $configs['theme_post_comments'] = true;
 $configs['theme_post_share'] = false;
 $configs['theme_post_paging'] = true;

@@ -43,10 +43,8 @@ if (class_exists('Timber\Timber') && class_exists('Woocommerce')) {
     $product = wc_get_product( $post->ID );
   }
   new Rmcc\ThemeWoo;
-  // require get_template_directory() . '/inc/extra/woo/woo-snippets.php';
-  // require_once get_template_directory() . '/inc/extra/woo/woo-helpers.php';
-  // require_once get_template_directory() . '/inc/extra/woo/woo-live-search.php';
-  // require_once get_template_directory() . '/inc/extra/woo/woo-shop-filters.php';
+  require_once get_template_directory() . '/inc/woo/helpers.php';
+  require_once get_template_directory() . '/inc/woo/functions.php';
 }
 
 /* if ACF is available (plugin is installed), do the Theme ACF class 
