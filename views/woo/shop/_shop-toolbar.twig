@@ -3,35 +3,42 @@
 <header class="uk-margin-small-bottom">
   <nav id="ShopToolbar" class="uk-navbar-container uk-navbar-transparent" uk-navbar>
     
-    <div id="ShopToolbarLeft" class="uk-navbar-left pull-left-15">
+    <div id="ShopToolbarLeft" class="uk-navbar-left">
       {% if (fn('current_product_orderby_var')) %}
-        <div class="uk-navbar-item min-height-40">
+        <div class="uk-navbar-item min-height-40 uk-padding-remove push-right-5">
           <a class="uk-badge badge-sort icon close-icon" data-link="{{ fn('remove_query_arg', ['orderby'])|e('esc_url') }}">
-            <span class="margin-right-2" hidden>{{ snippets.close_menu_icon() }}</span>{{ fn('orderby_badge_name')|e('esc_html') }}
+            <span class="margin-right-2">{{ snippets.close_menu_icon() }}</span>{{ fn('orderby_badge_name')|e('esc_html') }}
           </a>
         </div>
       {% endif %}
       {% if fn('current_product_cat_var') or fn('is_product_category') %}
-        <div class="uk-navbar-item min-height-40">
+        <div class="uk-navbar-item min-height-40 uk-padding-remove push-right-5">
           <a class="uk-badge badge-cat icon close-icon" data-link="{{ fn('remove_query_arg_product_cats_for_filters')|e('esc_url') }}">
-            <span class="margin-right-2" hidden>{{ snippets.close_menu_icon() }}</span>{{ fn('get_term_by', 'slug', fn('get_query_var', 'product_cat'), 'product_cat').name|e('esc_html') }}
+            <span class="margin-right-2">{{ snippets.close_menu_icon() }}</span>{{ fn('get_term_by', 'slug', fn('get_query_var', 'product_cat'), 'product_cat').name|e('esc_html') }}
+          </a>
+        </div>
+      {% endif %}
+      {% if fn('current_product_series_var') or fn('is_product_series') %}
+        <div class="uk-navbar-item min-height-40 uk-padding-remove push-right-5">
+          <a class="uk-badge badge-series icon close-icon" data-link="{{ fn('remove_query_arg_product_series_for_filters')|e('esc_url') }}">
+            <span class="margin-right-2">{{ snippets.close_menu_icon() }}</span>{{ fn('get_term_by', 'slug', fn('get_query_var', 'product_series'), 'product_series').name|e('esc_html') }}
           </a>
         </div>
       {% endif %}
       {% if fn('current_product_gridlist_var') %}
-        <div class="uk-navbar-item min-height-40">
-        <a class="uk-badge badge-view icon close-icon" data-link="{{ fn('remove_query_arg', ['grid_list'])|e('esc_url') }}">
-          <span class="margin-right-2" hidden>{{ snippets.close_menu_icon() }}</span>{{ fn('gridlist_badge_name')|e('esc_html') }}
-        </a>
-      </div>
+        <div class="uk-navbar-item min-height-40 uk-padding-remove">
+          <a class="uk-badge badge-view icon close-icon" data-link="{{ fn('remove_query_arg', ['grid_list'])|e('esc_url') }}">
+            <span class="margin-right-2">{{ snippets.close_menu_icon() }}</span>{{ fn('gridlist_badge_name')|e('esc_html') }}
+          </a>
+        </div>
       {% endif %}
     </div>
     
-    <div id="ShopToolbarRight" class="uk-navbar-right pull-right-15">
-      <div id="GridList" class="uk-navbar-item min-height-40">
+    <div id="ShopToolbarRight" class="uk-navbar-right">
+      <div id="GridList" class="uk-navbar-item min-height-40 uk-padding-remove">
         <a 
         data-link="{{ fn('add_query_arg', 'grid_list', 'grid-view')|e('esc_url') }}" 
-        class="uk-visible@l grid-toggle icon grid-icon uk-button uk-button-default uk-button-small padding-0-10 uk-margin-small-right {{ ( fn('get_query_var', 'grid_list') == 'grid-view' ) ? 'uk-active' }}" 
+        class="uk-visible@l grid-toggle icon grid-icon uk-button uk-button-default uk-button-small padding-0-10 {{ ( fn('get_query_var', 'grid_list') == 'grid-view' ) ? 'uk-active' }}" 
         ><span hidden>{{ snippets.grid_icon() }}</span></a>
         <a 
         data-link="{{ fn('add_query_arg', 'grid_list', 'list-view')|e('esc_url') }}" 

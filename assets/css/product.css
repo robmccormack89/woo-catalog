@@ -36,9 +36,8 @@
 
 /* product price */
 .product-right bdi {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #ee3131;
+  font-size: 1.8rem!important;
+  color: #cf372d!important;
 }
 
 /* product meta */

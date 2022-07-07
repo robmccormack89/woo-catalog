@@ -25,7 +25,6 @@
     "del": "^6.0.0",
     "autoprefixer": "^10.4.7",
     "cssnano": "^5.1.12",
-    "@types/eslint": "8.4.3",
     "expose-loader": "^3.1.0",
     "postcss": "^8.4.12",
     "gulp-postcss": "^9.0.1",

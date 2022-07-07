@@ -74,6 +74,10 @@ function start(){
 	if(hmm){
 		hmm.addEventListener("change", getSubCatFromParent, false);
 	}
+	var moo = document.getElementById("product_series")
+	if(moo){
+		moo.addEventListener("change", getModelFromSeries, false);
+	}
 	var bar = document.getElementById("adv_reset")
 	if(bar){
 		bar.addEventListener("click", mehhhh, false);
@@ -85,12 +89,17 @@ function start(){
 
 function mehhhh(event){
   var uno = document.getElementById("product_cat_sub")
+  var duex = document.getElementById("product_series_sub")
   uno.disabled = true;
   duex.disabled = true;
 }
 
 function getSubCatFromParent(event){
   var route = document.location.origin  + '/wp-json/get_subcats'
+  getSubTerms(event, route);
+}
+function getModelFromSeries(event){
+  var route =  document.location.origin  + '/wp-json/get_submodels'
   getSubTerms(event, route);
 }
 function getSubTerms(e, route){

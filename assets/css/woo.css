@@ -146,3 +146,9 @@ li.woocommerce-mini-cart-item:before {
     display: block;
   }
 }
+
+#ContentSection bdi {
+  font-size: 1.3rem;
+  color: #333;
+  font-weight: 700;
+}

@@ -31,7 +31,7 @@ $bolder_weight: 600;
 $bold_weight: 500;
 $navbar_item_weight: 500;
 
-$theme_font: 'Montserrat', sans-serif;
+$theme_font: 'DM Sans', sans-serif;;
 
 $theme_primary_overlay: rgba(20,20,20,.79);
 $theme_faint_overlay: #1c1c1c0a;
@@ -39,16 +39,16 @@ $page_header_overlay: rgba(34,34,34,.4);
 
 // 2. import the theme components
 
-// @import "uikit.scss";
+@import "uikit.scss";
 @import "blocks.scss";
 @import "borders.scss";
-// @import "custom.scss";
+@import "custom.scss";
 @import "fonts.scss";
-// @import "footer.scss";
-// @import "header.scss";
+@import "footer.scss";
+@import "header.scss";
 @import "loaders.scss";
 @import "utility.scss";
-// @import "responsive.scss";
+@import "responsive.scss";
 
 // 3. import the outside sources. this may be done as a separate file in assets/scss folder, tho woocommerce uses some uikit variables at the moment
 

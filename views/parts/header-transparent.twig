@@ -1,0 +1,36 @@
+{% extends 'header.twig' %}
+{% import "_snippets.twig" as snippets %}
+
+{% block header_content %}
+  <header id="SiteHeader" class="site-header uk-position-top uk-position-z-index uk-width-1-1">
+    <div class="uk-containerr">
+      
+      {% block header_top %}
+        {{ parent() }}
+      {% endblock %}
+      
+      {% block header_bottom %}
+        <div class="header-dark uk-background-secondaryyyy uk-light" uk-sticky="cls-active: uk-width-1-1 uk-background-secondary; cls-inactive: uk-containerr;animation: uk-animation-slide-top">
+          <div class="uk-container uk-padding-small sticky-wrap">
+            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+              
+              {% block header_bottom_logo %}
+                {{ parent() }}
+              {% endblock %}
+              
+              {% block header_bottom_main_menu %}
+                {{ parent() }}
+              {% endblock %}
+              
+              {% block header_bottom_mobile_toggle %}
+                {{ parent() }}
+              {% endblock %}
+            
+            </nav>
+          </div>
+        </div>
+      {% endblock %}
+      
+    </div>
+  </header>
+{% endblock %}

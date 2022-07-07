@@ -53,6 +53,34 @@
               
               </div>
               
+              {# series -> model #}
+              <div class="advform-product_seriess form-group">
+              
+                {% set product_parent_series = fn('get_parent_product_terms', 'product_series') %}
+                
+                <div class="uk-child-width-1-2@m uk-grid-small" uk-grid>
+
+            			<div class="advform-product_series">
+                    <select name="product_series" id="product_series" class="form-control uk-select uk-background-default">
+            					<option value="" selected="true" disabled="disabled">{{ snippets.adv_sel_series()|e('esc_html') }}</option>
+                      {% if product_parent_series is not empty %}
+                        {% for series in product_parent_series %}
+                					<option id="{{ series.term_id|e('esc_html') }}" value="{{ series.slug|e('esc_html') }}">{{ series.name|e('esc_html') }}</option>
+                        {% endfor %}
+                      {% endif %}
+            				</select>
+            			</div>
+
+                  <div class="advform-product_series advform-product_series_models">
+                    <select name="product_series" id="product_series_sub" class="form-control uk-select uk-background-default" disabled>
+            					<option value="" selected="true" disabled="disabled">{{ snippets.adv_sel_model()|e('esc_html') }}</option>
+            				</select>
+            			</div>
+                
+                </div>
+              
+              </div>
+              
         		</div>
           
           </div>

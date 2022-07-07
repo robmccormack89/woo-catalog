@@ -3,101 +3,77 @@
 
 {% block styles %}
   {{ parent() }}
-  <!-- <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' /> -->
+  <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' />
 {% endblock %}
 
 {% block main %}
-  <div id="IndexArchive" class="index-archive shop-archive theme-archive uk-section" data-template="shop.twig">
+  <div id="IndexArchive" class="index-archive shop-archive theme-archive uk-background-muted" data-template="shop.twig">
     
     {% block archive_header %}
       {{ parent() }}
     {% endblock %}
     
+    {% block breads %}
+      <div class="uk-background-default">
+        {% include '_breads.twig' %}
+      </div>
+    {% endblock %}
+    
     {% block archive_content %}
-      <div class="uk-container">
-        <div class="shop-container" uk-grid>
-          
-          <div class="sidebar-filters uk-width-1-4@m uk-visible@m">
-            {% block shop_filters %}
-              <nav id="ProductFilters" class="uk-position-relative">
-                {% include '_shop-filters.twig' %}
-              </nav>
-            {% endblock %}
-          </div>
-          
-          <div class="shop-right uk-width-3-4@m">
-            {% do action('woocommerce_before_main_content') %}
-          
-            <div class="shop-toolbar-loop-pagination">
-
-              {% block shop_toolbar %}
-                <section class="shop-toolbar uk-margin-bottom">
-                  {% include '_shop-toolbar.twig' %}
-                </section>
-              {% endblock %}
-      
-              {% block shop_loop %}
-                <section id="TheLoop" class="products-loop uk-position-relative">
-                  {% if posts is not empty %}
-                    <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
-                      {% for post in posts %}
-                        <li>
-                          {% include tease_template %}
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    {{ snippets.no_products_found_text()|e('esc_html') }}
-                  {% endif %}
-                </section>
-              {% endblock %}
-              
-              {% block archive_footer %}
-                <footer class="archive-footer">
-                  {% block shop_pagination %}
-                    {% if (posts.pagination.next or posts.pagination.prev) %}
-                      <nav class="pagination archive-pagination uk-margin-medium-top">
-                        <ul class="uk-pagination uk-flex-center uk-margin-remove">
-                          
-                          {% if posts.pagination.prev %}
-                            <li>
-                              <a data-link="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
-                                {{ snippets.pagi_left_icon_small|e('wp_kses_post') }} {{ snippets.prev_page|e('esc_html') }}
-                              </a>
-                            </li>
-                          {% endif %}
-                          
-                          {% for page in posts.pagination.pages %}
-                            <li>
-                              {% if page.link %}
-                                <a data-link="{{ page.link|e('esc_url') }}" class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</a>
-                              {% else %}
-                                <span class="{{ page.class|e('esc_html') }}">{{ page.title|e('esc_html') }}</span>
-                              {% endif %}
-                            </li>
-                          {% endfor %}
-                          
-                          {% if posts.pagination.next %}
-                            <li>
-                              <a data-link="{{ posts.pagination.next.link|e('esc_url') }}" class="next">
-                                {{ snippets.next_page|e('esc_html') }} {{ snippets.pagi_right_icon_small|e('wp_kses_post') }}
-                              </a>
-                            </li>
-                          {% endif %}
-                          
-                        </ul>
-                      </nav>
-                    {% endif %}
-                  {% endblock %}
-                </footer>
-              {% endblock %}
+      <div class="uk-background-default">
+        <div class="uk-container uk-section uk-section-small">
+          <div class="shop-container" uk-grid data-product-cat-obj="{{product_cat_obj}}" data-product-series-obj="{{product_series_obj}}">
             
+            <div class="sidebar-filters uk-width-1-4@m uk-visible@m">
+              {% block shop_filters %}
+                <nav id="ProductFilters" class="uk-position-relative">
+                  {% include '_shop-filters.twig' %}
+                </nav>
+              {% endblock %}
             </div>
             
-            {% do action('woocommerce_after_shop_loop') %}
-            {% do action('woocommerce_after_main_content') %}
-          </div>
+            <div class="shop-right uk-width-3-4@m">
+              {% do action('woocommerce_before_main_content') %}
+            
+              <div class="shop-toolbar-loop-pagination">
+
+                {% block shop_toolbar %}
+                  <section class="shop-toolbar uk-margin-bottom">
+                    {% include '_shop-toolbar.twig' %}
+                  </section>
+                {% endblock %}
         
+                {% block shop_loop %}
+                  <section id="TheLoop" class="products-loop uk-position-relative">
+                    {% if posts is not empty %}
+                      <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
+                        {% for post in posts %}
+                          <li>
+                            {% include tease_template %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% else %}
+                      {{ snippets.no_products_found_text()|e('esc_html') }}
+                    {% endif %}
+                  </section>
+                {% endblock %}
+                
+                {% block archive_footer %}
+                  <footer class="archive-footer">
+                    {% block shop_pagination %}
+                      {% include '_shop-pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-margin-large-top'} %}
+                    {% endblock %}
+                  </footer>
+                {% endblock %}
+              
+              </div>
+              
+              {% do action('woocommerce_after_shop_loop') %}
+              {% do action('woocommerce_after_main_content') %}
+            </div>
+          
+          </div>
         </div>
       </div>
     {% endblock %}
@@ -108,6 +84,68 @@
 {% block scripts %}
   {{parent()}}
   <script type='text/javascript'>
+  
+    ShopFilterScrollTo = function() {
+      jQuery(function($) {
+        var cat_obj = $('.shop-container').attr('data-product-cat-obj');
+        var series_obj = $('.shop-container').attr('data-product-series-obj');
+        // console.log(cat_obj);
+        if (cat_obj) {
+          var scrollPos1 = $('.sidebar-filters #' + cat_obj).position().top; // use the text of the span to create an ID and get the top position of that element
+          // var scrollPos1subbed = $('.sidebar-filters li ul #' + cat_obj).position().top;
+          if (scrollPos1) {
+            // console.log(scrollPos1);
+            $('.sidebar-filters .cat-list-panel').animate({ // animate your right div
+              scrollTop: scrollPos1 // to the position of the target 
+            }, 100); 
+          }
+          // if (scrollPos1subbed) {
+          //   // console.log(scrollPos1subbed);
+          //   $('.sidebar-filters .cat-list-panel').animate({ // animate your right div
+          //     scrollTop: scrollPos1subbed // to the position of the target 
+          //   }, 100); 
+          // }
+        }
+        if (series_obj) {
+          var scrollPos2 = $('.sidebar-filters #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
+          var scrollPos2subbed = $('.sidebar-filters li ul #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
+          if (scrollPos2) {
+            $('.sidebar-filters .series-list-panel').animate({ // animate your right div
+              scrollTop: scrollPos2 // to the position of the target 
+            }, 100); 
+          }
+          if (scrollPos2subbed) {
+            console.log(scrollPos2subbed);
+            $('.sidebar-filters .series-list-panel').animate({ // animate your right div
+              scrollTop: scrollPos2subbed // to the position of the target 
+            }, 100); 
+          }
+        }
+      });
+    };
+    ShopFilterOffcanvasScrollTo = function() {
+      jQuery(function($) {
+        var cat_obj = $('.shop-container').attr('data-product-cat-obj');
+      	var series_obj = $('.shop-container').attr('data-product-series-obj');
+      	if (cat_obj) {
+      		var scrollPos3 = $('#offcanvas-usage #' + cat_obj).position().top; // use the text of the span to create an ID and get the top position of that element
+          // console.log(scrollPos3);
+          if(scrollPos3 > 0){
+            $('#offcanvas-usage .cat-list-panel').animate({ // animate your right div
+        			scrollTop: scrollPos3 // to the position of the target 
+        		}, 100); 
+          }
+      	}
+      	if (series_obj) {
+      		var scrollPos4 = $('#offcanvas-usage #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
+          if(scrollPos4 > 0){
+            $('#offcanvas-usage .series-list-panel').animate({ // animate your right div
+        			scrollTop: scrollPos4 // to the position of the target 
+        		}, 100); 
+          }
+      	}
+      });
+    }
   
     jQuery(function($) {
 
@@ -123,6 +161,15 @@
     	$(window).bind("popstate", function() {
     		window.location = location.href;
     	});
+      
+    });
+    
+    
+    // what to do to Woo when the document is ready (woo globals)
+    jQuery(document).ready(function($) {
+    	
+    	ShopFilterScrollTo();
+      ShopFilterOffcanvasScrollTo();
       
     });
     
@@ -169,6 +216,11 @@
           
           // then we add new url to the browser address bar
           window.history.pushState({}, '', data_link);
+          
+          ShopFilterScrollTo();
+      		document.querySelector('#offcanvas-usage').addEventListener('shown', function(event) {
+      			ShopFilterOffcanvasScrollTo();
+      		});
           
           // & finally we redo some functions like restyling some previously javascript-styled elements
           wooGlobalStyles();

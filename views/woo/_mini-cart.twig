@@ -47,7 +47,7 @@
 							
 							{# minicart item thumbnail #}
 							{% if product_permalink is empty %}
-								<div class="cart-name-wrap uk-width-auto">
+								<div class="cart-name-wrap uk-width-expand">
 									<div class="mini-cart-link">
 										<span>{{ product_name|e('esc_html') }}</span>
 									</div>
@@ -58,13 +58,13 @@
 									</div>
 								</div>
 								
-								<div class="cart-image-wrap uk-width-expand">
+								<div class="cart-image-wrap uk-width-auto">
 									<div class="cart-image uk-align-right uk-margin-remove">
 										<span>{{ thumbnail|e('wp_kses_post') }}</span>
 									</div>
 								</div>
 							{% else %}
-								<div class="cart-name-wrap uk-width-auto">
+								<div class="cart-name-wrap uk-width-expand">
 									<div class="mini-cart-link">
 										<a href="{{ product_permalink|e('esc_url') }}" class="uk-link-reset">{{ product_name|e('esc_html') }}</a>
 									</div>
@@ -75,7 +75,7 @@
 									</div>
 								</div>
 								
-								<div class="cart-image-wrap uk-width-expand">
+								<div class="cart-image-wrap uk-width-auto">
 									<div class="cart-image uk-align-right uk-margin-remove">
 										<a href="{{ product_permalink|e('esc_url') }}">{{ thumbnail|e('wp_kses_post') }}</a>
 									</div>

@@ -2,11 +2,7 @@
 
 {% block styles %}
   {{ parent() }}
-  <!-- <link rel="stylesheet" href="{{ theme.link }}/assets/css/product.css" /> -->
-{% endblock %}
-
-{% block single_thumb %}
-  {# removes the main featured image from breadcrumbs area #}
+  <link rel="stylesheet" href="{{ theme.link }}/assets/css/product.css" />
 {% endblock %}
 
 {% block main %}
@@ -16,6 +12,12 @@
       {% if fn('post_password_required', post.id) %}
         {{ parent() }}
       {% endif %}
+    {% endblock %}
+    
+    {% block breads %}
+      <div class="uk-background-default">
+        {% include '_breads.twig' %}
+      </div>
     {% endblock %}
     
     {% if not fn('post_password_required', post.id) %}

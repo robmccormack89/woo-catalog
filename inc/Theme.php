@@ -312,8 +312,31 @@ class Theme extends Timber {
     }
     
     // menu register & args
-    $context['menu_main'] = new \Timber\Menu('main_menu', array('depth' => 3));
-    $context['has_menu_main'] = has_nav_menu('main_menu');
+    $main_menu_args = array( 'depth' => 3 );
+    $context['menu_main'] = new \Timber\Menu( 'main_menu', $main_menu_args );
+    $context['menu_mobile'] = new \Timber\Menu( 'mobile_menu', $main_menu_args );
+    
+    $foot_menu_args = array( 'depth' => 1 );
+    $context['menu_footer_one'] = new \Timber\Menu( 'footer_menu_one', $foot_menu_args );
+    $context['menu_footer_two'] = new \Timber\Menu( 'footer_menu_two', $foot_menu_args );
+    $context['menu_iconnav'] = new \Timber\Menu( 'iconnav_menu', $foot_menu_args );
+    $context['menu_contact'] = new \Timber\Menu( 'contact_menu', $foot_menu_args );
+    
+    $context['has_menu_main'] = has_nav_menu( 'main_menu' );
+    $context['has_menu_mobile'] = has_nav_menu( 'mobile_menu' );
+    $context['has_menu_iconnav'] = has_nav_menu( 'iconnav_menu' );
+    $context['has_menu_contact'] = has_nav_menu( 'contact_menu' );
+    $context['has_menu_footer_one'] = has_nav_menu( 'footer_menu_one' );
+    $context['has_menu_footer_two'] = has_nav_menu( 'footer_menu_two' );
+    
+    $context['sidebar_footer']   = Timber::get_widgets(esc_html__('Footer sidebar', 'base-theme'));
+    
+    $context['pageheader_bg_img'] = _x( '/wp-content/themes/base-theme/assets/img/hero_inner_page.jpg', 'Header background image', 'base-theme' );
+    $context['pagefooter_bg_img'] = _x( '/wp-content/themes/base-theme/assets/img/background-footer.jpg', 'Footer background image', 'base-theme' );
+    
+    // some nice image ids: 1015, 1036, 1038, 1041, 1042, 1044, 1045, 1051, 1056, 1057, 1067, 1069, 1068, 1078, 1080, 1083, 10
+    $context['default_theme_img_id'] = _x( '1036', 'Lorem picsum base image id', 'base-theme' );
+    $context['default_theme_img'] = 'https://picsum.photos/id/' . _x( '1036', 'Lorem picsum base image id', 'base-theme' ) . '/1920/800';
     
     // return context
     return $context;    
@@ -327,10 +350,29 @@ class Theme extends Timber {
   }
   public function register_widget_areas() {
     
+    // Register widget areas
+    if (function_exists('register_sidebar')) {
+      
+      register_sidebar(array(
+        'name' => esc_html__('Footer sidebar', 'base-theme'),
+        'id' => 'sidebar-footer',
+        'description' => esc_html__('Sidebar Area for the Footer, you can add multiple widgets here.', 'base-theme'),
+        'before_widget' => '',
+        'after_widget' => '',
+        'before_title' => '<h3 class="uk-text-bold widget-title" hidden><span>',
+        'after_title' => '</span></h3>'
+      ));
+    }
+    
   }
   public function register_navigation_menus() {
     register_nav_menus(array(
       'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
+      'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
+      'iconnav_menu' => _x( 'Iconnav Menu', 'Menu locations', 'base-theme' ),
+      'contact_menu' => _x( 'Contact Menu', 'Menu locations', 'base-theme' ),
+      'footer_menu_one' => _x( 'Footer One Menu', 'Menu locations', 'base-theme' ),
+      'footer_menu_two' => _x( 'Footer Two Menu', 'Menu locations', 'base-theme' ),
     ));
   }
   public function theme_enqueue_assets() {

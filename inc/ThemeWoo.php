@@ -18,7 +18,7 @@ class ThemeWoo extends Theme {
     add_action('after_setup_theme', array($this, 'woo_support'));
     add_filter('timber/twig', array($this, 'add_to_twig'));
     add_filter('timber/context', array($this, 'add_to_context'));
-    // add_action('init', array($this, 'register_product_taxonomies'));
+    add_action('init', array($this, 'register_product_taxonomies'));
     add_action('wp_enqueue_scripts', array($this, 'dequeue_enqueue_woo_script_styles'), 99);
     
     $this->add_custom_actions_filters();
@@ -38,7 +38,7 @@ class ThemeWoo extends Theme {
     add_filter('body_class', 'add_woocommerce_to_body_classes');
     
     // product post type labels
-    // add_filter('woocommerce_register_post_type_product', 'filter_product_post_type_labels');
+    add_filter('woocommerce_register_post_type_product', 'filter_product_post_type_labels');
     
     // shop sorting options labels
     add_filter('woocommerce_catalog_orderby', 'filter_shop_sorting_options_labels' );
@@ -47,7 +47,7 @@ class ThemeWoo extends Theme {
     add_filter('woocommerce_cart_item_remove_link', 'filter_cart_remove_link_icon_html', 10, 2);
     
     // custom product tab
-    // add_filter('woocommerce_product_tabs', 'add_parts_custom_tab');
+    add_filter('woocommerce_product_tabs', 'add_parts_custom_tab');
     
     //  live search
     add_filter('woocommerce_product_data_store_cpt_get_products_query', 'support_search_term_query_var', 10, 2);
@@ -67,7 +67,7 @@ class ThemeWoo extends Theme {
     // add_action('custom_stock_quantity', 'custom_stock_quantity');
     
     // collections
-    // add_action('pre_get_posts', 'disable_pagination_on_collections');
+    add_action('pre_get_posts', 'disable_pagination_on_collections');
     
     // custom result count & subtotal with ajax
     add_filter('woocommerce_add_to_cart_fragments', 'result_count_ajaxify', 10, 1);
@@ -171,10 +171,10 @@ class ThemeWoo extends Theme {
       )
     );
     
-    // wp_enqueue_style(
-    //   'globalwoostyles',
-    //   get_template_directory_uri() . '/assets/css/woo.css'
-    // );
+    wp_enqueue_style(
+      'globalwoostyles',
+      get_template_directory_uri() . '/assets/css/woo.css'
+    );
     
   }
   

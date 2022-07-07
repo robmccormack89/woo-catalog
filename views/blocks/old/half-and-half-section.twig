@@ -1,0 +1,30 @@
+{#
+/**
+ * Block Name: Half & Half section
+ *
+ * This is the template that displays the Half & Half section block.
+ */
+#}
+
+{% extends "_block.twig" %}
+{% import "_block-functions.twig" as functions %}
+
+{% block block_content %}
+  {% set _block_img = block_img.src|resize(1080)|default('https://picsum.photos/id/' ~ default_theme_img_id ~ '/1080/675') %}
+  {% set _block_img_alt = block_img.alt %}
+  {% set bg_color = fields.bg_color|default('#f8f8f8') %}
+  
+  <div class="uk-child-width-1-2@m uk-grid-match uk-grid-collapse uk-grid {{ light_class }}" style="background-color:{{ bg_color|e('esc_html') }}" uk-grid>
+    
+    <div class="block-content-area {{ align_content|e('esc_html') }}">
+      <div class="uk-padding-large">
+        <InnerBlocks />
+      </div>
+    </div>
+    
+    <div class="block-img-area uk-flex {{ flex_first_class }}">
+      {{ functions.block_img(is_preview, _block_img, _block_img_alt, {class: 'cover-img', w: '1080', h: '675'}) }}
+    </div>
+    
+  </div>
+{% endblock %}

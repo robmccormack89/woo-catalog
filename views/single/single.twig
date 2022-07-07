@@ -5,77 +5,74 @@
   <link rel='stylesheet' href='{{theme.link}}/assets/css/editor.css' type='text/css' media='all' />
 {% endblock %}
 
-{% block breads %}
-  {% block single_thumb %}
-    {% if post.thumbnail %}
-      <figure class="uk-inline uk-margin-remove">
-        <img class="cover-img min-height-medium uk-height-max-large" src="{{ post.thumbnail.src|resize(1920, 450, 'center')|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
-        {% if post.thumbnail.caption %}
-          <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
-            {{ post.thumbnail.caption|e('esc_html') }}
-          </figcaption>
-        {% endif %}
-      </figure>
-    {% endif %}
-  {% endblock %}
-  {{ parent() }}
-{% endblock %}
-
 {% block main %}
-  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-section" data-template="single.twig">
+  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-background-default" data-template="single.twig">
 
     {% block single_header %}
-      <header class="single-header uk-container uk-margin-medium-bottom">
+      <header class="single-header uk-background-muted">
+        <div class="uk-container uk-padding-small">
 
-        {# single title #}
-        <h1 class="uk-heading-small uk-margin-remove">
-          {{ post.title|e('esc_html') }}
-        </h1>
-        
-        {# single meta #}
-        {% if post.categories or (post.date and post.post_type == 'post') %}
-          <div class="uk-text-meta">
-            
-            {# post date #}
-            {% set _post_date %}{% spaceless %}
-              <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
-            {% endspaceless %}{% endset %}
-            {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+          <h1 class="uk-margin-remove">{{ post.title|e('esc_html') }}</h1>
           
-            {# post cats #}
-            {% if post.categories %}
-              {% set _post_cats %}{% spaceless %}
-                <span class="post-terms">{{ post.categories|join(', ') }}</span>
+          {% if post.categories or (post.date and post.post_type == 'post') %}
+            <div class="uk-text-meta">
+              
+              {% set _post_date %}{% spaceless %}
+                <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
               {% endspaceless %}{% endset %}
-              {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
-            {% endif %}
+              {{ snippets.written_on|e('esc_html')|format(_post_date) }}
             
-          </div>
-        {% endif %}
+              {% if post.categories %}
+                {% set _post_cats %}{% spaceless %}
+                  <span class="post-terms">{{ post.categories|join(', ') }}</span>
+                {% endspaceless %}{% endset %}
+                {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+              {% endif %}
+              
+            </div>
+          {% endif %}
 
+        </div>
       </header>
     {% endblock %}
     
+    {% block single_thumb %}
+      {% if post.thumbnail %}
+        <figure class="uk-inline uk-margin-remove">
+          <img class="cover-img min-height-medium uk-height-max-large" src="{{ post.thumbnail.src|resize(1920, 450, 'center')|e('esc_url') }}" alt="{{ post.thumbnail.alt|e('esc_html') }}">
+          {% if post.thumbnail.caption %}
+            <figcaption class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small uk-text-center">
+              {{ post.thumbnail.caption|e('esc_html') }}
+            </figcaption>
+          {% endif %}
+        </figure>
+      {% endif %}
+    {% endblock %}
+    
+    {% block breads %}
+      {% include '_breads.twig' %}
+    {% endblock %}
+    
     {% block single_content %}
-      <div class="single-content">
-        
-        {# single content or password form #}
-        {% if not fn('post_password_required', post.id) %}
-          <div class="content-editor gutenberg-editor">
-            {{ post.content }}
-          </div>
-        {% else %}
-          <div class="password-protected-form uk-container">
-            {% include '_password-protected-form.twig' %}
-          </div>
-        {% endif %}
-        
+      <div class="single-content uk-background-default uk-section uk-section-small">
+        {% block single_content_inner %}
+          {# single content or password form #}
+          {% if not fn('post_password_required', post.id) %}
+            <div class="content-editor gutenberg-editor">
+              {{ post.content }}
+            </div>
+          {% else %}
+            <div class="password-protected-form uk-section uk-container">
+              {% include '_password-protected-form.twig' %}
+            </div>
+          {% endif %}
+        {% endblock %}
       </div>
     {% endblock %}
     
     {% block single_footer %}
       {% if (post.next or post.prev) and (post.post_type == 'post' or post.post_type == 'product') and not fn('post_password_required', post.id) %}
-        <footer class="single-footer uk-container uk-margin-medium-top">
+        <footer class="single-footer uk-container uk-margin-medium-bottom uk-margin-medium-top">
               
           {% block single_share %}
             {% if configs.theme_post_share %}

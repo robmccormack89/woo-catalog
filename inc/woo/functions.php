@@ -28,6 +28,10 @@ function adv_search_ajax_restapi_routes($server) {
     'methods'  => 'POST',
     'callback' => 'get_subcats',
   ));
+  $server->register_route( 'get_submodels', '/get_submodels', array(
+    'methods'  => 'POST',
+    'callback' => 'get_submodels',
+  ));
 }
 function get_subcats($req) {
 	$context = Timber::context();
@@ -45,6 +49,34 @@ function get_subcats($req) {
 	
 	$data = Timber::compile(array('_subcats_select.twig'), $context);
   return $data;
+}
+function get_submodels($req) {
+	$context = Timber::context();
+	
+	$parent_id = $req['id'];
+	$context['submodels_sel_terms'] = get_terms([
+	  'taxonomy'    => 'product_series',
+	  'hide_empty'  => true,
+	  'parent'      => $parent_id,
+	]);
+	
+	if(empty($context['submodels_sel_terms'])) {
+		return false;
+	}
+	
+	$data = Timber::compile(array('_submodels_select.twig'), $context);
+  return $data;
+}
+
+/* Disable pagintion on what would be the shop-collection archives 
+
+*/
+function disable_pagination_on_collections($query) {
+	if (!is_admin()) {
+		if (is_product_cat() || is_product_series()) {
+			$query->set('nopaging', true);
+		}
+	}
 }
 
 /* custom demo-store notice. will get added to theme locations via actions 
@@ -252,6 +284,38 @@ function filter_cart_remove_link_icon_html( $sprintf, $cart_item_key ) {
   return $sprintf;
 };
 
+/* Product post type labels - strings for translations defined in helpers
+
+*/
+function get_product_post_type_labels($single,$plural){
+  $arr = array(
+    'name' => $plural,
+    'singular_name' => $single,
+    'menu_name' => $plural,
+    'add_new' => 'Add '.$single,
+    'add_new_item' => 'Add New '.$single,
+    'edit' => 'Edit',
+    'edit_item' => 'Edit '.$single,
+    'new_item' => 'New '.$single,
+    'view' => 'View '.$plural,
+    'view_item' => 'View '.$single,
+    'search_items' => 'Search '.$plural,
+    'not_found' => 'No '.$plural.' Found',
+    'not_found_in_trash' => 'No '.$plural.' Found in Trash',
+    'parent' => 'Parent '.$single
+  );
+  return $arr;
+}
+function filter_product_post_type_labels( $args ){
+  $new_labels = product_posttype_labels();
+  $labels = get_product_post_type_labels( 
+    $new_labels['singular'], 
+    $new_labels['plural']
+  );
+  $args['labels'] = $labels;
+  return $args;
+}
+
 /* sorting options labels - defined in helpers
 
 */
@@ -267,5 +331,30 @@ function filter_shop_sorting_options_labels( $options ){
 	$options['date'] = $new_options['date'];
 	
 	return $options;
+  
+}
+
+/* Custom product tab 
+
+*/
+function add_parts_custom_tab( $tabs ) {
+	$tabs['parts_custom_tab'] = array(
+		'title'    => _x('Parts information', 'Custom product tab', 'base-theme'),
+		'callback' => 'parts_custom_tab_content', // the function name, which is on line 15
+		'priority' => 50,
+	);
+	return $tabs;
+}
+function parts_custom_tab_content( $slug, $tab ) {
+  
+  global $product;
+  
+  $context['post'] = Timber::get_post();
+  $product = wc_get_product( $context['post']->ID );
+  $context['product'] = $product;
+  
+  wp_reset_postdata();
+  
+  Timber::render( '_data-tab.twig', $context );
   
 }

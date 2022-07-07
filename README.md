@@ -1,4 +1,4 @@
-# Base Theme (solaris-shop)
+# Base Theme (master)
 
 ---
 

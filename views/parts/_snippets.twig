@@ -1,3 +1,21 @@
+{# contact 
+
+#}
+
+{% macro contact_text() %}{{ _x('Contact us', 'Contact - text', 'base-theme') }}{% endmacro %}
+{% macro contact_phone() %}{{ _x('+27 34 66 2455-198', 'Contact - phone no.', 'base-theme') }}{% endmacro %}
+{% macro contact_hours() %}{{ _x('Mon-Fri 8:00 to 19:00', 'Contact - hours', 'base-theme') }}{% endmacro %}
+{% macro contact_email() %}{{ _x('example@example.com', 'Contact - email', 'base-theme') }}{% endmacro %}
+
+{# other 
+
+#}
+
+{% macro mobile_menu_icon_small() %}<i class="fa-solid fa-bars fa-lg"></i>{% endmacro %}
+{% macro close_mobile_menu_icon() %}<i class="fa-solid fa-circle-xmark"></i>{% endmacro %}
+{% macro mobile_menu_icon() %}<i class="fa-solid fa-bars"></i>{% endmacro %}
+{% macro header_left_text() %}{{ _x('Please call our office on +353 53 9388 646 to get a shipping quote and make payment over the phone.', 'Navigations: Header top', 'base-theme') }}{% endmacro %}
+
 {# base 
 
 #}
@@ -11,6 +29,8 @@
 {% macro back_to_home() %}{{ _x('Back to Homepage', 'Footer', 'base-theme') }}{% endmacro %}
 {% macro go_to_top() %}{{ _x('Go to Top', 'Footer', 'base-theme') }}{% endmacro %}
 {% macro copyright() %}{{ _x('©', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro copy_text() %}{{ _x('Copyright © 2022. All Rights Reserved', 'Footer', 'base-theme') }}{% endmacro %}
+
 
 {# archive 
 

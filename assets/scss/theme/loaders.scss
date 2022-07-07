@@ -53,6 +53,23 @@
   height: 100%;
 }
 
+.preloader::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 45vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #525252;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear;
+  z-index: 5;
+}
 .preloader::after {
   content: '';
   position: absolute;
@@ -73,7 +90,6 @@
   opacity: 0;
   transition: visibility 0s 0.4s, opacity 0.4s linear;
 }
-
 // scroll loader
 .page-load-status {
   display: none;

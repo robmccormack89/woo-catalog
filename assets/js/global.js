@@ -9,7 +9,9 @@ headerSize = function() {
 	var element = document.getElementById("SiteHeader");
 	let computedStyle = getComputedStyle(element);
 	var height = computedStyle.height;
-	document.getElementById("PageHeaderWrap").style.marginTop = height;
+	// Add the integer values of the left values together
+	var new_height = parseInt( height, 10 ) + parseInt( "20px", 10 ) + "px";
+	document.getElementById("PageHeaderWrap").style.paddingTop = new_height;
 }
 
 // dealing with mailchimp4wp's checkboxes for forms. this needs firing on document.ready downstream

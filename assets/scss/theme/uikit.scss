@@ -2,6 +2,11 @@
 
 */
 
+.uk-list-disc>:before {
+  list-style-type: disc;
+  color: $theme_primary;
+}
+
 /* base */
 html {
   -webkit-text-size-adjust: 100%;

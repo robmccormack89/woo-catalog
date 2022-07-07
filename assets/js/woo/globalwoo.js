@@ -59,6 +59,7 @@ jQuery(document).ready(function($) {
 	
 	wooGlobalStyles();
 	mailchimp4WpStyles();
+	// headerSize();
 	
 	whenNodesChange('#MiniCartModal', wooGlobalStyles); // do the WooGlobalStyles again when MiniCartModal changes. only when doc is fully loaded & modal is created
 });
