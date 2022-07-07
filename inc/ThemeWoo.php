@@ -38,7 +38,7 @@ class ThemeWoo extends Theme {
     add_filter('body_class', 'add_woocommerce_to_body_classes');
     
     // product post type labels
-    add_filter('woocommerce_register_post_type_product', 'filter_product_post_type_labels');
+    // add_filter('woocommerce_register_post_type_product', 'filter_product_post_type_labels');
     
     // shop sorting options labels
     add_filter('woocommerce_catalog_orderby', 'filter_shop_sorting_options_labels' );
@@ -53,8 +53,6 @@ class ThemeWoo extends Theme {
     add_filter('woocommerce_product_data_store_cpt_get_products_query', 'support_search_term_query_var', 10, 2);
     add_action('wp_ajax_ajax_live_search', 'ajax_live_search');
     add_action('wp_ajax_nopriv_ajax_live_search', 'ajax_live_search');
-    add_action('wp_ajax_ajax_live_search_mobile', 'ajax_live_search_mobile');
-    add_action('wp_ajax_nopriv_ajax_live_search_mobile', 'ajax_live_search_mobile');
     
     // adv search
     add_action('rest_api_init', 'adv_search_ajax_restapi_routes');
@@ -67,7 +65,7 @@ class ThemeWoo extends Theme {
     // add_action('custom_stock_quantity', 'custom_stock_quantity');
     
     // collections
-    add_action('pre_get_posts', 'disable_pagination_on_collections');
+    // add_action('pre_get_posts', 'disable_pagination_on_collections');
     
     // custom result count & subtotal with ajax
     add_filter('woocommerce_add_to_cart_fragments', 'result_count_ajaxify', 10, 1);
@@ -150,10 +148,9 @@ class ThemeWoo extends Theme {
     wp_dequeue_script( 'select2' );
     wp_deregister_script( 'select2' );
     
-    // jquery
     wp_enqueue_script('jquery');
     
-    // global (requires jQuery)
+    // globalwoo.js
     wp_enqueue_script(
       'globalwoo',
       get_template_directory_uri() . '/assets/js/woo/globalwoo.js',
@@ -162,7 +159,7 @@ class ThemeWoo extends Theme {
       true
     );
    
-    // localize global for ajax
+    // localize globalwoo.js
     wp_localize_script(
       'globalwoo',
       'myAjax',
@@ -171,10 +168,11 @@ class ThemeWoo extends Theme {
       )
     );
     
-    wp_enqueue_style(
-      'globalwoostyles',
-      get_template_directory_uri() . '/assets/css/woo.css'
-    );
+    // woo.css
+    // wp_enqueue_style(
+    //   'globalwoostyles',
+    //   get_template_directory_uri() . '/assets/css/woo.css'
+    // );
     
   }
   
@@ -185,48 +183,7 @@ class ThemeWoo extends Theme {
   *
   */
   
-  public function register_product_taxonomies() {
-    
-    // series models (for products)
-    $labels_series = array(
-      'name'                       => _x( 'Series/Models', 'Series/Models: plural name', 'base-theme' ),
-  		'singular_name'              => _x( 'Series/Model', 'Series/Models: singular name', 'base-theme' ),
-  		'menu_name'                  => _x( 'Series/Models', 'Series/Models: plural name', 'base-theme' ),
-  		// 'all_items'                  => __('All Series/Models', 'ned-murphy-tractors-theme'),
-  		// 'parent_item'                => __('Parent (Series)', 'ned-murphy-tractors-theme'),
-  		// 'parent_item_colon'          => __('Parent (Series):', 'ned-murphy-tractors-theme'),
-  		// 'new_item_name'              => __('New Series/Model Name', 'ned-murphy-tractors-theme'),
-  		// 'add_new_item'               => __('Add New Series/Model', 'ned-murphy-tractors-theme'),
-  		// 'edit_item'                  => __('Edit Series/Model', 'ned-murphy-tractors-theme'),
-  		// 'update_item'                => __('Update Series/Model', 'ned-murphy-tractors-theme'),
-  		// 'view_item'                  => __('View Series/Model', 'ned-murphy-tractors-theme'),
-  		// 'separate_items_with_commas' => __('Separate items with commas', 'ned-murphy-tractors-theme'),
-  		// 'add_or_remove_items'        => __('Add or remove Series/Model', 'ned-murphy-tractors-theme'),
-  		// 'choose_from_most_used'      => __('Choose from the most used', 'ned-murphy-tractors-theme'),
-  		// 'popular_items'              => __('Popular Series/Models', 'ned-murphy-tractors-theme'),
-  		// 'search_items'               => __('Search Series/Models', 'ned-murphy-tractors-theme'),
-  	);
-  	$rewrite_series = array(
-  		'slug'                       => _x( 'product-series-model', 'Series/Models: archive slug', 'base-theme' ),
-  		'with_front'                 => true,
-  		'hierarchical'               => true,
-  	);
-  	$args_series = array(
-  		'labels'                     => $labels_series,
-  		'hierarchical'               => true,
-  		'public'                     => true,
-  		'show_ui'                    => true,
-  		'show_admin_column'          => true,
-  		'show_in_nav_menus'          => true,
-  		'show_tagcloud'              => true,
-  		'rewrite'                    => $rewrite_series,
-  		'update_count_callback'      => 'count_product_series',
-  		'show_in_rest'               => true,
-      'update_count_callback' => '_update_post_term_count',
-  	);
-  	register_taxonomy('product_series', array('product'), $args_series);
-    
-  }
+  public function register_product_taxonomies() {}
   
   /**
   *
@@ -235,7 +192,6 @@ class ThemeWoo extends Theme {
   */
   
   public function woo_support() {
-    // woo supports
     add_theme_support('woocommerce');
     add_theme_support('wc-product-gallery-zoom');
     add_theme_support('wc-product-gallery-lightbox');

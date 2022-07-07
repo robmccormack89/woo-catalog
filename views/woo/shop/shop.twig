@@ -3,7 +3,7 @@
 
 {% block styles %}
   {{ parent() }}
-  <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' />
+  <!-- <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' /> -->
 {% endblock %}
 
 {% block main %}
@@ -22,7 +22,7 @@
     {% block archive_content %}
       <div class="uk-background-default">
         <div class="uk-container uk-section uk-section-small">
-          <div class="shop-container" uk-grid data-product-cat-obj="{{product_cat_obj}}" data-product-series-obj="{{product_series_obj}}">
+          <div class="shop-container" uk-grid data-product-cat-obj="{{product_cat_obj}}">
             
             <div class="sidebar-filters uk-width-1-4@m uk-visible@m">
               {% block shop_filters %}
@@ -82,7 +82,7 @@
 {% endblock %}
 
 {% block scripts %}
-  {{parent()}}
+  {{ parent() }}
   <script type='text/javascript'>
   
     ShopFilterScrollTo = function() {
@@ -168,8 +168,8 @@
     // what to do to Woo when the document is ready (woo globals)
     jQuery(document).ready(function($) {
     	
-    	ShopFilterScrollTo();
-      ShopFilterOffcanvasScrollTo();
+    	// ShopFilterScrollTo();
+      // ShopFilterOffcanvasScrollTo();
       
     });
     
@@ -217,10 +217,10 @@
           // then we add new url to the browser address bar
           window.history.pushState({}, '', data_link);
           
-          ShopFilterScrollTo();
-      		document.querySelector('#offcanvas-usage').addEventListener('shown', function(event) {
-      			ShopFilterOffcanvasScrollTo();
-      		});
+          // ShopFilterScrollTo();
+      		// document.querySelector('#offcanvas-usage').addEventListener('shown', function(event) {
+      		// 	ShopFilterOffcanvasScrollTo();
+      		// });
           
           // & finally we redo some functions like restyling some previously javascript-styled elements
           wooGlobalStyles();

@@ -28,10 +28,6 @@ function adv_search_ajax_restapi_routes($server) {
     'methods'  => 'POST',
     'callback' => 'get_subcats',
   ));
-  $server->register_route( 'get_submodels', '/get_submodels', array(
-    'methods'  => 'POST',
-    'callback' => 'get_submodels',
-  ));
 }
 function get_subcats($req) {
 	$context = Timber::context();

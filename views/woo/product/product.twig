@@ -2,7 +2,7 @@
 
 {% block styles %}
   {{ parent() }}
-  <link rel="stylesheet" href="{{ theme.link }}/assets/css/product.css" />
+  <!-- <link rel="stylesheet" href="{{ theme.link }}/assets/css/product.css" /> -->
 {% endblock %}
 
 {% block main %}
@@ -64,7 +64,7 @@
 {% endblock %}
 
 {% block scripts %}
-  {# parent() #}
+  {{ parent() }}
   <script type='text/javascript'>
   
     // what to do to Woo when the document is ready

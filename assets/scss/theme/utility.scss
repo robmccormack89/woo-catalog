@@ -231,6 +231,19 @@ a.dont-underline:hover, a.dont-underline:focus {
   overflow: hidden;
 }
 
+.push-right-5 {
+  margin-right: 5px;
+}
+
+.stretch-me {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: '';
+}
+
 // backgrounds 
 // .theme-bg {
 //   background-color: $global-primary-background;

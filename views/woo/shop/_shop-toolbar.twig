@@ -18,13 +18,6 @@
           </a>
         </div>
       {% endif %}
-      {% if fn('current_product_series_var') or fn('is_product_series') %}
-        <div class="uk-navbar-item min-height-40 uk-padding-remove push-right-5">
-          <a class="uk-badge badge-series icon close-icon" data-link="{{ fn('remove_query_arg_product_series_for_filters')|e('esc_url') }}">
-            <span class="margin-right-2">{{ snippets.close_menu_icon() }}</span>{{ fn('get_term_by', 'slug', fn('get_query_var', 'product_series'), 'product_series').name|e('esc_html') }}
-          </a>
-        </div>
-      {% endif %}
       {% if fn('current_product_gridlist_var') %}
         <div class="uk-navbar-item min-height-40 uk-padding-remove">
           <a class="uk-badge badge-view icon close-icon" data-link="{{ fn('remove_query_arg', ['grid_list'])|e('esc_url') }}">
