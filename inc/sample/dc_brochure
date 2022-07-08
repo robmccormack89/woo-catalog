@@ -1,0 +1,29 @@
+<!-- wp:acf/cover-section {"id":"block_62b23754c5851","name":"acf/cover-section","data":{"img":14,"_img":"field_61d76f01c14b7","bg_colour":"rgb(129,215,66)","_bg_colour":"field_626756573afe1","block_custom_classes":"uk-container-expand uk-padding-remove uk-flex uk-flex-bottom uk-flex-right uk-child-width-1-2","_block_custom_classes":"field_620e46bf11699"},"align":"full","mode":"preview","full_height":true} -->
+<!-- wp:group -->
+<div class="wp-block-group"><!-- wp:paragraph {"className":"hor-div uk-text-small uk-margin-remove-bottom uk-text-uppercase uk-text-emphasis"} -->
+<p class="hor-div uk-text-small uk-margin-remove-bottom uk-text-uppercase uk-text-emphasis">dcapplianceservices</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":1,"style":{"color":{"text":"#004d74"}},"className":"uk-text-bold uk-heading-medium uk-margin-remove-top uk-margin-remove-bottom"} -->
+<h1 class="uk-text-bold uk-heading-medium uk-margin-remove-top uk-margin-remove-bottom has-text-color" style="color:#004d74">Service &amp; Repairs of</h1>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":1,"style":{"color":{"text":"#eb4040"}},"className":"uk-text-bold uk-heading-medium uk-margin-remove-top"} -->
+<h1 class="uk-text-bold uk-heading-medium uk-margin-remove-top has-text-color" style="color:#eb4040">Domestic &amp; Commercial Appliances</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph {"align":"left","className":"uk-text-lead"} -->
+<p class="has-text-align-left uk-text-lead">At DC Appliances Service &amp; Repairs, we specialize in Dishwashers, Fridges &amp; Freezers; Ovens, Washing Machines, Air Conditioning, Cold &amp; Freezer Rooms You can be confident that you will receive high quality repairs at a fair price.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button {"style":{"border":{"radius":"0px"},"typography":{"fontSize":"16px"},"color":{"background":"#eb4040"}},"className":"uk-text-bold uk-text-decoration-none"} -->
+<div class="wp-block-button has-custom-font-size uk-text-bold uk-text-decoration-none" style="font-size:16px"><a class="wp-block-button__link has-background" style="border-radius:0px;background-color:#eb4040" rel="#">Primary</a></div>
+<!-- /wp:button -->
+
+<!-- wp:button {"style":{"border":{"radius":"0px"},"color":{"background":"#004d74"},"typography":{"fontSize":"16px"}},"className":"uk-text-bold uk-text-decoration-none"} -->
+<div class="wp-block-button has-custom-font-size uk-text-bold uk-text-decoration-none" style="font-size:16px"><a class="wp-block-button__link has-background" style="border-radius:0px;background-color:#004d74" rel="#">Secondary</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons --></div>
+<!-- /wp:group -->
+<!-- /wp:acf/cover-section -->
