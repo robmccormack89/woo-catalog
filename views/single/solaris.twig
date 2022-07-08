@@ -369,7 +369,6 @@
 {% endblock %}
 
 {% block main %}
-  {{ parent() }}
   <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-background-default" data-template="single.twig">
     
     {% block single_header %}
@@ -377,19 +376,19 @@
     {% endblock %}
     
     {% block single_thumb %}
-      {{ parent() }}
+      {# parent() #}
     {% endblock %}
     
     {% block breads %}
-      {{ parent() }}
+      {# parent() #}
     {% endblock %}
     
     {% block single_content %}
-      {{ parent() }}
+      {# parent() #}
     {% endblock %}
     
     {% block single_footer %}
-      {{ parent() }}
+      {# parent() #}
     {% endblock %}
     
   </article>
