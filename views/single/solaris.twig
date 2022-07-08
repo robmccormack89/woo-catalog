@@ -1,0 +1,500 @@
+{% extends 'single.twig' %}
+{% import "_snippets.twig" as snippets %}
+
+{% block header %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;400;500;700;800;900&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+  <style>
+      .uk-button-primary {
+        background-color: #131441;
+        border: 1px solid transparent;
+        color: #fff;
+      }
+      html {
+        font-size: 17px;
+      }
+      html,
+      .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle,
+      .uk-logo {
+        font-family: 'Source Sans Pro', sans-serif;
+      }
+      .uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6 {
+        font-family: 'Arima Madurai', cursive;
+        font-weight: 700;
+      }
+      .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+        font-size: 1rem;
+        text-transform: capitalize;;
+      }
+      .swiper {
+        /* width: 100%;
+        height: 100%; */
+      }
+      .swiper-slide {
+        text-align: center;
+        /* font-size: 18px;
+        background: #fff; */
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+      .swiper-slide img {
+        /* display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; */
+      }
+  </style>
+
+  <header class="site-header uk-background-default">
+    
+    <div class="uk-background-muted padding-10 uk-padding-remove-horizontal">
+      <div class="uk-container uk-container-small">
+        
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l">
+            
+            <div class="swiper-slide">
+              <div class="uk-text-center uk-text-small uk-text-bold">
+                <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex uk-flex-middle" uk-grid>
+                  <div>Price Promise</div>
+                  <div style="padding-left:3px;"><i class="fa-solid fa-euro-sign"></i></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="swiper-slide">
+              <div class="uk-text-center uk-text-small uk-text-bold">
+                <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex uk-flex-middle" uk-grid>
+                  <div>Fully Guaranteed</div>
+                  <div style="padding-left:3px;"><i class="fa-solid fa-clipboard-check"></i></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="swiper-slide">
+              <div class="uk-text-center uk-text-small uk-text-bold">
+                <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex uk-flex-middle" uk-grid>
+                  <div>Rated Excellent</div>
+                  <div style="padding-left:3px;"><i class="fa-solid fa-star"></i></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="swiper-slide">
+              <div class="uk-text-center uk-text-small uk-text-bold">
+                <div class="uk-grid uk-grid-collapse uk-child-width-auto uk-flex uk-flex-middle" uk-grid>
+                  <div>35 years of value</div>
+                  <div style="padding-left:3px;"><i class="fa-solid fa-calendar-check"></i></div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <nav class="logo-nav uk-background-default padding-10 uk-padding-remove-horizontal">
+      <div class="uk-container">
+        
+        <ul class="uk-flex uk-flex-middle" uk-grid>
+          <li class="uk-width-auto">
+            <a class="uk-logo uk-text-bold" href="{{ site.link|e('esc_url') }}">
+              {% if theme.logo %}
+                <img src="{{ theme.logo.src|e('esc_url') }}" width="{{ theme.logo.w }}" height="{{ theme.logo.h }}" alt="{{ theme.logo.alt|e('esc_html') }}">
+              {% else %}
+                {{ site.title|e('esc_html') }}
+              {% endif %}
+            </a>
+        	</li>
+          <li class="uk-width-expand uk-flex uk-flex-center uk-text-center">
+            Call to request an appointment with our team
+          </li>
+          <li class="uk-width-auto uk-flex uk-flex-right uk-text-right">
+            <div>
+              <a class="uk-button uk-button-danger uk-button-small uk-border-rounded">Freephone 1800 34 11 66 <i class="fa-solid fa-phone-flip" style="padding-left:3px;"></i></a>
+              <a class="uk-button uk-button-primary uk-button-small uk-border-rounded" style="background-color:#25D366;">Message us on whatsapp <i class="fa-brands fa-whatsapp" style="padding-left:3px;"></i></a>
+            </div>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+    
+    <nav class="main-menu-nav padding-10 uk-padding-remove-horizontal theme-border-top">
+      <div class="uk-container">
+        <ul class="uk-flex uk-flex-middle" uk-grid>
+        
+          {# logo/site_title #}
+          {% if has_menu_main %}
+            <li class="uk-width-1-2 uk-flex uk-flex-left">
+              <ul class="uk-navbar-nav">
+                
+                {# main menu items #}
+                {% for item in menu_main.get_items %}
+                  {% if item.get_children %}
+                    <li class="uk-visible@m {{ item.classes|join(' ')|e('esc_html') }}">
+                      <a class="min-height-40" href="{{ item.get_link|e('esc_url') }}">{{ item.title|e('esc_html') }}</a>
+                      <div uk-dropdown>
+                        <ul class="uk-nav uk-dropdown-nav">
+                          {% for child in item.get_children %}
+                            <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                              <a href="{{ child.get_link|e('esc_url') }}">{{ child.title|e('esc_html') }}</a>
+                              {% if child.children %}
+                                <div uk-dropdown="pos: right-top">
+                                  <ul class="uk-nav uk-dropdown-nav">
+                                    {% for third in child.children %}
+                                      <li class="{{ third.classes|join(' ')|e('esc_html') }}">
+                                        <a href="{{ third.get_link|e('esc_url') }}">{{ third.title|e('esc_html') }}</a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </li>
+                  {% else %}
+                    <li class="uk-visible@m {{ item.classes|join(' ')|e('esc_html') }}">
+                      <a class="min-height-40" href="{{ item.link|e('esc_url') }}">{{ item.title|e('esc_html') }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                
+                {# account toggle #}
+                <li class="user-icon uk-visible@m" hidden>
+                  <a href="{{dashboard_endpoint|e('esc_url')}}">
+                    {{ snippets.account_icon() }}
+                  </a>
+                </li>
+                
+                {# cart toggle #}
+                <li class="basket-icon uk-visible@m" hidden>
+                  <a href="#MiniCartModal" uk-toggle>
+                    
+                    {{ snippets.basket_icon() }}
+                    
+                    <span class="uk-position-relative">
+                      <span class="">
+                        <span class="header-cart-count">{{ WC.cart.get_cart_contents_count()|e('wp_kses_post') }}</span>
+                        <span class="subtotal-cart">{{ WC.cart.get_cart_subtotal()|e('wp_kses_post') }}</span>
+                      </span>
+                    </span>
+                    
+                  </a>
+                </li>
+                
+                {# search toggle #}
+                <li class="search-icon uk-visible@m" hidden>
+                  <a href="#ModalSearch" uk-toggle>
+                    {{ snippets.search_icon() }}
+                  </a>
+                </li>
+                
+                {# mobile toggle #}
+                <li class="uk-hidden@m" hidden>
+                  <a class="uk-navbar-toggle" uk-toggle="target: #SlideInMenu">{{ snippets.menu_bars_icon() }}</a>
+                </li>
+                
+              </ul>
+          	</li>
+          {% endif %}
+          
+          {# main menu/s #}
+          {% if has_menu_main %}
+            <li class="uk-width-1-2 uk-flex uk-flex-right">
+              <ul class="uk-navbar-nav">
+                
+                {# main menu items #}
+                {% for item in menu_main.get_items %}
+                  {% if item.get_children %}
+                    <li class="uk-visible@m {{ item.classes|join(' ')|e('esc_html') }}">
+                      <a class="min-height-40" href="{{ item.get_link|e('esc_url') }}">{{ item.title|e('esc_html') }}</a>
+                      <div uk-dropdown>
+                        <ul class="uk-nav uk-dropdown-nav">
+                          {% for child in item.get_children %}
+                            <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                              <a href="{{ child.get_link|e('esc_url') }}">{{ child.title|e('esc_html') }}</a>
+                              {% if child.children %}
+                                <div uk-dropdown="pos: right-top">
+                                  <ul class="uk-nav uk-dropdown-nav">
+                                    {% for third in child.children %}
+                                      <li class="{{ third.classes|join(' ')|e('esc_html') }}">
+                                        <a href="{{ third.get_link|e('esc_url') }}">{{ third.title|e('esc_html') }}</a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              {% endif %}
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </li>
+                  {% else %}
+                    <li class="uk-visible@m {{ item.classes|join(' ')|e('esc_html') }}">
+                      <a class="min-height-40" href="{{ item.link|e('esc_url') }}">{{ item.title|e('esc_html') }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+                
+                {# account toggle #}
+                <li class="user-icon uk-visible@m" hidden>
+                  <a href="{{dashboard_endpoint|e('esc_url')}}">
+                    {{ snippets.account_icon() }}
+                  </a>
+                </li>
+                
+                {# cart toggle #}
+                <li class="basket-icon uk-visible@m" hidden>
+                  <a href="#MiniCartModal" uk-toggle>
+                    
+                    {{ snippets.basket_icon() }}
+                    
+                    <span class="uk-position-relative">
+                      <span class="">
+                        <span class="header-cart-count">{{ WC.cart.get_cart_contents_count()|e('wp_kses_post') }}</span>
+                        <span class="subtotal-cart">{{ WC.cart.get_cart_subtotal()|e('wp_kses_post') }}</span>
+                      </span>
+                    </span>
+                    
+                  </a>
+                </li>
+                
+                {# search toggle #}
+                <li class="search-icon uk-visible@m" hidden>
+                  <a href="#ModalSearch" uk-toggle>
+                    {{ snippets.search_icon() }}
+                  </a>
+                </li>
+                
+                {# mobile toggle #}
+                <li class="uk-hidden@m" hidden>
+                  <a class="uk-navbar-toggle" uk-toggle="target: #SlideInMenu">{{ snippets.menu_bars_icon() }}</a>
+                </li>
+                
+              </ul>
+          	</li>
+          {% endif %}
+        
+        </ul>
+      </div>
+    </nav>
+    
+  </header>
+
+  {% if has_menu_main %}
+    <nav id="SlideInMenu" class="mobile-slide-navbar" uk-offcanvas="mode: push; overlay: true">
+      <div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide uk-padding-small">
+        
+        <a class="uk-offcanvas-close uk-position-top-right uk-position-small uk-padding-remove">{{ snippets.close_menu_icon() }}</a>
+        
+        {# mobile menu nav #}
+        <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+          
+          {# mobile menu header #}
+          <li class="uk-nav-header uk-padding-remove uk-margin-small-bottom">
+            {{ menu_main.title|e('esc_html') }}
+          </li>
+          
+          <li class="uk-nav-divider"></li>
+          
+          {# mobile menu #}
+          {% for item in menu_main.get_items %}
+            {% if item.get_children %}
+              <li class="{{ item.classes|join(' ')|e('esc_html') }} uk-parent">
+                <a href="{{ item.link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
+                <ul class="uk-nav-sub">
+                  {% for child in item.get_children %}
+                    <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                      <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                      {% if child.children %}
+                        <ul class="uk-nav-sub">
+                          {% for third in child.children %}
+                            <li class="{{ child.classes|join(' ')|e('esc_html') }}">
+                              <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% else %}
+              <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                <a href="{{ item.get_link|e('esc_url') }}">{{ item.title|e('esc_html')}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+          
+        </ul>
+        
+      </div>
+    </nav>
+  {% endif %}
+
+  <div id="ModalSearch" class="uk-modal-full uk-modal" uk-modal>
+    <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
+      <a class="uk-modal-close-full uk-close">{{ snippets.close_menu_icon_large()|e('wp_kses_post') }}</a>
+      <form class="uk-search uk-search-large" role="search" method="get" action="{{ site.url|e('esc_url') }}">
+        <input id="header-search" class="uk-search-input uk-text-center" type="search" name="s" placeholder="{{ snippets.search_form_placeholder|e('esc_html') }}" 
+        required maxlength="100" pattern=".*\S+.*" autocomplete="off" autofocus>
+        <!-- <input type="hidden" name="post_type" value="product" /> -->
+      </form>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block main %}
+  {{ parent() }}
+  <article id="{{ post.id|e('esc_html') }}" class="{{ post.class|e('esc_html') }} uk-background-default" data-template="single.twig">
+    
+    {% block single_header %}
+      {{ parent() }}
+    {% endblock %}
+    
+    {% block single_thumb %}
+      {{ parent() }}
+    {% endblock %}
+    
+    {% block breads %}
+      {{ parent() }}
+    {% endblock %}
+    
+    {% block single_content %}
+      {{ parent() }}
+    {% endblock %}
+    
+    {% block single_footer %}
+      {{ parent() }}
+    {% endblock %}
+    
+  </article>
+{% endblock %}
+
+{% block footer %}
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 5,
+        },
+        960: {
+          slidesPerView: 3,
+          spaceBetween: 10,
+        },
+        1200: {
+          slidesPerView: 4,
+          spaceBetween: 15,
+        },
+      },
+    });
+  </script>
+  <footer class="site-footer">
+    <div class="footer-top theme-border-top">
+      <div class="uk-container uk-container-small uk-section uk-section-small">
+        
+        <ul class="uk-child-width-1-2 uk-child-width-1-4@m uk-grid-small" uk-grid="masonry:true">
+          
+          <li>
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">{{ site.title|e('esc_html') }}</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <li>Find Your Local Advisor</li>
+              <li>Sitemap</li>
+              <li>Privacy Policy</li>
+              <li>Terms & Conditions</li>
+              <li>Anti-Slavery</li>
+              <li>Tax Strategy</li>
+              <li>Cookie Information</li>
+              <li>Solaris Blinds & Curtains</li>
+            </ul>
+          </li>
+          
+          <li>
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">Our range</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <li>Blinds</li>
+              <li>Curtains</li>
+              <li>Shutters</li>
+              <li>Conservatory Blinds</li>
+            </ul>
+          </li>
+          
+          <li>
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">Customer service</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <li>Contact Us</li>
+              <li>FAQs</li>
+              <li>Cleaning Your Blinds</li>
+              <li>Covid 19</li>
+            </ul>
+          </li>
+          
+          <li>
+            <div class="uk-padding-small uk-border-rounded theme-border">
+              <h4 class="uk-margin-small-bottom">Newsletter Signup</h4>
+              <p>Sign up to receive updates on our latest collections, trends and offers. Enter your email address below:</p>
+              <form>
+                <input class="uk-input uk-form-large uk-border-rounded" type="text" placeholder="Some text...">
+                <input type="submit" value="Submit" class="uk-button uk-button-primary uk-border-rounded uk-margin-small-top">
+              </form>
+            </div>
+          </li>
+        
+        </ul>
+        
+      </div>
+    </div>
+    <div class="footer-bottom uk-background-default theme-border-top uk-padding-small uk-padding-remove-horizontal">
+      <div class="uk-container uk-container-small">
+        
+        <ul class="uk-flex uk-flex-middle" uk-grid>
+        
+          {# copyright #}
+          <li class="uk-width-1-2">
+            <p class="uk-margin-remove">
+              {{ snippets.copyright()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
+            </p>
+        	</li>
+          
+          {# back to top #}
+          <li class="uk-width-1-2 uk-flex uk-flex-right uk-text-right">
+            <a href="#" uk-totop uk-scroll uk-tooltip="{{ snippets.go_to_top()|e('esc_html') }}"></a>
+        	</li>
+        
+        </ul>
+        
+      </div>
+    </div>
+  </footer>
+{% endblock %}
