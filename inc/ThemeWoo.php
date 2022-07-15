@@ -54,7 +54,7 @@ class ThemeWoo extends Theme {
     add_action('wp_ajax_ajax_live_search', 'ajax_live_search');
     add_action('wp_ajax_nopriv_ajax_live_search', 'ajax_live_search');
     
-    // adv search
+    // fetch routes
     add_action('rest_api_init', 'adv_search_ajax_restapi_routes');
     
     // sku in product searches

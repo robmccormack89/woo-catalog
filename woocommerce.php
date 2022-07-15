@@ -57,9 +57,11 @@ else {
   
   if (is_tax()) {
     $queried_object = get_queried_object();
-    $term_id = $queried_object->term_id;
-    $context['term_slug'] = $queried_object->slug;
-    $context['term_id'] = $term_id;
+    if(is_object($queried_object)){
+      $term_id = $queried_object->term_id;
+      $context['term_slug'] = $queried_object->slug;
+      $context['term_id'] = $term_id;
+    }
     $context['title'] = single_term_title('', false); // e.g: 'Clothing'
   };
   

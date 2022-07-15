@@ -314,6 +314,7 @@ class Theme extends Timber {
     // menu register & args
     $main_menu_args = array( 'depth' => 3 );
     $context['menu_main'] = new \Timber\Menu( 'main_menu', $main_menu_args );
+    $context['menu_secondary'] = new \Timber\Menu( 'secondary_menu', $main_menu_args );
     $context['menu_mobile'] = new \Timber\Menu( 'mobile_menu', $main_menu_args );
     
     $foot_menu_args = array( 'depth' => 1 );
@@ -323,6 +324,7 @@ class Theme extends Timber {
     $context['menu_contact'] = new \Timber\Menu( 'contact_menu', $foot_menu_args );
     
     $context['has_menu_main'] = has_nav_menu( 'main_menu' );
+    $context['has_menu_secondary'] = has_nav_menu( 'secondary_menu' );
     $context['has_menu_mobile'] = has_nav_menu( 'mobile_menu' );
     $context['has_menu_iconnav'] = has_nav_menu( 'iconnav_menu' );
     $context['has_menu_contact'] = has_nav_menu( 'contact_menu' );
@@ -368,6 +370,7 @@ class Theme extends Timber {
   public function register_navigation_menus() {
     register_nav_menus(array(
       'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
+      'secondary_menu' => _x( 'Secondary Menu', 'Menu locations', 'base-theme' ),
       'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
       'iconnav_menu' => _x( 'Iconnav Menu', 'Menu locations', 'base-theme' ),
       'contact_menu' => _x( 'Contact Menu', 'Menu locations', 'base-theme' ),

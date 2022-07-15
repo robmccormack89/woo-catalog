@@ -4,6 +4,12 @@
 {% block styles %}
   {{ parent() }}
   <!-- <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' /> -->
+  <style>
+
+  </style>
+{% endblock %}
+
+{% block header %}
 {% endblock %}
 
 {% block main %}
@@ -22,58 +28,143 @@
     {% block archive_content %}
       <div class="uk-background-default">
         <div class="uk-container uk-section uk-section-small">
-          <div class="shop-container" uk-grid data-product-cat-obj="{{product_cat_obj}}">
             
-            <div class="sidebar-filters uk-width-1-4@m uk-visible@m">
-              {% block shop_filters %}
-                <nav id="ProductFilters" class="uk-position-relative">
-                  {% include '_shop-filters.twig' %}
-                </nav>
-              {% endblock %}
-            </div>
-            
-            <div class="shop-right uk-width-3-4@m">
-              {% do action('woocommerce_before_main_content') %}
-            
-              <div class="shop-toolbar-loop-pagination">
+          {% do action('woocommerce_before_main_content') %}
 
-                {% block shop_toolbar %}
-                  <section class="shop-toolbar uk-margin-bottom">
-                    {% include '_shop-toolbar.twig' %}
-                  </section>
-                {% endblock %}
-        
-                {% block shop_loop %}
-                  <section id="TheLoop" class="products-loop uk-position-relative">
-                    {% if posts is not empty %}
-                      <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
-                        {% for post in posts %}
-                          <li>
-                            {% include tease_template %}
+          {% block shop_filters %}
+            <section class="shop-filters uk-margin-small-bottom">
+              <form id="FiltersForm" action="/shop" class="" method="get" role="search">
+              	<fieldset class="uk-fieldset">
+                  <!-- filters buttons -->
+                  <div id="FiltersFormMainArea" class="uk-background-muted uk-padding-small">
+                    <ul class="advform-main uk-flex uk-flex-middle uk-grid uk-grid-small" uk-grid>
+                      <li class="uk-width-auto"><strong>Filter by:</strong></li>
+          						<li class="advform-product_cat uk-width-auto">
+                        <a id="ProductCatFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductCatFilters">Category <i class="fa-solid fa-sort-down text-top"></i></a>
+          						</li>
+                      <li id="product_cat_sub" class="advform uk-hidden">
+                        <a id="ProductSubCatFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductSubCatFilters">Sub-category <i class="fa-solid fa-sort-down text-top"></i></a>
+          						</li>
+                      <li class="advform-product_tag uk-width-auto">
+                        <a id="ProductTagFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductTagFilters">Tag <i class="fa-solid fa-sort-down text-top"></i></a>
+          						</li>
+                      <li class="advform-product_colour uk-width-auto">
+                        <a id="ProductColourFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductColourFilters">Colour <i class="fa-solid fa-sort-down text-top"></i></a>
+          						</li>
+                      <li class="advform-product_material uk-width-auto">
+                        <a id="ProductMaterialFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductMaterialFilters">Material <i class="fa-solid fa-sort-down text-top"></i></a>
+          						</li>
+          					</ul>
+                  </div>
+                  <!-- filters dropdown areas -->
+                  <div id="FiltersFormDropArea" class="">
+                    
+                    {% set form_submit_buttons_html %}
+                      <div class="uk-background-muted uk-padding-small">
+                        <ul class="uk-flex uk-flex-middle uk-flex-center uk-child-width-auto uk-grid-small" uk-grid>
+                          <li class="advform-reset">
+                            <input id="adv_reset" type="reset" value="Cancel" class="uk-button uk-button-default uk-border-rounded">
                           </li>
-                        {% endfor %}
-                      </ul>
-                    {% else %}
-                      {{ snippets.no_products_found_text()|e('esc_html') }}
-                    {% endif %}
-                  </section>
-                {% endblock %}
-                
-                {% block archive_footer %}
-                  <footer class="archive-footer">
-                    {% block shop_pagination %}
-                      {% include '_shop-pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-margin-large-top'} %}
-                    {% endblock %}
-                  </footer>
-                {% endblock %}
-              
+                          <li class="advform-submit">
+                            <input type="submit" value="Apply" class="uk-button uk-button-primary uk-border-rounded">
+                          </li>
+                        </ul>
+                      </div>
+                    {% endset %}
+                  
+                    <div id="ProductCatFilters" class="filter-area cat-filters uk-hidden">
+                      <div class="uk-padding uk-background-default">
+                        <div id="product_cat_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_cat" id="17" value="clothing"> Clothing</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_cat" id="21" value="music"> Music</label>
+                        </div>
+                      </div>
+                      {{ form_submit_buttons_html }}
+                    </div>
+                    
+                    <div id="ProductSubCatFilters" class="filter-area subcat-filters uk-hidden">
+                      <div class="uk-padding uk-background-default">
+                        <div id="product_subcat_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                        </div>
+                      </div>
+                      {{ form_submit_buttons_html }}
+                    </div>
+                    
+                    <div id="ProductTagFilters" class="filter-area uk-hidden">
+                      <div class="uk-padding uk-background-default">
+                        <div class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_tag" id="35" value="brand-new"> Brand New</label>
+                        </div>
+                      </div>
+                      {{ form_submit_buttons_html }}
+                    </div>
+                    
+                    <div id="ProductColourFilters" class="filter-area uk-hidden">
+                      <div class="uk-padding uk-background-default">
+                        <div class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_colour" id="42" value="blue"> Blue</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_colour" id="43" value="grey"> Grey</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_colour" id="44" value="green"> Green</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_colour" id="45" value="red"> Red</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_colour" id="46" value="yellow"> Yellow</label>
+                        </div>
+                      </div>
+                      {{ form_submit_buttons_html }}
+                    </div>
+                    
+                    <div id="ProductMaterialFilters" class="filter-area uk-hidden">
+                      <div class="uk-padding uk-background-default">
+                        <div class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_material" id="52" value="coarse"> Coarse</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="pa_material" id="53" value="fine"> Fine</label>
+                        </div>
+                      </div>
+                      {{ form_submit_buttons_html }}
+                    </div>
+                  
+                  </div>
+              	</fieldset>
+              </form>
+            </section>
+          {% endblock %}
+
+          {% block shop_loop %}
+            <section id="TheLoopContainer" class="uk-position-relative uk-margin-medium-top">
+              <div id="TheLoop" class="products-loop uk-position-relative">
+                {% if posts is not empty %}
+                  {% block shop_toobar %}
+                    {# include '_shop-toolbar.twig' #} Toolbar
+                  {% endblock %}
+                  
+                  {% block shop_loop_grid %}
+                    <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
+                      {% for post in posts %}
+                        <li>
+                          <!-- Product -->
+                          {% include tease_template %}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endblock %}
+                  
+                  {% block shop_pagination %}
+                    {# include '_shop-pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-margin-remove'} #}
+                    {% include '_pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-background-muted uk-padding-small uk-margin-medium-top'} %}
+                  {% endblock %}
+                {% else %}
+                  {{ snippets.no_products_found_text()|e('esc_html') }}
+                {% endif %}
               </div>
-              
-              {% do action('woocommerce_after_shop_loop') %}
-              {% do action('woocommerce_after_main_content') %}
-            </div>
+            </section>
+          {% endblock %}
           
-          </div>
+          {% block archive_footer %}
+          {% endblock %}
+          
+          {% do action('woocommerce_after_shop_loop') %}
+          
+          {% do action('woocommerce_after_main_content') %}
+          
         </div>
       </div>
     {% endblock %}
@@ -81,165 +172,289 @@
   </div>
 {% endblock %}
 
+{% block footer %}
+{% endblock %}
+
 {% block scripts %}
   {{ parent() }}
+  
+  <!-- this is the fecth api script on the filters form submit event -->
   <script type='text/javascript'>
   
-    ShopFilterScrollTo = function() {
-      jQuery(function($) {
-        var cat_obj = $('.shop-container').attr('data-product-cat-obj');
-        var series_obj = $('.shop-container').attr('data-product-series-obj');
-        // console.log(cat_obj);
-        if (cat_obj) {
-          var scrollPos1 = $('.sidebar-filters #' + cat_obj).position().top; // use the text of the span to create an ID and get the top position of that element
-          // var scrollPos1subbed = $('.sidebar-filters li ul #' + cat_obj).position().top;
-          if (scrollPos1) {
-            // console.log(scrollPos1);
-            $('.sidebar-filters .cat-list-panel').animate({ // animate your right div
-              scrollTop: scrollPos1 // to the position of the target 
-            }, 100); 
-          }
-          // if (scrollPos1subbed) {
-          //   // console.log(scrollPos1subbed);
-          //   $('.sidebar-filters .cat-list-panel').animate({ // animate your right div
-          //     scrollTop: scrollPos1subbed // to the position of the target 
-          //   }, 100); 
-          // }
-        }
-        if (series_obj) {
-          var scrollPos2 = $('.sidebar-filters #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
-          var scrollPos2subbed = $('.sidebar-filters li ul #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
-          if (scrollPos2) {
-            $('.sidebar-filters .series-list-panel').animate({ // animate your right div
-              scrollTop: scrollPos2 // to the position of the target 
-            }, 100); 
-          }
-          if (scrollPos2subbed) {
-            console.log(scrollPos2subbed);
-            $('.sidebar-filters .series-list-panel').animate({ // animate your right div
-              scrollTop: scrollPos2subbed // to the position of the target 
-            }, 100); 
-          }
-        }
+    form = document.querySelector('#FiltersForm');
+    form.addEventListener('submit', function(event) {
+      
+      // prevent default submit event
+      event.preventDefault();
+      
+      // process form data into URLSearchParams 
+      const formData = new FormData(form);
+      const formParams = new URLSearchParams(formData);
+      
+      // loop thru the formParams with key -> value if necessary
+      // for (const [key, value] of formParams) {
+      //   console.log(key + ' - ' + value);
+      // }
+      
+      // instead, we use set on formsParams data for comma separated values. see URLSearchParams.set()
+      formParams.set('product_cat', formParams.getAll('product_cat'));
+      formParams.set('product_tag', formParams.getAll('product_tag'));
+      formParams.set('pa_colour', formParams.getAll('pa_colour'));
+      formParams.set('pa_material', formParams.getAll('pa_material'));
+      
+      // the encoded/decoded uri & query strings
+      const encodedParams = formParams.toString();
+      const decodedParams = decodeURIComponent(encodedParams);
+      const queryString = form.action + '?' + decodedParams;
+      console.log('query string: ' + queryString);
+      
+      // the fetch request. 
+      // we need to grab only a certain HTML element from the returned request...
+      // and then replace the equivalent HTML element on the current page with that... 
+      // whilst adding in the loading animation effect in between the transitions...
+      // we will also want to replace the url in the browser when we're done...
+      fetch(queryString)
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(html) {
+        console.log('success!!!');
+        var parser = new DOMParser();
+        var newDocObj = parser.parseFromString(html, 'text/html');
+        var newContent = newDocObj.querySelector('#TheLoop');
+        document.getElementById("TheLoopContainer").replaceChild(newContent, document.querySelector('#TheLoop'));
+        console.log('the content has been replaced');
+      })
+      .catch(error => {
+        console.error('Somethins gone wrong...', error);
       });
-    };
-    ShopFilterOffcanvasScrollTo = function() {
-      jQuery(function($) {
-        var cat_obj = $('.shop-container').attr('data-product-cat-obj');
-      	var series_obj = $('.shop-container').attr('data-product-series-obj');
-      	if (cat_obj) {
-      		var scrollPos3 = $('#offcanvas-usage #' + cat_obj).position().top; // use the text of the span to create an ID and get the top position of that element
-          // console.log(scrollPos3);
-          if(scrollPos3 > 0){
-            $('#offcanvas-usage .cat-list-panel').animate({ // animate your right div
-        			scrollTop: scrollPos3 // to the position of the target 
-        		}, 100); 
-          }
-      	}
-      	if (series_obj) {
-      		var scrollPos4 = $('#offcanvas-usage #' + series_obj).position().top; // use the text of the span to create an ID and get the top position of that element
-          if(scrollPos4 > 0){
-            $('#offcanvas-usage .series-list-panel').animate({ // animate your right div
-        			scrollTop: scrollPos4 // to the position of the target 
-        		}, 100); 
-          }
-      	}
-      });
-    }
+      
+    });
+    
+  </script>
   
-    jQuery(function($) {
-
-      // woocommerce shop sorting options: makes additional product_cats functionality work like regular sorting options
-    	$(".woocommerce-ordering").on("change", "select.product_cats", function() {
-    		$(this).closest("form").trigger("submit")
-    	});
-      
-      // this will force the browser's back button to load up the last page.
-    	// this is useful for cases when, after filtering, the address-bar's url has been forcibly changed,
-    	// & we want to allow for the back button's normal behaviour...
-    	// ...maybe this could be triggered elsewhere
-    	$(window).bind("popstate", function() {
-    		window.location = location.href;
-    	});
-      
-    });
+  <!-- this script is to ensure that only one toggleable area is visible at a time -->
+  <script type='text/javascript'>
+  
+    const filterButtons = document.querySelectorAll('.filter-btn');
     
+    // loop thru filter buttons to add custom js UIkit.toggle's to them
+    for (var i = 0; i < filterButtons.length; i++) {
+      (function () {
+        
+        var id = filterButtons[i].id;
+        var target = filterButtons[i].getAttribute('drop_target');
+        
+        // add UIkit.toggle to the filterButton item
+        UIkit.toggle('#' + id, {
+          target: target,
+          cls: 'uk-hidden'
+        });
+        
+        // add events listners related to the UIkit.toggle
+        document.querySelector(target).addEventListener('beforeshow', function(event) {
+          hideAllFilterDrops()
+          // console.log('beforeshow');
+        })
+        document.querySelector(target).addEventListener('beforehide', function(event) {
+          hideAllFilterDrops()
+          // console.log('beforehide: ' + event.target.id);
+        })
+        document.querySelector(target).addEventListener('click', function(event) {
+          // console.log('click');
+        })
+        document.querySelector(target).addEventListener('shown', function(event) {
+          // console.log('shown');
+        })
+        document.querySelector(target).addEventListener('hidden', function(event) {
+          // console.log('hidden');
+        });
+          
+      }()); // immediate invocation
+    }
     
-    // what to do to Woo when the document is ready (woo globals)
-    jQuery(document).ready(function($) {
-    	
-    	// ShopFilterScrollTo();
-      // ShopFilterOffcanvasScrollTo();
-      
-    });
-    
-    // listen for click event in the main, & if target of click has data-link attr, do the shop filtering
-    document.querySelector('main').addEventListener('click', function(event) {
-      if (event.target.hasAttribute('data-link')) {
-        
-        // THE SHOP FILTERING...
-        
-        // 1. first, we scroll to top..
-        UIkit.scroll('', {
-          offset: 90
-        }).scrollTo('#Top');
-        
-        // 2. then, we add the .quickloader class where necessary
-        if(document.getElementById("ProductFiltersOffcanvas")){
-          document.getElementById('ProductFiltersOffcanvas').classList.add('quickloader');
+    // function which loops thru the filter drop areas & hides them where they are not hidden already.
+    // this should be fired prior to the toggling on/off of a particular drop area
+    function hideAllFilterDrops(){
+      var filterDropAreas = document.querySelectorAll('.filter-area');
+      for (var i = 0; i < filterDropAreas.length; i++) {
+        if(!(filterDropAreas[i].classList.contains("uk-hidden"))){
+          filterDropAreas[i].classList.add("uk-hidden")
         }
-        
-        document.querySelector('.products-loop').classList.add('quickloader');
-        
-        // 3. set var for 'data_link', the data-link attribute we need the value of (should be a valid url)
-        var data_link = event.target.getAttribute("data-link");
-        
-        // 4. then we do a fetch request with the clicked data-llnk using FetchAPI
-        fetch(data_link).then(function(response) {
-          
-          // If the API call was successful, we get the response text first...
-          return response.text();
-          
-        }).then(function(html) { // then we...
-          
-          // define our variables
-          var parser = new DOMParser();
-          
-          // set the main container & it's child to be replaed
-          var main_container = document.getElementById("ContentSection");
-          var current_content = document.querySelector('.index-archive');
-          
-          // replace the old with the new
-          var doc_obj = parser.parseFromString(html, 'text/html');
-          var new_content = doc_obj.querySelector('.index-archive');
-          main_container.replaceChild(new_content, current_content);
-          
-          // then we add new url to the browser address bar
-          window.history.pushState({}, '', data_link);
-          
-          // ShopFilterScrollTo();
-      		// document.querySelector('#offcanvas-usage').addEventListener('shown', function(event) {
-      		// 	ShopFilterOffcanvasScrollTo();
-      		// });
-          
-          // & finally we redo some functions like restyling some previously javascript-styled elements
-          wooGlobalStyles();
-          
-        }).catch(function(error) { // or if theres an error... 
-          
-          // add new url to the browser address bar, even if its an error
-          window.history.pushState({}, '', data_link);
-          
-          // Replace contents for #TheLoop with the 'no products' message
-          document.getElementById("TheLoop").innerHTML = "{{ snippets.no_products_found_text() }}";
-          console.warn('Something went wrong.', error);
-      		
-      		document.querySelector('.products-loop').classList.remove('quickloader');
-          
+      }
+    }
+    
+  </script>
+  
+  <!-- the subcats of the form inputs -->
+  <script type='text/javascript'>
+  
+    function start(){
+    
+    	if(document.getElementById("product_cat_group")){
+    		document.getElementById("product_cat_group").addEventListener("change", getSubCatFromParent, false);
+    	}
+    
+    	// if(document.getElementById("product_series_group")){
+    	// 	document.getElementById("product_series_group").addEventListener("change", getModelFromSeries, false);
+    	// }
+    
+    	// if(document.getElementById("adv_reset")){
+    	// 	document.querySelector('#FiltersForm').addEventListener("reset", diableInputsOnReset, false);
+    	// }
+    	
+      // document.getElementById("product_series").addEventListener("change", getModelFromSeries, false);
+      // document.getElementById("adv_reset").addEventListener("click", mehhhh, false);
+    }
+    
+    function diableInputsOnReset(event){
+      var uno = document.getElementById("product_cat_sub")
+      // var duex = document.getElementById("product_series_sub")
+      uno.disabled = true;
+      // duex.disabled = true;
+    }
+    
+    function getSubCatFromParent(event){
+      var route = document.location.origin  + '/wp-json/get_subcats'
+      getSubTerms(event, route);
+    }
+    
+    // function getModelFromSeries(event){
+    //   var route =  document.location.origin  + '/wp-json/get_submodels'
+    //   getSubTerms(event, route);
+    // }
+    
+    function getSubTerms(e, route){
+      
+      //Create an Array.
+      var selected = new Array();
+      var id = new Array();
+
+      //Reference the Table.
+      var tblFruits = document.getElementById("product_cat_group");
+
+      //Reference all the CheckBoxes in Table.
+      var chks = tblFruits.getElementsByTagName("input");
+
+      // Loop and push the checked CheckBox value in Array.
+      for (var i = 0; i < chks.length; i++) {
+        if (chks[i].checked) {
+          selected.push(chks[i].value);
+          id.push(chks[i].id);
+        }
+      }
+
+      //Display the selected CheckBox values.
+      if (selected.length > 0 && Array.isArray(selected)) {
+        // alert("Selected values: " + selected);
+      }
+      
+      // discombobulate()
+      
+      // var sel = e.target; // target the parent select element, which is target of the change event
+      // var sel_id = e.target.id;
+      // var sel_value = e.target.value;
+      // var opt = sel.options[sel.selectedIndex]; // look at the options of the parent select element & get the selected one
+      
+      console.log(selected);
+      // discombobulate()
+      
+      // var sel2_id = e.target.id +  '_sub';
+      // var sel2 = document.getElementById(sel2_id); // target the sub select dynamically
+      // sel2.disabled = true;
+      // // sel2.parentElement.hidden = true; // sub select should be disabled by default
+      
+      // // we only want to continue if the select has a value to start...
+      // if(opt.value) {
+      if (selected.length > 0 && Array.isArray(selected)) {
+      
+        const parent_data = {
+          slug: selected,
+          id: id,
+        };
+      
+        fetch(route, {
+          method: "POST",
+          credentials: 'same-origin',
+          headers: {
+            // 'Content-Type': 'text/html; charset=UTF-8',
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(parent_data),
+        })
+      
+        .then((response) => response.json())
+      
+        .then((data) => {
+          if (data) {
+            console.log(data);
+            document.getElementById("product_subcat_group").innerHTML = data;
+            document.getElementById("product_cat_sub").classList.remove("uk-hidden");
+            // sel2.disabled = false;
+            // sel2.parentElement.hidden = false; // we should reenable sel2 only when we have valid subs, on successful fetch()
+          }
+        })
+      
+        .catch((error) => {
+          console.error(error);
         });
       
-      };
-    });
+      }
+      
+    }
+    
+    function _getSubTerms(e, route){
+      
+      var sel = e.target; // target the parent select element, which is target of the change event
+      var opt = sel.options[sel.selectedIndex]; // look at the options of the parent select element & get the selected one
+      
+      console.log(sel);
+      discombobulate()
+      
+      var sel2_id = e.target.id +  '_sub';
+      var sel2 = document.getElementById(sel2_id); // target the sub select dynamically
+      sel2.disabled = true;
+      // sel2.parentElement.hidden = true; // sub select should be disabled by default
+      
+      // we only want to continue if the select has a value to start...
+      if(opt.value) {
+        
+        const parent_data = {
+          slug: opt.value,
+          id: opt.id,
+        };
+        
+        fetch(route, {
+          method: "POST",
+          credentials: 'same-origin',
+          headers: {
+            // 'Content-Type': 'text/html; charset=UTF-8',
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(parent_data),
+        })
+    
+        .then((response) => response.json())
+    
+        .then((data) => {
+          if (data) {
+            // console.log(data);
+            sel2.innerHTML = data;
+            sel2.disabled = false;
+            // sel2.parentElement.hidden = false; // we should reenable sel2 only when we have valid subs, on successful fetch()
+          }
+        })
+    
+        .catch((error) => {
+          console.error(error);
+        });
+        
+      }
+      
+    }
+    
+    window.addEventListener("load", start, false); // start the select element event listners
   
   </script>
+  
 {% endblock %}

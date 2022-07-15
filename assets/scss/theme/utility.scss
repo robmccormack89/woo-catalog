@@ -1,3 +1,50 @@
+.text-top {
+  vertical-align: text-top;
+}
+
+// custom overlay using psuedo. use additional background-colour to add the actual overlay
+.overlay-wrap:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: auto;
+}
+
+.icon::before {
+  display: inline-block;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.close-icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00d";
+  margin-right: 5px;
+  text-rendering: optimizeLegibility;
+}
+.grid-icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00a";
+  text-rendering: optimizeLegibility;
+}
+.list-icon::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f03a";
+  text-rendering: optimizeLegibility;
+}
+
 // breaks the uikit container so we can use fullwidth/expanded containers within narrower containers
 // this requires a custom sass build for uikit to remove the .uk-container .uk-container styling in components/container.scss
 // .gutenberg-editor .uk-container-break,

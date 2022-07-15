@@ -32,12 +32,24 @@ function adv_search_ajax_restapi_routes($server) {
 function get_subcats($req) {
 	$context = Timber::context();
 	
-	$parent_id = $req['id'];
-	$context['subcat_sel_terms'] = get_terms([
-	  'taxonomy'    => 'product_cat',
-	  'hide_empty'  => true,
-	  'parent'      => $parent_id,
-	]);
+	$parent_ids = $req['id'];
+  $parent_slugs = $req['slug'];
+  $childs_ids = get_term_children( $parent_ids, 'product_cat' );
+
+  $data = null;
+  if($parent_ids){
+    foreach ($parent_ids as $id) {
+      
+        $childs = get_terms(array(
+          'taxonomy'   => 'product_cat',
+          'hide_empty' => true,
+          'parent'     => $id
+        ));
+
+      $data[] = $childs;
+    }
+  }
+  $context['subcat_sel_terms'] = $childs;
 	
 	if(empty($context['subcat_sel_terms'])) {
 		return false;

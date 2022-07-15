@@ -1,5 +1,3 @@
-{# dump(terms) #}
-<option value="" selected="true" disabled="disabled">Select Sub-category</option>
 {% for term in subcat_sel_terms %}
-  <option id="{{ term.id|e('esc_html') }}" value="{{ term.slug|e('esc_html') }}">{{ term.name|e('esc_html') }}</option>
+  <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_cat" id="{{ term.term_id|e('esc_html') }}" value="{{ term.slug|e('esc_html') }}"> {{ term.name|e('esc_html') }}</label>
 {% endfor %}
