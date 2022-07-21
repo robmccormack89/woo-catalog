@@ -1,138 +1,83 @@
 {% import "_snippets.twig" as snippets %}
 
-<footer class="uk-background-secondary uk-light">
-  
-  <div class="footer-top uk-section uk-section-small uk-container">
-  
-    <ul class="" uk-grid>
-      <li class="uk-width-1-3@m">
-        <div class="uk-text-small">
-          {% if sidebar_footer %}
-            {{ sidebar_footer }}
-          {% else %}
-            {% if theme.logo %}
-              <a class="uk-logo uk-text-emphasis uk-padding-remove" href="{{ site.url|e('esc_url') }}">
-                <img src="{{ theme.logo.src|e('esc_url') }}" width="{{ theme.logo.w }}" height="{{ theme.logo.h }}" alt="{{ theme.logo.alt|e('esc_html') }}">
+<footer class="site-footer">
+  <div class="footer-top uk-background-muted theme-border-top">
+    <div class="uk-container uk-section uk-section-small">
+      <div>
+        <ul class="" uk-grid="masonry:true">
+          <li class="uk-width-1-4@m">
+            <div class="uk-margin-right">
+              <a class="uk-logo uk-text-bold" href="{{ site.link|e('esc_url') }}">
+                {% if theme.logo %}
+                  <img src="{{ theme.logo.src|e('esc_url') }}" width="{{ theme.logo.w }}" height="{{ theme.logo.h }}" alt="{{ theme.logo.alt|e('esc_html') }}">
+                {% else %}
+                  {{ site.title|e('esc_html') }}
+                {% endif %}
               </a>
-            {% else %}
-              <div class="">
-                <div class="uk-child-width-1-1 uk-grid-collapse uk-margin-remove" uk-grid>
-                  <div class="normal-line-height">
-                    <a class="uk-logo uk-text-emphasis uk-padding-remove" href="{{ site.url|e('esc_url') }}">
-                      {{ site.title|e('esc_html') }}
-                    </a>
-                  </div>
-                  <div>
-                    <div class="uk-text-small uk-text-italic">{{ site.description|e('esc_html') }}</div>
-                  </div>
-                </div>
+              <p>Our expert team have been established for over 20 years, we are proud to say that we know our business inside & out.</p>
+            </div>
+          </li>
+          <li class="uk-width-1-6@m">
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">Navigation</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <li><a href="/">Homepage</a></li>
+              <li><a href="/contact">Contact Us</a></li>
+              <li><a href="/about">ABout us</a></li>
+            </ul>
+          </li>
+          <li class="uk-width-1-6@m">
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">Our range</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <li><a href="/blinds">Blinds</a></li>
+              <li><a href="/curtains">Curtains</a></li>
+              <li><a href="/shutters">Shutters</a></li>
+            </ul>
+          </li>
+          <li class="uk-width-1-6@m">
+            <h4 class="uk-h5 uk-text-bold uk-margin-small-bottom">Information</h4>
+            <ul class="uk-list uk-list-collapse uk-margin-remove">
+              <!-- <li>Find Your Local Advisor</li> -->
+              <li><a href="/sitemap_index.xml">Sitemap</a></li>
+              <li><a href="/cookie-policy/">Cookie Policy</a></li>
+              <li><a href="/privacy-policy/">Privacy Policy </a></li>
+            </ul>
+          </li>
+          <li class="uk-width-1-4@m">
+            <div class="uk-padding-small uk-border-rounded uk-background-default theme-border">
+              <h4 class="uk-margin-small-bottom">Contact us</h4>
+              <p>Contact us today so we can help guide your decisions to redesigning your home or office</p>
+              <div class="uk-margin-remove">
+                <a href="/contact" class="uk-button uk-button-primary">Contact us</a>
+                <!-- <form class="uk-search uk-search-default">
+                  <span class="uk-search-icon-flip" uk-search-icon></span>
+                  <input class="uk-search-input" type="search" placeholder="Search">
+                </form> -->
               </div>
-            {% endif %}
-            <p>Ned Murphy Tractors Ltd. based in Enniscorthy Co. Wexford, Ireland is a family run business with over 30 years of knowledge and experience in Base Ferguson Tractors.</p>
-            <p>Base Salvage is a division of Ned Murphy Tractors that focuses on the sale of quality used second hand Base Ferguson parts.</p>
-          {% endif %}
-        </div>
-      </li>
-      <li class="uk-width-1-6@m">
-        {% if has_menu_footer_one %}
-          <h4 class="uk-h5">{{ menu_footer_one.title|e('esc_html') }}</h4>
-          <ul class="uk-list uk-list-collapse">
-            {% for item in menu_footer_one.get_items %}
-              <li class="{{ item.classes|join(' ')|e('esc_html') }}">
-                <a href="{{ item.link|e('esc_html') }}">{{ item.title|e('esc_html') }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <h4 class="uk-h5">Information</h4>
-          <ul class="uk-list uk-list-collapse">
-            <li>Log in</li>
-            <li>Entries feed</li>
-            <li>Comments feed</li>
-            <li>WordPress.org</li>
-          </ul>
-        {% endif %}
-      </li>
-      <li class="uk-width-1-6@m">
-        {% if has_menu_footer_two %}
-          <h4 class="uk-h5">{{ menu_footer_two.title|e('esc_html') }}</h4>
-          <ul class="uk-list uk-list-disc uk-list-collapse">
-            {% for item in menu_footer_two.get_items %}
-              <li class="{{ item.classes|join(' ')|e('esc_html') }}">
-                <a href="{{ item.link|e('esc_html') }}">{{ item.title|e('esc_html') }}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        {% else %}
-          <h4 class="uk-h5">Help & support</h4>
-          <ul class="uk-list uk-list-disc uk-list-collapse">
-            <li>Contacts</li>
-            <li>Wishlist</li>
-            <li>My account</li>
-            <li>Cart</li>
-          </ul>
-        {% endif %}
-      </li>
-      <li class="uk-width-1-3@m">
-        <h4 class="uk-h5">{{ snippets.contact_text()|e('esc_html') }}</h4>
-        <ul class="uk-list uk-text-small">
-          <li>
-            <div>
-              <ul class="uk-flex uk-flex-top uk-grid-small" uk-grid>
-                <li class="uk-width-auto">
-                  <div><i class="fa-solid fa-map-pin"></i></div>
-                </li>
-                <li class="uk-width-expand">
-                  <div>
-                    <span class="uk-text-emphasis uk-text-bolder">{{ base_address|e('esc_html')|default('Ballydaw') }}, {{ base_address_2|e('esc_html')|default('Marshalstown') }},</span><br>
-                    {{ base_city|e('esc_html')|default('Enniscorthy') }}, {{ base_county|e('esc_html')|default('Wexford') }} {{ base_eircode|e('esc_html')|default('Y21 K684') }}</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div>
-              <ul class="uk-flex uk-flex-top uk-grid-small" uk-grid>
-                <li class="uk-width-auto">
-                  <div><i class="fa-solid fa-phone"></i></div>
-                </li>
-                <li class="uk-width-expand">
-                  <div>
-                    <span class="uk-text-emphasis uk-text-bolder">{{ snippets.contact_phone()|e('esc_html') }}</span><br>
-                    {{ snippets.contact_hours()|e('esc_html') }}
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <div>
-              <ul class="uk-flex uk-flex-top uk-grid-small" uk-grid>
-                <li class="uk-width-auto">
-                  <div><i class="fa-solid fa-envelope"></i></div>
-                </li>
-                <li class="uk-width-expand">
-                  <div>
-                    <span class="uk-text-emphasis uk-text-bolder">{{ snippets.contact_email()|e('esc_html') }}</span>
-                  </div>
-                </li>
-              </ul>
             </div>
           </li>
         </ul>
-        <div class="uk-margin-top" hidden>
-          <a href="" class="uk-icon-button uk-margin-small-right" uk-icon="twitter"></a>
-          <a href="" class="uk-icon-button  uk-margin-small-right" uk-icon="facebook"></a>
-          <a href="" class="uk-icon-button" uk-icon="youtube"></a>
-        </div>
-      </li>
-    </ul>
-    
+      </div>  
+    </div>
   </div>
-  
-  <div class="footer-bottom uk-section uk-section-small uk-container">
-    <p class="uk-margin-remove uk-text-small uk-text-meta">{{ snippets.copy_text()|e('esc_html') }}. {{ site.title|e('esc_html') }}</p>
+  <div class="footer-bottom uk-background-default theme-border-top uk-padding-small uk-padding-remove-horizontal">
+    <div class="uk-container">
+      
+      <ul class="uk-flex uk-flex-middle" uk-grid>
+      
+        {# copyright #}
+        <li class="uk-width-1-2">
+          <p class="uk-margin-remove">
+            {{ snippets.copyright()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
+          </p>
+        </li>
+        
+        {# back to top #}
+        <li class="uk-width-1-2 uk-flex uk-flex-right uk-text-right">
+          <a href="#" uk-totop uk-scroll uk-tooltip="{{ snippets.go_to_top()|e('esc_html') }}"></a>
+        </li>
+      
+      </ul>
+      
+    </div>
   </div>
-  
 </footer>

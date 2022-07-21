@@ -1,0 +1,27 @@
+{% extends 'single.twig' %}
+
+{% block cover_img %}style="background-image: url(https://solarisblinds.ie/wp-content/uploads/2019/11/solaris-blinds-day-night-blinds-20-1920x1200.jpg);"{% endblock %}
+
+{% block single_header_title %}
+  <h1 id="CoverBlockTitle" class="uk-h1 uk-text-primary uk-margin-remove">{{ post.title }}</h1>
+{% endblock %}
+
+{% block single_header_divider %}
+{% endblock %}
+
+{% block single_desc %}
+{% endblock %}
+
+{% block single_header_btn %}
+{% endblock %}
+
+{% block single_content %}
+  <section id="First" class="uk-background-muted uk-section uk-section-small">
+    <div class="uk-container">
+    	{{ post.content }}
+    </div>
+  </section>
+{% endblock %}
+
+{% block single_footer_carousel %}
+{% endblock %}

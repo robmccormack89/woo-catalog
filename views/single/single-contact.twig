@@ -1,0 +1,95 @@
+{% extends 'single.twig' %}
+
+{% block cover_img %}style="background-image: url(https://solarisblinds.ie/wp-content/uploads/2019/11/solaris-blinds-day-night-blinds-20-1920x1200.jpg);"{% endblock %}
+
+{% block single_header_title %}
+  <h1 id="CoverBlockTitle" class="uk-h1 uk-text-primary uk-margin-remove">{{ post.title }}</h1>
+{% endblock %}
+
+{% block single_header_divider %}
+{% endblock %}
+
+{% block single_desc %}
+{% endblock %}
+
+{% block single_header_btn %}
+{% endblock %}
+
+{% block single_content %}
+  <section id="First" class="uk-background-muted uk-section uk-section-small">
+    <div class="uk-container">
+
+      <div class="rmcc-margin-top30 uk-grid" uk-grid="">
+      	<section class="uk-width-1-1@s uk-first-column">
+      		<div class="uk-card uk-card-default uk-padding-remove uk-card-body">
+      			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2372.263813566312!2d-7.363452048263453!3d53.51734516949155!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485dc00cf4db820b%3A0xa968dab9edb7877!2sSolaris%20Blinds%20-%20Curtains%20-%20Shutters!5e0!3m2!1sen!2sie!4v1580864188439!5m2!1sen!2sie" width="1500" height="400" frameborder="0" style="border: 0px; height: 400px;" allowfullscreen="" uk-responsive="" class="uk-responsive-width"></iframe>
+      		</div>
+      	</section>
+      	<section class="uk-width-1-2@s uk-grid-margin uk-first-column">
+      		<div class="uk-card uk-card-small uk-card-default">
+      			<div class="uk-card-header">
+      				<h3>Contact Information</h3>
+      			</div>
+      			<div class="uk-card-body">
+      				<p>At Solaris we combine fabrics with designer specs to create the perfect product for your home or business, specializing in a wide assortment of window decor and shading solutions. Our prices won’t be beaten, from our budget blinds to our designer brands.</p>
+      				<p>With our In Home call out service to your home or office you can have confidence in Solaris Blinds, knowing from measuring to installation that everything will be 100%. We are experts in fabrics and carry high quality ready made and made to measure products from the very latest as well as classic designs.</p>
+      				<p>We have grown strong ties with our suppliers which allows us to offer great quality at great Prices. Our expert team have been established for over 20 years and we are proud to say that we know our business inside and out.</p>
+      				<p>Blinds, Curtains &amp; Shutters in Westmeath, Longford, Meath, Kildare, Offaly, Cavan, &amp; Dublin.</p>
+      				<p>We cover Mullingar, Navan, Kells, Cellbridge, Maynooth, Trim, Edenderry, Longford town, Athlone, Tullamore, Dunboyne, Leixlip, Enfield &amp; more.</p>
+      				<p><span class="uk-text-bold uk-text-emphasis">Solaris Blinds &amp; Curtains</span></p>
+      				<ul class="uk-list">
+      					<li>Mullingar Business Park</li>
+      					<li>Newbrook Road</li>
+      					<li>Mullingar</li>
+      					<li>Co. Westmeath</li>
+      					<li>Ireland</li>
+      				</ul>
+      				<p><span class="uk-text-bold uk-text-emphasis">Freephone:</span> <a href="tel:1800 34 11 66" title="Freephone us on 1800 34 11 66" class="uk-link-text">1800 34 11 66</a></p>
+      				<p><span class="uk-text-bold uk-text-emphasis">Local:</span> <a href="tel:(044) 93 30101" title="Call us on (044) 93 30101" class="uk-link-text">(044) 93 30101</a></p>
+      				<p><span class="uk-text-bold uk-text-emphasis">Email:</span> <a href="mailto:info@solarisblinds.ie" title="Email us on info@solarisblinds.ie" class="uk-link-text">info@solarisblinds.ie</a></p>
+      			</div>
+      		</div>
+      	</section>
+      	<section id="ContactPageForm" class="uk-width-1-2@s uk-grid-margin">
+      		<div class="uk-card uk-card-small uk-card-default">
+      			<div class="uk-card-header">
+      				<h3>Contact us</h3>
+      			</div>
+      			<div class="uk-card-body">
+      				<!-- <form id="ContactPageForm" class="uk-grid-small" action="" method="post" uk-grid>
+      					<div class="uk-width-1-2@s">
+      					  <label class="uk-form-label uk-text-bold" for="form-s-text">Name<span class="rmcc-required">*</span></label>
+      					  <input class="uk-input uk-box-shadow-small" id="form-s-text" type="text" placeholder="Your Name..." required>
+      					</div>
+      					<div class="uk-width-1-2@s">
+      					  <label class="uk-form-label uk-text-bold" for="form-s-text">Email<span class="rmcc-required">*</span></label>
+      					  <input class="uk-input uk-box-shadow-small" id="form-s-email" type="email" placeholder="Your email address..." required>
+      					</div>
+      					<div class="uk-width-1-1">
+      					  <label class="uk-form-label uk-text-bold" for="form-s-text">Phone<span class="rmcc-required">*</span></label>
+      					  <input class="uk-input uk-box-shadow-small" id="form-s-tel" type="tel" placeholder="Your phone number..." required>
+      					</div>
+      					<div class="uk-width-1-1">
+      					  <label class="uk-form-label uk-text-bold" for="form-s-text">Your Message<span class="rmcc-required">*</span></label>
+      					  <textarea class="uk-textarea uk-box-shadow-small" id="form-s-textarea" rows="8" placeholder="Your Message or Enquiry..." required></textarea>
+      					</div>
+      					<div class="uk-width-1-1">
+      					  <button class="uk-button uk-button-primary" type="submit">Submit</button>
+      					  <button class="uk-button uk-button-default" type="reset" value="Reset">Clear</button>
+      					  <button class="uk-button uk-button-danger uk-float-right uk-visible@s">Required</button>
+      					</div>
+      					</form> -->
+              {% filter shortcodes %}
+              [contact-form-7 id="1302" title="Contact page"]
+              {% endfilter %}
+      			</div>
+      		</div>
+      	</section>
+      </div>
+
+    </div>
+  </section>
+{% endblock %}
+
+{% block single_footer %}
+{% endblock %}

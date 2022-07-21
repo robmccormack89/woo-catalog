@@ -36,6 +36,16 @@
       {% include 'footer.twig' %}
     {% endblock %}
     
+    <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top">
+      <a class="close" uk-toggle="target: #QuickCallEnquiryContainer">x</a>
+      <a href="tel:{{ options.company_number }}" id="CallNowButton" style="width:50%;display:inline-block;float:left">
+        <span uk-icon="icon: receiver"></span> Freephone us
+      </a>
+      <a href="https://wa.me/353892154278?text=Hello,%20Solaris%20Blinds" id="CallNowButton" style="width:50%;display:inline-block;float:right;background-color:#25D366;">
+        <span uk-icon="icon: whatsapp"></span> Whatsapp
+      </a>
+    </div>
+    
     {{ fn('wp_footer') }}
     
     {% block fixednav %}
@@ -61,6 +71,74 @@
     {% endblock %}
     
     {% block scripts %}
+      <script>
+        var swiper = new Swiper(".mySwiper", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          // autoplay: {
+          //   delay: 2500,
+          //   disableOnInteraction: false,
+          // },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 5,
+            },
+            960: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 15,
+            },
+          },
+        });
+        var swiper = new Swiper(".mySwiper2", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          pagination: {
+            el: ".swiper-pagination",
+            dynamicBullets: true,
+          },
+          // autoplay: {
+          //   delay: 2500,
+          //   disableOnInteraction: false,
+          // },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 5,
+            },
+            960: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            1200: {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+          },
+        });
+        var swiper = new Swiper(".mySwiper3", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          pagination: {
+            el: ".swiper-pagination",
+            dynamicBullets: true,
+          },
+          // autoplay: {
+          //   delay: 2500,
+          //   disableOnInteraction: false,
+          // },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+          },
+        });
+      </script>
     {% endblock %}
     
   </body>

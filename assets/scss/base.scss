@@ -48,6 +48,12 @@ $overlay-default-background:                     rgba($global-background, 0.8) !
 $overlay-primary-background:                     rgba($global-primary-background, 0.8) !default;
 $overlay-primary-color-mode:                     light !default;
 
+
+// $global-secondary-background: #17161a; // dark
+// 3. custom variable overwrites
+$offcanvas-bar-background: #fff;
+$offcanvas-bar-color-mode: none;
+
 // 2. Import themed variables & mixins
 @import "assets/scss/lib/uikit/variables-theme.scss";
 @import "assets/scss/lib/uikit/mixins-theme.scss";
