@@ -3,6 +3,24 @@
 
 {% block styles %}
   {{ parent() }}
+  <style>
+    .with-dot {
+      position: relative;
+      margin-right: 40px;
+    }
+    .with-dot:after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-left: 17.5px;
+      background: #2e2c2c;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
 {% endblock %}
 
 {% block header %}
@@ -75,7 +93,7 @@
               <li class="">
                 <div>
                   <a href="/blinds" class="uk-inline uk-transition-toggle">
-                    <img class="uk-border-rounded" src="https://solarisblinds.ie/wp-content/uploads/2019/11/solaris-blinds-pleated-blinds-25-716x450.jpg" alt="">
+                    <img class="uk-border-rounded" src="https://picsum.photos/700/450?random=1" alt="">
                     <div class="uk-position-cover uk-overlay-default uk-flex uk-flex-center uk-flex-middle uk-transition-fade">
                     </div>
                   </a>
@@ -139,7 +157,7 @@
           </div>
         </section>
         
-        <section id="Second" class="uk-background-default uk-section" hidden>
+        <section id="Second" class="uk-background-default uk-section">
           <div class="uk-container uk-container-large">
             <h2 class="uk-margin-remove">Bringing you great styles at great prices</h2>
             <p class="uk-text-lead uk-margin-remove uk-text-muted">Our expert measuring & fitting is included at no extra cost</p>
@@ -218,7 +236,29 @@
           </div>
         </section>
         
-        <section id="Thirddd" class="uk-background-default uk-section" hidden>
+        <section id="StyleHeaderPink" class="style-header uk-background-muted muted-pink">
+          <div class="uk-container">
+            <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
+              <li class="uk-width-3-4 uk-visible@s">
+                <img class="uk-height-large cover-img" src="{{ theme.link }}/assets/img/one.jpg" width="850" height="520">
+              </li>
+              <li class="content">
+                <div class="uk-position-relative">
+                  <span class="uk-position-top-right outside">
+                    <img class="" src="{{ theme.link }}/assets/img/two.jpg" width="120" height="120">
+                  </span>
+                  <div class="uk-card uk-card-default uk-card-body">
+                    <h3 class="uk-card-title uk-text-boldest">This is a Title</h3>
+                    <p>Our stunning made-to-measure curtain fabrics include voiles and velvets, plus performance linings for a blend of style and function. Your local advisor will take care of all the measuring and fitting - its all included in the price</p>
+                  </div>
+                  <span class="uk-label uk-label-success uk-position-absolute">Price Promise <i class="fa-solid fa-euro-sign push-left-5"></i></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        
+        <section id="Thirddd" class="uk-background-default uk-section">
           <div class="uk-container uk-container-large">
             <h2 class="uk-margin-remove">Introducing our NEW VALUE collection</h2>
             <p class="uk-text-lead uk-margin-remove uk-text-muted">High quality Roller, Vertical and Roman blinds that offer incredible value for money. Transform your windows at a price you’ll love.</p>
@@ -297,12 +337,12 @@
           </div>
         </section>
         
-        <section id="Third" class="uk-background-default uk-margin-medium-bottom" hidden>
+        <section id="Third" class="uk-background-default uk-margin-medium-bottom">
           <div class="uk-container">
             <ul class="uk-child-width-1-2@m uk-flex uk-flex-top" uk-grid>
               <li>
                 <div class="uk-inline uk-dark">
-                  <img class="" src="https://picsum.photos/640/320?random=15" width="640" height="320" alt="">
+                  <img class="" src="https://picsum.photos/700/400?random=1" width="700" height="400" alt="">
                   <div class="uk-overlay-defaulttt uk-position-cover">
                     <div class="uk-position-center uk-light">
                       <svg style="width:60px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play-circle">
@@ -415,7 +455,7 @@
           </div>
         </section>
         
-        <section id="Hero">
+        <section id="HalfnHalf">
           <ul class="uk-grid-collapse uk-grid-match uk-child-width-1-2@m" uk-grid>
             <li class="image-half">
               <a href="/contact" class="uk-inline">
@@ -449,6 +489,227 @@
           </ul>
         </section>
         
+        <section class="uk-background-default uk-height-medium"></section>
+        
+        <section id="StyleHeaderPrimary" class="style-header uk-background-primary">
+          <div class="uk-container">
+            <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
+              <li class="uk-width-3-4 uk-visible@s">
+                <img class="uk-height-large cover-img" src="{{ theme.link }}/assets/img/one.jpg" width="850" height="520">
+              </li>
+              <li class="content">
+                <div class="uk-position-relative">
+                  <span class="uk-position-top-right outside">
+                    <img class="" src="{{ theme.link }}/assets/img/two.jpg" width="120" height="120">
+                  </span>
+                  <div class="uk-card uk-card-default uk-card-body">
+                    <h3 class="uk-card-title uk-text-boldest">About Us</h3>
+                    <p>From our very first day we’ve been dedicated to exceeding our customers’ expectations every step of the way. Find out what makes Solaris different.</p>
+                  </div>
+                  <span class="uk-label uk-label-success uk-position-absolute">Price Promise <i class="fa-solid fa-euro-sign push-left-5"></i></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        
+        <section id="AboutOne" class="uk-section">
+          
+          <div class="uk-container uk-text-center">
+          
+            <h2 class="uk-margin-remove-bottom">
+              <span class="about-heading with-dot">Expertly measured</span>
+              <span class="about-heading with-dot">Tailor-made</span>
+              <span class="about-heading">Fitted to perfection</span>
+            </h2>
+            
+            <p class="uk-text-muted uk-margin-remove-top">Curtains, shutters & blinds chosen by you. Measured, made & fitted by us.</p>
+          
+          </div>
+        
+          <div class="uk-container uk-margin-large-top">
+            <ul class="uk-flex uk-flex-middle" uk-grid>
+              <li class="uk-width-1-3@m">
+                <h2>Exceeding expectations with great products & excellent service</h2>
+                
+                <p>From the minute you get in touch to the magical moment you stand back and admire the end result, we’re only happy when you are.</p>
+                
+                <p>Of course, you expect beautiful blinds, shutters and curtains, made to fit perfectly. That goes without saying. But with Solaris you’ll get the best advice on the perfect solution for your space. And we’ll always work to your budget.</p>
+                
+                <p>We know you want to make the right decision. Don’t worry, you can take your time. And because we have experts local to you, we can be really flexible with appointments.</p>
+                
+                <p>We care about your home as much as you do. When it comes to fitting, we take pride in getting it just right, which includes tidying up and leaving your home as we found it.</p>
+                
+                <p>We’re always here for you. We never stop caring so ask any question, anytime.</p>
+                
+                <a href="#" class="uk-button uk-button-text">Find out how our service works</a>
+                
+              </li>
+              <li class="uk-width-2-3@m">
+              
+                <div>
+                  <ul class="uk-child-width-1-1" uk-grid>
+                    <li><img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/29357/img_0050_rt.jpg?width=768&cb=20200307105608&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""></li>
+                    <li><img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/29268/img_0036_rt.jpg?width=768&cb=20200106153701&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""></li>
+                  </ul>
+                </div>
+              
+              </li>
+            </ul>
+          </div>
+        
+        </section>
+        
+        <section id="AboutTwo" class="uk-margin-large-bottom">
+          <div class="uk-container">
+            <ul class="uk-child-width-1-2@m uk-flex uk-flex-middle uk-grid-large" uk-grid>
+              <li>
+                <h2>Local experts across the country</h2>
+                <p class="">At Solaris, our national network of local advisors means you’ll benefit from the personal service you expect from a local business and the exceptional standards and extensive product range of a national company. Architect and TV presenter George Clarke discovered what it takes to become an expert local advisor.</p>
+                <a href="#" class="uk-button uk-button-large uk-button-default">View our Electric Blinds</a>
+              </li>
+              <li>
+                <div class="uk-inline uk-dark">
+                  <img class="uk-border-rounded" src="https://picsum.photos/700/400?random=1" width="700" height="400" alt="">
+                  <div class="uk-overlay-defaulttt uk-position-cover">
+                    <div class="uk-position-center uk-light">
+                      <svg style="width:60px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        
+        <section id="AboutThree" class="uk-margin-large-bottom">
+          <div class="uk-container">
+            <ul class="uk-flex uk-flex-middle" uk-grid>
+              <li class="uk-width-1-2@m">
+                <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/29357/img_0050_rt.jpg?width=768&cb=20200307105608&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""></li>
+              </li>
+              <li class="uk-width-1-2@m">
+                <h2>Award-winning team</h2>
+                
+                <p>Over the last 40 years we’ve not only become the nation’s favourite for made-to-measure blinds, curtains and shutters but we’re also leading the way with exceptional customer service and innovative technology.</p>
+                
+                <p>Our commitment to quality as a market leading business has been recognised in a number of areas:</p>
+                
+                <ul class="uk-list uk-list-circle uk-list-large uk-margin">
+                  <li>Ranking in the Top 50 Companies for Customer Service</li>
+                  <li>‘Highly Commended’ in Manufacturing Company of the Year</li>
+                  <li>Top Companies for Customer Services Awards</li>
+                </ul>
+                
+                <a href="#" class="uk-button uk-button-large uk-button-default">View our Electric Blinds</a>
+                
+              </li>
+            </ul>
+          </div>
+        </section>
+        
+        <section id="GoogleTestimonials" class="uk-margin-large-bottom uk-container uk-text-center">
+          <h2>See what some of our millions of happy customers say about us</h2>
+          <div class="uk-flex uk-flex-center">
+            <hr class="uk-divider-icon uk-width-1-4">
+          </div>
+          <div class="uk-height-large uk-background-muted"></div>
+        </section>
+        
+        <section id="Instagram" class="uk-section uk-background-muted uk-margin-large-bottom uk-container uk-container-large uk-text-center">
+          <h2>Real Solaris homes</h2>
+          <p class="uk-text-lead">See how our customers are transforming their homes with made-to-measure blinds, shutters and curtains.</p>
+          <div class="uk-flex uk-flex-center">
+            <span uk-icon="icon: instagram: ratio: 1.2"></span>
+          </div>
+          <div class="uk-height-small uk-flex uk-flex-middle uk-flex-center">Insta goes here...</div>
+        </section>
+        
+        <section id="3MainCats" class="uk-margin-large-bottom uk-container uk-container-small">
+          <div class="uk-padding-small uk-padding-remove-vertical">
+            <h2>The best results, every time</h2>
+            <p class="uk-text-lead">It’s important to us that your window dressings look good and stand the test of time. That’s why all our products are guaranteed for at least a year.</p>
+          </div>
+          <ul class="uk-child-width-1-3@m uk-grid-small" uk-grid>
+            <li>
+              <div>
+                <div class="uk-text-center">
+                  <a class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                    <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/33450/hil-2021-rollerslaunch-rollerblinds-rio-juniper-portrait.jpg?width=304&height=456&mode=crop&cb=20213103123835&mcb=5f884e47a7424cfe86340315ccaafed0" alt="">
+                    <div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                      <!-- <p class="uk-h4 uk-margin-remove">Fade</p> -->
+                    </div>
+                  </a>
+                </div>
+                <!-- <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/33450/hil-2021-rollerslaunch-rollerblinds-rio-juniper-portrait.jpg?width=304&height=456&mode=crop&cb=20213103123835&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""> -->
+                <h4 class="uk-margin-small-top uk-h3">Blinds</h4>
+                <p>Combining contemporary designs with great practical benefits our huge range of blinds, including our electric range offers style solutions for every budget.</p>
+                <a href="#" class="uk-button uk-button-text">View Blinds</a>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div class="uk-text-center">
+                  <a class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                    <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/35740/hil-2019softslaunch-curtains-kendramaize-bedroom-10-1.jpg?width=304&height=456&mode=crop&cb=20220703114710&mcb=5f884e47a7424cfe86340315ccaafed0" alt="">
+                    <div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                      <!-- <p class="uk-h4 uk-margin-remove">Fade</p> -->
+                    </div>
+                  </a>
+                </div>
+                <!-- <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/35740/hil-2019softslaunch-curtains-kendramaize-bedroom-10-1.jpg?width=304&height=456&mode=crop&cb=20220703114710&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""> -->
+                <h4 class="uk-margin-small-top uk-h3">Curtains</h4>
+                <p>Our beautiful curtains range features quality fabrics and fashion-forward designs at a great price.</p>
+                <a href="#" class="uk-button uk-button-text">View Curtains</a>
+              </div>
+            </li>
+            <li>
+              <div>
+                <div class="uk-text-center">
+                  <a class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                    <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/35198/hil-shutters-office-richmond-tierontier-046-icewhite0293portrait-v5-close-crop.jpg?width=304&height=456&mode=crop&cb=20212212152557&mcb=5f884e47a7424cfe86340315ccaafed0" alt="">
+                    <div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle">
+                      <!-- <p class="uk-h4 uk-margin-remove">Fade</p> -->
+                    </div>
+                  </a>
+                </div>
+                <!-- <img class="uk-border-rounded" src="https://static.hillarys.co.uk/asset/media/35740/hil-2019softslaunch-curtains-kendramaize-bedroom-10-1.jpg?width=304&height=456&mode=crop&cb=20220703114710&mcb=5f884e47a7424cfe86340315ccaafed0" alt=""> -->
+                <h4 class="uk-margin-small-top uk-h3">Shutters</h4>
+                <p>Our collection of stunning shutters offers surprisingly affordable options to add style to any home.</p>
+                <a href="#" class="uk-button uk-button-text">View Shutters</a>
+              </div>
+            </li>
+          </ul>
+        </section>
+        
+        <section class="uk-background-muted uk-height-medium"></section>
+        
+        <section id="Shop CTA" class="uk-section uk-section-small">
+          <div class="uk-container">
+            <ul class="uk-grid-collapse uk-grid-match uk-box-shadow-medium" uk-grid>
+              <li class="uk-width-2-3@m uk-background-muted uk-padding uk-flex uk-flex-middle">
+                <div>
+                <h3 class="uk-margin-small-bottom">Savings you can measure</h3>
+                <p class="uk-margin-small-top">Save on hundreds of made-to-measure styles in our End of Season Sale</p>
+                <a href="#" class="uk-button uk-button-text">Browse Sale</a>
+                </div>
+              </li>
+              <li class="uk-width-1-3@m">
+                <img class="" src="https://static.hillarys.co.uk/asset/media/37577/curtains-page-sale-interrupter.svg?width=800&height=529&mode=crop&cb=20222208130141&mcb=5f884e47a7424cfe86340315ccaafed0" alt="">
+              </li>
+            </ul>
+          </div>
+        </section>
+        
+        <section></section>
+        
+        <section></section>
+        
+        <section></section>
+        
         <section id="4ColsFeatures" class="uk-background-default uk-section" hidden>
           <div class="uk-container uk-container-large">
             <h2 class="uk-text-center">Measured, made and fitted by us</h2>
@@ -463,31 +724,26 @@
             </ul>
           </div>
         </section>
-        
         <section id="Reviews" class="uk-background-default uk-section uk-section-small" hidden>
           <div class="uk-container">
             Default
           </div>
         </section>
-        
         <section id="CollectionsCarousel" class="uk-background-default uk-section" hidden>
           <div class="uk-container uk-container-large">
             Large
           </div>
         </section>
-        
         <section id="4ColsTrends" class="uk-background-default uk-section" hidden>
           <div class="uk-container uk-container-large">
             Large
           </div>
         </section>
-        
         <section id="3ColsNext" class="uk-background-default uk-section" hidden>
           <div class="uk-container uk-container-large">
             Large
           </div>
         </section>
-        
         <section id="4ColsTrustBadges" class="uk-background-default uk-section uk-section-small" hidden>
           <div class="uk-container uk-container-small">
             Small
@@ -496,7 +752,7 @@
         
       </div>
       
-      <div id="TheContent" class="content-editor gutenberg-editor" hidden>
+      <div id="TheContent" class="content-editor gutenberg-editor">
         {# post.content #}
       </div>
       

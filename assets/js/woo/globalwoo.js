@@ -35,7 +35,7 @@ wooGlobalStyles = function() {
 		$("table").addClass("uk-table");
 		
 		// onsale
-		$(".onsale").addClass("uk-card-badge uk-label uk-position-top-right uk-position-small uk-background-primary");
+		$(".onsale").addClass("uk-card-badge uk-label uk-background-primary");
 		
 		// woo errors
 		$("ul.woocommerce-error").addClass("uk-list");

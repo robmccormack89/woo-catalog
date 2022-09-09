@@ -140,13 +140,13 @@ class Blocks {
     );
     
     // adv search js
-    wp_enqueue_script(
-      'rmcc-advanced-search',
-      get_template_directory_uri() . '/assets/js/woo/advanced-search.js',
-      '',
-      '1.0.0',
-      true
-    );
+    // wp_enqueue_script(
+    //   'rmcc-advanced-search',
+    //   get_template_directory_uri() . '/assets/js/woo/advanced-search.js',
+    //   '',
+    //   '1.0.0',
+    //   true
+    // );
     
     // preconnects
     // wp_enqueue_style('picsum-preconnect', 'https://picsum.photos', '', null);

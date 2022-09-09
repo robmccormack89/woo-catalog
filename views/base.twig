@@ -36,7 +36,7 @@
       {% include 'footer.twig' %}
     {% endblock %}
     
-    <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top">
+    <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top" hidden>
       <a class="close" uk-toggle="target: #QuickCallEnquiryContainer">x</a>
       <a href="tel:{{ options.company_number }}" id="CallNowButton" style="width:50%;display:inline-block;float:left">
         <span uk-icon="icon: receiver"></span> Freephone us
@@ -94,7 +94,7 @@
             },
           },
         });
-        var swiper = new Swiper(".mySwiper2", {
+        var swipe2 = new Swiper(".mySwiper2", {
           slidesPerView: 1,
           spaceBetween: 0,
           pagination: {
@@ -120,7 +120,7 @@
             },
           },
         });
-        var swiper = new Swiper(".mySwiper3", {
+        var swipe3 = new Swiper(".mySwiper3", {
           slidesPerView: 1,
           spaceBetween: 10,
           pagination: {

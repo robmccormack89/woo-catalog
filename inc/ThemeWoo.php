@@ -34,6 +34,9 @@ class ThemeWoo extends Theme {
   
   public function add_custom_actions_filters() {
     
+    add_filter( 'woocommerce_product_description_heading', '__return_null' );
+    add_filter( 'woocommerce_product_additional_information_heading', '__return_null' );
+    
     add_filter('query_vars', 'add_grid_list_query_vars');
     add_filter('body_class', 'add_woocommerce_to_body_classes');
     
@@ -47,7 +50,7 @@ class ThemeWoo extends Theme {
     add_filter('woocommerce_cart_item_remove_link', 'filter_cart_remove_link_icon_html', 10, 2);
     
     // custom product tab
-    add_filter('woocommerce_product_tabs', 'add_parts_custom_tab');
+    // add_filter('woocommerce_product_tabs', 'add_parts_custom_tab');
     
     //  live search
     add_filter('woocommerce_product_data_store_cpt_get_products_query', 'support_search_term_query_var', 10, 2);

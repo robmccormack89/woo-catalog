@@ -63,12 +63,13 @@ else {
       $context['term_id'] = $term_id;
     }
     $context['title'] = single_term_title('', false); // e.g: 'Clothing'
+    $context['description'] = get_the_archive_description();
   };
   
   if (is_shop()) {
     $shop_page_id = wc_get_page_id('shop'); 
     $context['title'] = get_the_title($shop_page_id);  // e.g: 'Shop'
-    // $context['description'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam';
+    $context['description'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud';
   };
   
   $context['tease_template'] = $tease_template; 

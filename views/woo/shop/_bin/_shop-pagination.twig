@@ -8,7 +8,7 @@
       
       {% if posts.pagination.prev %}
         <li>
-          <a data-link="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
+          <a class="" data-link="{{ posts.pagination.prev.link|e('esc_url') }}" class="prev">
             {{ snippets.pagi_left_icon_small()|e('wp_kses_post') }} {{ snippets.prev_page|e('esc_html') }}
           </a>
         </li>

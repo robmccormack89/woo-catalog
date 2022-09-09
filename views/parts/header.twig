@@ -2,7 +2,7 @@
 
 <header class="site-header uk-background-default">
   
-  <div class="uk-background-primary uk-light padding-10 uk-padding-remove-horizontal">
+  <div class="top-header uk-background-primary uk-light padding-10 uk-padding-remove-horizontal">
     <div class="uk-container uk-container-small">
       
       <div class="swiper mySwiper">
@@ -50,7 +50,7 @@
     </div>
   </div>
   
-  <nav class="logo-nav uk-background-muted padding-10 uk-padding-remove-horizontal">
+  <nav class="middle-header logo-nav uk-background-muted padding-10 uk-padding-remove-horizontal">
     <div class="uk-container">
       <ul class="uk-flex uk-flex-middle" uk-grid>
         <li class="uk-width-auto">
@@ -81,9 +81,9 @@
     <div class="uk-container">
       <ul class="uk-flex uk-flex-middle" uk-grid>
       
-        {# logo/site_title #}
+        {# main menu/s: left #}
         {% if has_menu_main %}
-          <li class="uk-width-1-2 uk-flex uk-flex-left">
+          <li class="uk-width-1-2 uk-flex uk-flex-left nav-overlay">
             <ul class="uk-navbar-nav pull-left-15">
               
               {# main menu items #}
@@ -158,11 +158,11 @@
           </li>
         {% endif %}
         
-        {# main menu/s #}
-        {% if has_menu_secondary %}
-          <li class="uk-width-1-2 uk-flex uk-flex-right">
-            <ul class="uk-navbar-nav pull-right-15">
-              
+        {# main menu/s: right #}
+        <li class="main-menu-right uk-width-1-2 uk-flex uk-flex-right nav-overlay">
+          <ul class="uk-navbar-nav pull-right-15">
+            
+            {% if has_menu_secondary %}
               {# main menu items #}
               {% for item in menu_secondary.get_items %}
                 {% if item.get_children %}
@@ -195,45 +195,67 @@
                   </li>
                 {% endif %}
               {% endfor %}
-              
-              {# account toggle #}
-              <li class="user-icon uk-visible@m" hidden>
-                <a href="{{dashboard_endpoint|e('esc_url')}}">
-                  {{ snippets.account_icon() }}
-                </a>
-              </li>
-              
-              {# cart toggle #}
-              <li class="basket-icon uk-visible@m" hidden>
-                <a href="#MiniCartModal" uk-toggle>
-                  
-                  {{ snippets.basket_icon() }}
-                  
-                  <span class="uk-position-relative">
-                    <span class="">
-                      <span class="header-cart-count">{{ WC.cart.get_cart_contents_count()|e('wp_kses_post') }}</span>
-                      <span class="subtotal-cart">{{ WC.cart.get_cart_subtotal()|e('wp_kses_post') }}</span>
-                    </span>
+            {% endif %}
+            
+            {# account toggle #}
+            <li class="user-icon uk-visible@m" hidden>
+              <a href="{{dashboard_endpoint|e('esc_url')}}">
+                {{ snippets.account_icon() }}
+              </a>
+            </li>
+            
+            {# cart toggle #}
+            <li class="basket-icon uk-visible@m" hidden>
+              <a href="#MiniCartModal" uk-toggle>
+                
+                {{ snippets.basket_icon() }}
+                
+                <span class="uk-position-relative">
+                  <span class="">
+                    <span class="header-cart-count">{{ WC.cart.get_cart_contents_count()|e('wp_kses_post') }}</span>
+                    <span class="subtotal-cart">{{ WC.cart.get_cart_subtotal()|e('wp_kses_post') }}</span>
                   </span>
-                  
-                </a>
-              </li>
-              
-              {# search toggle #}
-              <li class="search-icon uk-visible@m theme-border-left" hidden>
-                <a class="min-height-40" href="#ModalSearch" uk-toggle>
-                  {{ snippets.search_icon() }}
-                </a>
-              </li>
-              
-              {# mobile toggle #}
-              <li class="uk-hidden@m" hidden>
-                <a class="uk-navbar-toggle" uk-toggle="target: #SlideInMenu">{{ snippets.menu_bars_icon() }}</a>
-              </li>
-              
-            </ul>
-          </li>
-        {% endif %}
+                </span>
+                
+              </a>
+            </li>
+            
+            {# search toggle #}
+            <li class="search-icon uk-visible@m theme-border-left">
+              <a class="uk-navbar-toggle min-height-40" uk-search-icon uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+            </li>
+            
+            {# mobile toggle #}
+            <li class="uk-hidden@m" hidden>
+              <a class="uk-navbar-toggle" uk-toggle="target: #SlideInMenu">{{ snippets.menu_bars_icon() }}</a>
+            </li>
+            
+          </ul>
+        </li>
+        
+        <li class="search-item uk-width-1-1 nav-overlay" hidden>
+          <ul class="uk-flex uk-flex-middle" uk-grid>
+            <li class="uk-width-expand">
+              <form class="uk-search uk-search-navbar uk-width-1-1" hidden>
+                <input class="uk-search-input" type="search" placeholder="Search" autofocus>
+              </form>
+              <form id="form_validate_search" class="form_search_main uk-width-1-1 uk-position-relative uk-inline uk-flex uk-flex-center" role="search" method="get" action="{{ site.url|e('esc_url') }}" accept-charset="utf-8" novalidate="novalidate">
+                <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark">
+                  <a href="#" title="Submit" class="uk-search-icon-flip uk-icon uk-search-icon" hidden>
+                    {{ snippets.search_icon_large()|e('wp_kses_post') }}
+                  </a>
+                  <input class="form-control uk-searchhh-input uk-input uk-background-default" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search" value="" placeholder="{{ snippets.adv_placeholder()|e('esc_html') }}" required="" autocomplete="off"
+                    aria-invalid="true">
+                  <input type="hidden" name="post_type" value="product" />
+                </div>
+                <div id="response_search_results" class="search-results-ajax uk-height-max-medium uk-overflow-auto"></div>
+              </form>
+            </li>
+            <li class="uk-width-auto">
+              <a class="" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
+            </li>
+          </ul>
+        </li>
       
       </ul>
     </div>
@@ -330,3 +352,78 @@
     </form>
   </div>
 </div>
+
+<script>
+
+  // ajax search 
+  jQuery(function($) {
+
+  	// helper function to highlight search results text
+  	$.fn.wrapInTag = function(opts) {
+  		function getText(obj) {
+  			return obj.textContent ? obj.textContent : obj.innerText;
+  		}
+  		var tag = opts.tag || 'strong',
+  			words = opts.words || [],
+  			regex = RegExp(words.join('|'), 'gi'),
+  			replacement = '<' + tag + '>$&</' + tag + '>';
+  		$(this).contents().each(function() {
+  			if (this.nodeType === 3) {
+  				$(this).replaceWith(getText(this).replace(regex, replacement));
+  			} else if (!opts.ignoreChildNodes) {
+  				$(this).wrapInTag(opts);
+  			}
+  		});
+  	};
+
+  	// ajax search js
+  	$(document).on("input", "#input_search", debounce(function() {
+  		var input_value = $(this).val();
+  		var query = input_value;
+  		var req;
+
+  		if (query.length < 2) {
+  			$('#response_search_results').hide();
+  			return false;
+  		}
+
+  		if (req != null) req.abort();
+
+  		req = $.ajax({
+  			type: 'post',
+  			url: myAjax.ajaxurl,
+  			data: {
+  				action: 'ajax_live_search',
+  				query: query
+  			},
+  			success: function(response) {
+  				if (!response) {
+  					alert('empty');
+  					$('#response_search_results').hide();
+  					return;
+  				}
+  				var obj = JSON.parse(response);
+  				if (obj.result == 1) {
+  					document.getElementById("response_search_results").innerHTML = obj.response;
+  					$('#response_search_results').show();
+  				}
+  				$('#response_search_results ul li a').wrapInTag({
+  					words: [input_value]
+  				});
+  			},
+  			error: function(request, status, error) {
+  				$('#response_search_results').hide();
+  			}
+  		});
+  	}, 500));
+
+  	// search results hide on additional click away
+  	$(document).on('click', function(e) {
+  		if ($(e.target).closest(".top-search-bar").length === 0) {
+  			$("#response_search_results").hide();
+  		}
+  	});
+
+  });
+
+</script>

@@ -28,53 +28,144 @@ function adv_search_ajax_restapi_routes($server) {
     'methods'  => 'POST',
     'callback' => 'get_subcats',
   ));
+  // $server->register_route( 'get_submodels', '/get_submodels', array(
+  //   'methods'  => 'POST',
+  //   'callback' => 'get_submodels',
+  // ));
 }
 function get_subcats($req) {
-	$context = Timber::context();
+  $context = Timber::context();
 	
 	$parent_ids = $req['id'];
   $parent_slugs = $req['slug'];
-  $childs_ids = get_term_children( $parent_ids, 'product_cat' );
-
+  
+  $childs_ids = get_term_children($parent_ids, 'product_cat');
+  $context['parent_ids'] = $parent_ids;
   $data = null;
-  if($parent_ids){
+  
+  if(!empty($parent_ids)){
+    $subs_array = array();
     foreach ($parent_ids as $id) {
-      
-        $childs = get_terms(array(
-          'taxonomy'   => 'product_cat',
-          'hide_empty' => true,
-          'parent'     => $id
-        ));
-
-      $data[] = $childs;
+      $sub_terms = get_terms(array(
+        'taxonomy'   => 'product_cat',
+        'hide_empty' => true,
+        'parent'     => $id
+      ));
+      $subs_array[] = $sub_terms; // data will now a set of one or more indexed arrays, for each checkbox checked. i need these arrays combined into one instead using array_merge(...$subs_array)
     }
+  } else {
+    return null;
   }
-  $context['subcat_sel_terms'] = $childs;
-	
-	if(empty($context['subcat_sel_terms'])) {
-		return false;
-	}
-	
+  // $merged_subs_array = array_merge(...$subs_array);
+  
+  $context['subcat_sel_terms'] = array_merge(...$subs_array);
+	if(empty($context['subcat_sel_terms'])) return null;
 	$data = Timber::compile(array('_subcats_select.twig'), $context);
   return $data;
+  
 }
-function get_submodels($req) {
-	$context = Timber::context();
-	
-	$parent_id = $req['id'];
-	$context['submodels_sel_terms'] = get_terms([
-	  'taxonomy'    => 'product_series',
-	  'hide_empty'  => true,
-	  'parent'      => $parent_id,
-	]);
-	
-	if(empty($context['submodels_sel_terms'])) {
-		return false;
-	}
-	
-	$data = Timber::compile(array('_submodels_select.twig'), $context);
-  return $data;
-}
+// function get_submodels($req) {
+//   $context = Timber::context();
+// 
+// 	$parent_ids = $req['id'];
+//   $parent_slugs = $req['slug'];
+//   $childs_ids = get_term_children( $parent_ids, 'product_series' );
+//   $context['parent_ids'] = $parent_ids;
+//   $data = null;
+// 
+//   if($parent_ids){
+//     $subs_array = array();
+//     foreach ($parent_ids as $id) {
+//       $sub_terms = get_terms(array(
+//         'taxonomy'   => 'product_series',
+//         'hide_empty' => true,
+//         'parent'     => $id
+//       ));
+//       $subs_array[] = $sub_terms; // data will now a set of one or more indexed arrays, for each checkbox checked. i need these arrays combined into one instead using array_merge(...$subs_array)
+//     }
+//   }
+//   // $merged_subs_array = array_merge(...$subs_array);
+// 
+//   $context['submodels_sel_terms'] = array_merge(...$subs_array);
+// 	if(empty($context['submodels_sel_terms'])) return false;
+// 	$data = Timber::compile(array('_submodels_select.twig'), $context);
+// 
+//   // if($parent_ids){
+//   //   foreach ($parent_ids as $id) {
+//   // 
+//   //       $childs = get_terms(array(
+//   //         'taxonomy'   => 'product_series',
+//   //         'hide_empty' => true,
+//   //         'parent'     => $id
+//   //       ));
+//   // 
+//   //     $data[] = $childs;
+//   //   }
+//   // }
+//   // $context['submodels_sel_terms'] = $childs;
+// 	// if(empty($context['submodels_sel_terms'])) {
+// 	// 	return false;
+// 	// }
+// 
+// 	$data = Timber::compile(array('_submodels_select.twig'), $context);
+//   return $data;
+// }
+
+/* advanced search form - uses rest_api & fetch() 
+
+*/
+// function adv_search_ajax_restapi_routes($server) {
+//   $server->register_route( 'get_subcats', '/get_subcats', array(
+//     'methods'  => 'POST',
+//     'callback' => 'get_subcats',
+//   ));
+// }
+// function get_subcats($req) {
+// 	$context = Timber::context();
+// 
+// 	$parent_ids = $req['id'];
+//   $parent_slugs = $req['slug'];
+//   $childs_ids = get_term_children( $parent_ids, 'product_cat' );
+// 
+//   $data = null;
+//   if($parent_ids){
+//     foreach ($parent_ids as $id) {
+// 
+//         $childs = get_terms(array(
+//           'taxonomy'   => 'product_cat',
+//           'hide_empty' => true,
+//           'parent'     => $id
+//         ));
+// 
+//       $data[] = $childs;
+//     }
+//   }
+//   $context['subcat_sel_terms'] = $childs;
+// 
+// 	if(empty($context['subcat_sel_terms'])) {
+// 		return false;
+// 	}
+// 
+// 	$data = Timber::compile(array('_subcats_select.twig'), $context);
+//   return $data;
+// }
+// function get_submodels($req) {
+// 	$context = Timber::context();
+// 
+// 	$parent_id = $req['id'];
+// 	$context['submodels_sel_terms'] = get_terms([
+// 	  'taxonomy'    => 'product_series',
+// 	  'hide_empty'  => true,
+// 	  'parent'      => $parent_id,
+// 	]);
+// 
+// 	if(empty($context['submodels_sel_terms'])) {
+// 		return false;
+// 	}
+// 
+// 	$data = Timber::compile(array('_submodels_select.twig'), $context);
+//   return $data;
+// }
 
 /* Disable pagintion on what would be the shop-collection archives 
 

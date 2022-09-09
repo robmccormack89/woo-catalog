@@ -2,7 +2,7 @@
 
 /**
 *
-* Template Name: Brochure Template
+* Template Name: Sections Template
 * Template Post Type: post, page
 *
 * @package Rmcc_Theme
@@ -30,7 +30,7 @@ $templates = array(
 );
 
 // add the custom template/s to the start of the templates array
-array_unshift($templates, 'brochure-' . $context['post']->post_type . '.twig', 'brochure.twig',);
+array_unshift($templates, 'sections-' . $context['post']->post_type . '.twig', 'sections.twig',);
 
 // & render the template with the context
 Theme::render($templates, $context);

@@ -1,7 +1,5 @@
 {% if fn('yoast_breadcrumb_enabled') and not fn('is_front_page') %}
   <nav class="uk-navbar-container uk-navbar-transparent">
-    <div class="uk-container padding-top-10">
-      {{ fn('yoast_breadcrumb') }}
-    </div>
+    {{ fn('yoast_breadcrumb') }}
   </nav>
 {% endif %}

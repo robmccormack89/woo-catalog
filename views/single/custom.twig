@@ -1,7 +1,7 @@
 {% extends 'single.twig' %}
 
 {% block header %}
-  {% include 'header-transparent.twig' %}
+  {# parent() #}
 {% endblock %}
 
 {% block main %}
@@ -31,5 +31,5 @@
 {% endblock %}
 
 {% block footer %}
-  {{ parent() }}
+  {# parent() #}
 {% endblock %}
