@@ -9,19 +9,19 @@
   {% endblock %}
 
   <body class="{{ body_class }}">
-    
+
     {% block theme_preloader_markup %}
       {% if configs.theme_preloader %}
         <div id="Preloader" class="preloader"></div>
       {% endif %}
     {% endblock %}
-    
+
     {% do action('theme_before_header') %}
 
     {% block header %}
       {% include 'header.twig' %}
     {% endblock %}
-    
+
     <main id="Main" role="main">
       <div id="ContentSection">
         {% block main %}
@@ -31,11 +31,11 @@
         {% endblock %}
       </div>
     </main>
-    
+
     {% block footer %}
       {% include 'footer.twig' %}
     {% endblock %}
-    
+
     <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top" hidden>
       <a class="close" uk-toggle="target: #QuickCallEnquiryContainer">x</a>
       <a href="tel:{{ options.company_number }}" id="CallNowButton" style="width:50%;display:inline-block;float:left">
@@ -45,13 +45,13 @@
         <span uk-icon="icon: whatsapp"></span> Whatsapp
       </a>
     </div>
-    
+
     {{ fn('wp_footer') }}
-    
+
     {% block fixednav %}
       {# include '_fixednav.twig' #}
     {% endblock %}
-    
+
     <div id="MiniCartModal" class="minicart-modal" uk-modal>
       <div class="uk-modal-dialog">
         <div class="uk-modal-body height-content uk-padding-remove" uk-overflow-auto>
@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    
+
     {% block theme_preloader_scripts %}
       {% if configs.theme_preloader %}
         <script type='text/javascript'>
@@ -69,16 +69,18 @@
         </script>
       {% endif %}
     {% endblock %}
-    
+
     {% block scripts %}
       <script>
-        var swiper = new Swiper(".mySwiper", {
+        // header swiper
+        var headerIconsSwiper = new Swiper(".header-icons-swiper", {
           slidesPerView: 1,
           spaceBetween: 0,
           // autoplay: {
           //   delay: 2500,
           //   disableOnInteraction: false,
           // },
+          // pagination: false,
           breakpoints: {
             640: {
               slidesPerView: 2,
@@ -94,53 +96,9 @@
             },
           },
         });
-        var swipe2 = new Swiper(".mySwiper2", {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          pagination: {
-            el: ".swiper-pagination",
-            dynamicBullets: true,
-          },
-          // autoplay: {
-          //   delay: 2500,
-          //   disableOnInteraction: false,
-          // },
-          breakpoints: {
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 5,
-            },
-            960: {
-              slidesPerView: 3,
-              spaceBetween: 10,
-            },
-            1200: {
-              slidesPerView: 4,
-              spaceBetween: 10,
-            },
-          },
-        });
-        var swipe3 = new Swiper(".mySwiper3", {
-          slidesPerView: 1,
-          spaceBetween: 10,
-          pagination: {
-            el: ".swiper-pagination",
-            dynamicBullets: true,
-          },
-          // autoplay: {
-          //   delay: 2500,
-          //   disableOnInteraction: false,
-          // },
-          breakpoints: {
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-          },
-        });
       </script>
     {% endblock %}
-    
+
   </body>
 
 </html>

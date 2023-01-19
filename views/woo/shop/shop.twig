@@ -1,18 +1,18 @@
-{% extends 'archive.twig' %}
 {% import "_snippets.twig" as snippets %}
+{% extends 'archive.twig' %}
 
 {% block styles %}
   {{ parent() }}
-  <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
+  <!-- <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script> -->
   <!-- <link rel='stylesheet' href='{{theme.link}}/assets/css/shop.css' type='text/css' media='all' /> -->
 {% endblock %}
 
 {% block main %}
   <div id="IndexArchive" class="index-archive shop-archive theme-archive" data-template="shop.twig">
-    
+
     {% block archive_header %}
       {# parent() #}
-      <header class="style-header archive-header uk-background-muted muted-pink uk-heightttt-large">
+      <header class="style-header archive-header uk-background-muted muted-pink uk-heightttt-large" hidden>
         <div class="uk-container">
           <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
             <li class="uk-width-3-4 uk-visible@s">
@@ -33,31 +33,56 @@
           </ul>
         </div>
       </header>
+      <header id="StyleHeaderPink" class="itsa-header style-header uk-background-muted muted-pink">
+        <div class="uk-container">
+          <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
+            <li class="uk-width-1-1 uk-width-3-4@m">
+              <img class="uk-height-large cover-img" src="https://picsum.photos/850/520?random=1" width="850" height="520">
+            </li>
+            <li class="content">
+              <div class="uk-position-relative">
+                <span class="uk-position-top-right outside" hidden>
+                  <img class="" src="{{ theme.link }}/assets/img/two.jpg" width="120" height="120">
+                </span>
+                <div class="uk-card uk-card-default uk-card-body">
+                  <h1 class="uk-card-title {{ (description) ? '' : 'uk-h1' }}">{{ title|e('esc_html') }}</h1>
+                  {% if description %}
+                    <p>{{ description|e('esc_html') }}</p>
+                  {% endif %}
+                </div>
+                <span class="uk-label uk-label-success uk-position-absolute" hidden>Price Promise <i class="fa-solid fa-euro-sign push-left-5"></i></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
     {% endblock %}
-    
+
     {% block breads %}
       <div class="breads-container uk-container uk-container-small">
         {% include '_breads.twig' %}
       </div>
     {% endblock %}
-    
+
     {% block archive_content %}
       <div class="uk-container uk-section uk-section-small">
-          
+
         {% do action('woocommerce_before_main_content') %}
 
         {% block shop_filters %}
-          {% if fn('is_shop') %}
+
             <section class="shop-filters uk-margin-small-bottom">
-              <form id="FiltersForm" action="/shop" class="" method="get" role="search">
+              <form id="FiltersForm" action="{{ shop_url|e('esc_url') }}" class="" method="get" role="search">
                 <fieldset class="uk-fieldset">
-                  
+
                   <!-- filters buttons -->
                   <div id="FiltersFormMainArea" class="uk-background-muted uk-padding-small">
                     <ul class="advform-main uk-flex uk-flex-middle uk-grid uk-grid-small" uk-grid>
                       <li class="uk-width-auto"><strong>Filters:</strong></li>
-                      <li class="advform-product_cat uk-width-auto">
-                        <a id="ProductCatFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductCatFilters">Category <i class="fa-solid fa-sort-down text-top"></i></a>
+                      <li class="advform-product_cat uk-width-auto {{ (is_child_product_cat_archive) ? 'theme-hidden' }}">
+                        <a id="ProductCatFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductCatFilters">
+                          Category <i class="fa-solid fa-sort-down text-top"></i>
+                        </a>
                       </li>
                       <li id="loader_product_cat_sub" class="loading-item uk-hidden">
                         <div id="loading"></div>
@@ -65,34 +90,52 @@
                       <li id="product_cat_sub" class="advform uk-hidden">
                         <a id="ProductSubCatFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductSubCatFilters">Sub-category <i class="fa-solid fa-sort-down text-top"></i></a>
                       </li>
+                      <li class="advform-product_range uk-width-auto {{ (is_child_product_range_archive) ? 'theme-hidden' }}">
+                        <a id="ProductRangeFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductRangeFilters">
+                          Range <i class="fa-solid fa-sort-down text-top"></i>
+                        </a>
+                      </li>
+                      <li id="loader_product_range_sub" class="loading-item uk-hidden">
+                        <div id="loading"></div>
+                      </li>
+                      <li id="product_range_sub" class="advform uk-hidden">
+                        <a id="ProductSubRangeFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductSubRangeFilters">
+                          Sub-range <i class="fa-solid fa-sort-down text-top"></i>
+                        </a>
+                      </li>
                       <li class="advform-product_tag uk-width-auto">
                         <a id="ProductTagFiltersBtn" class="filter-btn uk-button uk-button-default uk-background-default uk-border-rounded uk-text-capitalize" drop_target="#ProductTagFilters">Tag <i class="fa-solid fa-sort-down text-top"></i></a>
                       </li>
                     </ul>
                   </div>
-                  
+
                   <!-- filters dropdown areas -->
                   <div id="FiltersFormDropArea" class="">
-                    
+
                     {% set form_submit_buttons_html %}
                       <div class="uk-background-muted uk-padding-small">
                         <ul class="uk-flex uk-flex-middle uk-flex-center uk-child-width-auto uk-grid-small" uk-grid>
-                          <li class="advform-reset">
-                            <input id="adv_reset" type="reset" value="Cancel" class="uk-button uk-button-default uk-border-rounded">
-                          </li>
                           <li class="advform-submit">
                             <input type="submit" value="Apply" class="uk-button uk-button-primary uk-border-rounded">
+                          </li>
+                          <li class="advform-reset">
+                            <input id="adv_reset" type="reset" value="Clear & Reset" class="uk-button uk-button-default uk-border-rounded">
                           </li>
                         </ul>
                       </div>
                     {% endset %}
-                  
-                    <div id="ProductCatFilters" class="filter-area cat-filters uk-hiddennn">
+
+                    <div id="ProductCatFilters" class="filter-area cat-filters theme-hidden">
                       <div class="uk-padding uk-background-default">
                         <div id="product_cat_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
-                          {% for cat in function('product_cats_for_filters') %}
-                            <label>
-                              <input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_cat" id="{{ cat.term_id|e('esc_html') }}" value="{{ cat.slug|e('esc_html') }}" {{ (cat.slug in fn('get_query_var', 'product_cat')) ? 'checked'}}>
+                          {% for cat in fn('product_cats_for_filters') %}
+                            <label class="uk-form-label">
+                              <input
+                              class="uk-checkbox uk-border-rounded {{ fn('is_term_active', cat.slug) or fn('is_term_parent_of_active', cat.term_id) ? 'prevent-unclick' }} 
+                              {{ fn('does_term_have_children', cat.term_id) ? 'has-children' }}"
+                              type="checkbox"
+                              name="product_cat" id="{{ cat.term_id|e('esc_html') }}" value="{{ cat.slug|e('esc_html') }}"
+                              {{ fn('is_term_active', cat.slug) or fn('is_term_parent_of_active', cat.term_id) ? 'checked' }}>
                               {{ cat.name|e('esc_html') }}
                             </label>
                           {% endfor %}
@@ -100,56 +143,62 @@
                       </div>
                       {{ form_submit_buttons_html }}
                     </div>
-                    
-                    <div id="ProductSubCatFilters" class="filter-area subcat-filters uk-hiddennn">
+
+                    <div id="ProductSubCatFilters" class="filter-area subcat-filters theme-hidden">
                       <div class="uk-padding uk-background-default">
                         <div id="product_subcat_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
                         </div>
                       </div>
                       {{ form_submit_buttons_html }}
                     </div>
-                    
-                    <div id="ProductSeriesFilters" class="filter-area series-filters uk-hiddennn">
+
+                    <div id="ProductRangeFilters" class="filter-area range-filters theme-hidden">
                       <div class="uk-padding uk-background-default">
-                        <div id="product_series_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
-                          {% for cat in function('product_series_for_filters') %}
-                            <label>
-                              <input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_series" id="{{ cat.term_id|e('esc_html') }}" value="{{ cat.slug|e('esc_html') }}" {{ (cat.slug in fn('get_query_var', 'product_series')) ? 'checked'}}>
-                              {{ cat.name|e('esc_html') }}
+                        <div id="product_range_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                          {% for range in fn('product_ranges_for_filters') %}
+                            <label class="uk-form-label">
+                              <input
+                              class="uk-checkbox uk-border-rounded {{ fn('is_term_active', range.slug, fn('get_query_var', 'pa_range')) or fn('is_term_parent_of_active', range.term_id, 'pa_range') ? 'prevent-unclick' }}
+                              {{ fn('does_term_have_children', range.term_id, 'pa_range') ? 'has-children' }}"
+                              type="checkbox"
+                              name="pa_range" id="{{ range.term_id|e('esc_html') }}" value="{{ range.slug|e('esc_html') }}"
+                              {{ fn('is_term_active', range.slug, fn('get_query_var', 'pa_range')) or fn('is_term_parent_of_active', range.term_id, 'pa_range') ? 'checked' }}>
+                              {{ range.name|e('esc_html') }}
                             </label>
                           {% endfor %}
                         </div>
                       </div>
                       {{ form_submit_buttons_html }}
                     </div>
-                    
-                    <div id="ProductSubModelFilters" class="filter-area submodel-filters uk-hiddennn">
+
+                    <div id="ProductSubRangeFilters" class="filter-area subrange-filters theme-hidden">
                       <div class="uk-padding uk-background-default">
-                        <div id="product_submodel_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
+                        <div id="product_subrange_group" class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
                         </div>
                       </div>
                       {{ form_submit_buttons_html }}
                     </div>
-                    
-                    <div id="ProductTagFilters" class="filter-area uk-hiddennn">
+
+                    <div id="ProductTagFilters" class="filter-area theme-hidden">
                       <div class="uk-padding uk-background-default">
                         <div class="uk-grid-small uk-child-width-auto uk-margin-remove uk-grid">
-                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_tag" id="35" value="brand-new"> Brand New</label>
+                          <label><input class="uk-checkbox uk-border-rounded" type="checkbox" name="product_tag" id="35" value="motorised"> Motorised</label>
                         </div>
                       </div>
                       {{ form_submit_buttons_html }}
                     </div>
-                  
+
                   </div>
-                  
+
                 </fieldset>
               </form>
             </section>
+          {% if fn('is_shop') %}
           {% endif %}
         {% endblock %}
-        
+
         {% block loader_shop_loop_grid %}
-          {% if fn('is_shop') %}
+
             <div id="DemoProductsGrid" class="uk-hidden uk-margin-medium-top">
               <div class="uk-text-bold uk-text-emphasis">Products loading...</div>
               <ul class="demo-archive-posts demo-filters-container demo-products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
@@ -215,6 +264,7 @@
                 </li>
               </ul>
             </div>
+          {% if fn('is_shop') %}
           {% endif %}
         {% endblock %}
 
@@ -225,24 +275,29 @@
                 {% block shop_toobar %}
                   {# include '_shop-toolbar.twig' #}
                 {% endblock %}
-                
+
                 {% block shop_loop_grid %}
                   <ul id="ProductsGrid" class="archive-posts filters-container products {{ grid_classes }} uk-grid uk-grid-small" uk-grid="masonry: true">
                     {% for post in posts %}
-                      <li class="post-item">
+                      <li class="product-item">
                         <!-- Product -->
                         {% include tease_template %}
                       </li>
                     {% endfor %}
                   </ul>
                 {% endblock %}
-                
+
                 {% block shop_pagination %}
                   {# include '_shop-pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-margin-remove'} #}
                   {# include '_pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-background-muted uk-padding-small uk-margin-medium-top'} #}
-                  {% include '_pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-background-muted uk-padding-small uk-margin-medium-top uk-hidden'} %}
+                  {# include '_pagination.twig' with {pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: 'uk-background-muted uk-padding-small uk-margin-medium-top uk-hidden'} #}
+                  {% if (posts.pagination.next or posts.pagination.prev) %}
+                    <footer>
+                      {% set _posts = posts %}
+                      {% include '_pagination.twig' with {pagination: _posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: ''} %}
+                    </footer>
+                  {% endif %}
                 {% endblock %}
-                
               {% else %}
                 <div id="ProductsGrid">
                   {{ snippets.no_products_found_text()|e('esc_html') }}
@@ -251,394 +306,177 @@
             </div>
           </section>
         {% endblock %}
-        
+
         {% block archive_footer %}
         {% endblock %}
-        
+
         {% do action('woocommerce_after_shop_loop') %}
-        
+
         {% do action('woocommerce_after_main_content') %}
-        
+
       </div>
     {% endblock %}
-    
-  </div>
-  
-{% endblock %}
 
-{% block footer %}
+  </div>
 {% endblock %}
 
 {% block scripts %}
   {{ parent() }}
-  
-  <!-- this is the fetch api script on the filters form submit event & the paginations -->
+
   <script type='text/javascript'>
-  
-    function infinitePagination() {
-      
-      console.log('hello');
-      
-      let elem = document.querySelector('.archive-posts');
-      let infScroll = new InfiniteScroll( elem, {
-        
-        // options
-        path: '.next',
-        append: '.post-item',
-        history: false,
-        
-        button: '.view-more-button',
-        // load pages on button click
-        
-        scrollThreshold: false,
-        // disable loading on scroll
-        
-        status: '.page-load-status',
-        
+
+    // get the HTML stuff as vars
+    // generally, we will check to see if the HTML elements exist before triggering functions & events on them below
+    form = document.querySelector('#FiltersForm');
+    var themePagination = document.getElementById("themePagination");
+    var adv_reset = document.getElementById("adv_reset");
+    var product_cat_group = document.getElementById("product_cat_group");
+    var product_cat_sub = document.getElementById("product_cat_sub");
+    var product_range_group = document.getElementById("product_range_group");
+    var product_range_sub = document.getElementById("product_range_sub");
+    var filterBtns = document.querySelectorAll('.filter-btn');
+
+    // pagination on load (window)
+    if(themePagination){
+      window.addEventListener('load', (event) => {
+        shopPagination();
       });
-        
     }
-    
+
+    // this code creates custom disabled checkboxes from the '.prevent-unclick' selector
+    // this must be done on window load, and after jingo events (getSubDropsFromParentSelection)
+    // custom disabled checkboxes wont be clickable, but will still contribute to the form submission
     window.addEventListener('load', (event) => {
-      infinitePagination();
+      const windowChkdChks = document.querySelectorAll(".prevent-unclick");
+      windowChkdChks.forEach(item => {
+        item.addEventListener('click', function(){
+          event.preventDefault();
+        }, false)
+      });
     });
-  
-    function reEnableDisabledCheckboxes(){
-      var group = document.getElementById('FiltersFormDropArea'); // Reference the Table.
-      var chks = group.getElementsByTagName("INPUT"); // Reference all the CheckBoxes in Table.
-      
-      // Loop and push the checked CheckBox value in Array.
-      for (var i = 0; i < chks.length; i++) {
-        if (chks[i].disabled) {
-          chks[i].disabled = false;
-          // alert('reenabled');
+    product_cat_sub.addEventListener('jingo', (e) => {
+      const subCatChkdChks = document.querySelectorAll(".prevent-unclick");
+      subCatChkdChks.forEach(item => {
+        item.addEventListener('click', function(){
+          event.preventDefault();
+        }, false)
+      });
+    }, false);
+    product_range_sub.addEventListener('jingo', (e) => {
+      const subRangeChkdChks = document.querySelectorAll(".prevent-unclick");
+      subRangeChkdChks.forEach(item => {
+        item.addEventListener('click', function(){
+          event.preventDefault();
+        }, false)
+      });
+    }, false);
+
+    // THIS CODE MAKES THE FILTERS' PARENT DROPS PRODUCE CHILDREN BOTH WHEN U CLICK THEM AND ON PAGE LOAD
+    // FOR THE PAGE LOADS, THIS CODE CHECKS TO SEE IF THE INITIAL CHECKED PARENT ACTUALLY SHOULD HAVE CHILDREN BEFORE TRYING TO PRODUCE THEM
+    // for each filter group (parent filter dropdowns), we need to check them to see if any of their checkboxes have children
+    // we then loop thru the children to add click events to each of them
+    // we also add listener to window load depending on whether the .has-children checkboxes contains a checked item
+    // we must do this for every parent group that will require a sub group e.g (product_cat & pa_pange)
+  	if(product_cat_group){
+      var catsChildren = product_cat_group.querySelectorAll(".has-children"); // get any .has-children items from the parent group
+      if(catsChildren.length > 0){ // if .has-children elements exist
+
+        // loop thru & add a 'click' event listener to each item
+        // we will trigger our SubDrops func on each click
+        catsChildren.forEach(item => {
+          item.addEventListener('click', function(){
+            getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'product_cat') }}')
+          }, false)
+        });
+
+        // if the .has-children elements contain a checked item
+        // we will trigger our SubDrops func on the window load
+        // we need to trigger it on page init anyways, but we need to be sure...
+        // the .has-children items contain at least one checked item...
+        // otherwise the SubDrops func will be triggered even when the checked item is not actually a parent
+        if(ifArrayContainsCheckedItem(catsChildren)){
+          window.addEventListener("load", function(){
+            getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'product_cat') }}')
+          }, false);
+        }
+
+      }
+  	};
+  	if(product_range_group){
+      var rangeChildren = product_range_group.querySelectorAll(".has-children");
+      if(rangeChildren.length > 0){
+        rangeChildren.forEach(item => {
+          item.addEventListener('click', function(){
+            getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'pa_range') }}', '/wp-json/get_subranges', 'product_range_group', 'product_subrange_group', 'product_range_sub')
+          }, false)
+        });
+        if(ifArrayContainsCheckedItem(rangeChildren)){
+          window.addEventListener("load", function(){
+            getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'pa_range') }}', '/wp-json/get_subranges', 'product_range_group', 'product_subrange_group', 'product_range_sub')
+          }, false);
         }
       }
+  	};
+
+    // THIS CODE TRIGGERS THE TOGGLE'ABLE DROP AREAS FUNCTIONALITY, BUT ONLY ON THE .filter-btn ELEMENTS
+    if(filterBtns.length > 0){
+      // may need to tweak this function; to work with things like the canel button etc
+      toggleDropsAndAreas('.filter-btn', 'drop_target', 'theme-hidden', '.filter-area');
     }
-  
-    // ajax loads (fetch api) for the form submission
-    form = document.querySelector('#FiltersForm');
-    form.addEventListener('submit', function(event) {
-      
-      function disableParentWhenParentAndChildSelected(parent_group, child_group){
-      
-        // find if parent product_cat_group & product_subcat_group have checked checkboxes (PARENT)
-        var checked_parent = 0;
-        var _parent_group = document.getElementById(parent_group); // Reference the Table.
-        var chks_parent_group = _parent_group.getElementsByTagName("INPUT"); // Reference all the CheckBoxes in Table.
-        
-        // Loop and count the number of checked CheckBoxes. (PARENT)
-        for (var i = 0; i < chks_parent_group.length; i++) {
-          if (chks_parent_group[i].checked) {
-            checked_parent++;
-          }
-        }
-        
-        // find if parent product_cat_group & product_subcat_group have checked checkboxes (CHILD)
-        var checked_child = 0;
-        var _child_group = document.getElementById(child_group); // Reference the Table.
-        var chks_child_group = _child_group.getElementsByTagName("INPUT"); // Reference all the CheckBoxes in Table.
-        
-        // Loop and count the number of checked CheckBoxes. (CHILD)
-        for (var i = 0; i < chks_child_group.length; i++) {
-          if (chks_child_group[i].checked) {
-            checked_child++;
-          }
-        }
-        
-        if(checked_parent > 0){
-          if(checked_child > 0){
-            
-            // Loop and push the checked CheckBox value in Array.
-            for (var i = 0; i < chks_parent_group.length; i++) {
-              if (chks_parent_group[i].checked) {
-                chks_parent_group[i].disabled = true;
-                console.log(chks_parent_group[i]);
+
+    // form submit, clear & reset
+  	if(form){
+
+      // CUSTOM FORM SUBMIT USING FETCH: on form submission
+      form.addEventListener('submit', function() {
+
+        // prevent default submission of form
+        event.preventDefault();
+
+        // then do custom submission
+        filtersFormSubmitCustom(event, form);
+
+      })
+
+      // CLEAR & RESET: on form reset
+      form.addEventListener("reset", function(){
+        setTimeout(function() {
+
+          // then re-hide the drop areas
+          addClassToElements('.filter-area', 'theme-hidden')
+
+          // and also hide the filter subs dropdowns
+          addClassToElements('#product_cat_sub', 'uk-hidden')
+          addClassToElements('#product_range_sub', 'uk-hidden')
+
+          // then, do a custom form submission (this SHOULD reset the products to the page's default args - doublecheck)
+          filtersFormSubmitCustom(event, form);
+
+          // then redo the Parent -> Child filter drops
+          if(product_cat_group){
+            var catsChildren = product_cat_group.querySelectorAll(".has-children");
+            if(catsChildren.length > 0){
+              if(ifArrayContainsCheckedItem(catsChildren)){
+                getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'product_cat') }}')
+              }
+
+            }
+        	};
+        	if(product_range_group){
+            var rangeChildren = product_range_group.querySelectorAll(".has-children");
+            if(rangeChildren.length > 0){
+              if(ifArrayContainsCheckedItem(rangeChildren)){
+                getSubDropsFromParentSelection(event, '{{ fn('get_query_var', 'pa_range') }}', '/wp-json/get_subranges', 'product_range_group', 'product_subrange_group', 'product_range_sub')
               }
             }
-            
-            // alert("Both " + parent_group + " and " + child_group + " have been selected");
-            // fuck();
-          }
-          // alert("Only " + parent_group + " have been selected");
-          // fuck();
-        } else {
-          // alert("Neither " + parent_group + " and " + child_group + " has been selected");
-        }
-  
-      }
-      
-      // prevent default submit event
-      event.preventDefault();
-      
-      // disable any checked parent checkboxes when subs are also selected.
-      // must do this for each parent -> sub grouping. e.g: categories/sub-categories & series/model
-      disableParentWhenParentAndChildSelected('product_cat_group', 'product_subcat_group');
-      // disableParentWhenParentAndChildSelected('product_series_group', 'product_submodel_group');
-      
-      // process form data into URLSearchParams 
-      const formData = new FormData(form);
-      const formParams = new URLSearchParams(formData);
-      
-      // loop thru the formParams with key -> value if necessary
-      // for (const [key, value] of formParams) {
-      //   console.log(key + ' - ' + value);
-      // }
-      
-      // instead, we use set on formsParams data for comma separated values. see URLSearchParams.set()
-      // we check they exist first.. dont want to add a param to the url when it has no selections
-      // do this for every field grouping
-      if(formParams.has('product_cat')) formParams.set('product_cat', formParams.getAll('product_cat'));
-      if(formParams.has('product_tag')) formParams.set('product_tag', formParams.getAll('product_tag'));
-      // if(formParams.has('product_series')) formParams.set('product_series', formParams.getAll('product_series'));
-      
-      // the encoded/decoded uri & query strings
-      const encodedParams = formParams.toString();
-      const decodedParams = decodeURIComponent(encodedParams);
-      const queryString = form.action + '?' + decodedParams;
-      // console.log('query string: ' + queryString);
-      
-      // the loaders: start
-      document.getElementById('DemoProductsGrid').classList.remove("uk-hidden");
-      document.getElementById('ProductsGrid').textContent = '';
-      // document.getElementById('ProductsGrid').classList.remove();
-      
-      // the fetch request. 
-      // we need to grab only a certain HTML element from the returned request...
-      // and then replace the equivalent HTML element on the current page with that... 
-      // whilst adding in the loading animation effect in between the transitions...
-      // we will also want to replace the url in the browser when we're done...
-      fetch(queryString)
-      .then(function(response) {
-        // window.history.pushState({}, '', queryString);
-        return response.text();
-      })
-      .then(function(html) {
-        console.log('success!!!');
-        var parser = new DOMParser();
-        var newDocObj = parser.parseFromString(html, 'text/html');
-        var newContent = newDocObj.querySelector('#TheLoop');
-        document.getElementById('DemoProductsGrid').classList.add("uk-hidden");
-        document.getElementById("TheLoopContainer").replaceChild(newContent, document.querySelector('#TheLoop'));
-        wooGlobalStyles();
-        reEnableDisabledCheckboxes();
-        infinitePagination();
-        console.log('the content has been replaced');
-      })
-      .catch(error => {
-        console.error('Somethings gone wrong...', error);
-      });
-      
-    });
-    
-    // ajax loads (fetch api) for elements with data-link attributes (like pagination)
-    document.querySelector('main').addEventListener('click', function(event) {
-      if (event.target.hasAttribute('data-link')) {
-        
-        // prevent default submit event
-        event.preventDefault();
-        
-        // 1. set var for 'data_link', the data-link attribute we need the value of (should be a valid url)
-        var data_link = event.target.getAttribute("data-link");
-        
-        // document.getElementById('DemoProductsGrid').classList.remove("uk-hidden");
-        // document.getElementById('ProductsGrid').textContent = '';
-        
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        })
-        
-        // await delay(1000);
-        
-        document.getElementById('DemoProductsGrid').classList.remove("uk-hidden");
-        document.getElementById('ProductsGrid').textContent = '';
-        
-        fetch(data_link)
-        .then((response) => {
-          // document.getElementById('DemoProductsGrid').classList.remove("uk-hidden");
-          // document.getElementById('ProductsGrid').textContent = '';
-          return response.text();
-        })
-        .then(function(html) { // then we...
-          console.log('success!!!');
-          var parser = new DOMParser();
-          var newDocObj = parser.parseFromString(html, 'text/html');
-          var newContent = newDocObj.querySelector('#TheLoop');
-          document.getElementById('DemoProductsGrid').classList.add("uk-hidden");
-          document.getElementById("TheLoopContainer").replaceChild(newContent, document.querySelector('#TheLoop'));
-          wooGlobalStyles();
-          reEnableDisabledCheckboxes();
-          console.log('the content has been replaced');
-        })
-        .catch(error => {
-          console.error('Somethings gone wrong...', error);
-        });
-      
-      };
-    });
-    
-  </script>
-  
-  <!-- this script is to ensure that only one toggleable area is visible at a time -->
-  <script type='text/javascript'>
-  
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    
-    // loop thru filter buttons to add custom js UIkit.toggle's to them
-    for (var i = 0; i < filterButtons.length; i++) {
-      (function () {
-        
-        var id = filterButtons[i].id;
-        var target = filterButtons[i].getAttribute('drop_target');
-        
-        // add UIkit.toggle to the filterButton item
-        UIkit.toggle('#' + id, {
-          target: target,
-          cls: 'uk-hiddennn'
-        });
-        
-        // add events listners related to the UIkit.toggle
-        document.querySelector(target).addEventListener('beforeshow', function(event) {
-          hideAllFilterDrops()
-          // console.log('beforeshow');
-        })
-        document.querySelector(target).addEventListener('beforehide', function(event) {
-          hideAllFilterDrops()
-          // console.log('beforehide: ' + event.target.id);
-        })
-        document.querySelector(target).addEventListener('click', function(event) {
-          // console.log('click');
-        })
-        document.querySelector(target).addEventListener('shown', function(event) {
-          // console.log('shown');
-        })
-        document.querySelector(target).addEventListener('hidden', function(event) {
-          // console.log('hidden');
-        });
-          
-      }()); // immediate invocation
-    }
-    
-    // function which loops thru the filter drop areas & hides them where they are not hidden already.
-    // this should be fired prior to the toggling on/off of a particular drop area
-    function hideAllFilterDrops(){
-      var filterDropAreas = document.querySelectorAll('.filter-area');
-      for (var i = 0; i < filterDropAreas.length; i++) {
-        if(!(filterDropAreas[i].classList.contains("uk-hiddennn"))){
-          filterDropAreas[i].classList.add("uk-hiddennn")
-        }
-      }
-    }
-    
-  </script>
-  
-  <!-- the subcats of the form inputs -->
-  <script type='text/javascript'>
-  
-    function start(){
-    
-    	if(document.getElementById("product_cat_group")){
-    		document.getElementById("product_cat_group").addEventListener("change", getSubCatFromParent, false);
-    	}
-      
-      // if(document.getElementById("product_series_group")){
-    	// 	document.getElementById("product_series_group").addEventListener("change", getModelFromSeries, false);
-    	// }
-    
-    	// if(document.getElementById("adv_reset")){
-    	// 	document.querySelector('#FiltersForm').addEventListener("reset", diableInputsOnReset, false);
-    	// }
-    	
-      // document.getElementById("product_series").addEventListener("change", getModelFromSeries, false);
-      // document.getElementById("adv_reset").addEventListener("click", mehhhh, false);
-    }
-    
-    // function diableInputsOnReset(event){
-    //   var uno = document.getElementById("product_cat_sub")
-    //   // var duex = document.getElementById("product_series_sub")
-    //   uno.disabled = true;
-    //   // duex.disabled = true;
-    // }
-    
-    function getSubCatFromParent(event){
-      var route = document.location.origin  + '/wp-json/get_subcats'
-      getSubTerms(event, route, 'product_cat_group', 'product_subcat_group', 'product_cat_sub');
-    }
-    
-    // function getModelFromSeries(event){
-    //   var route =  document.location.origin  + '/wp-json/get_submodels'
-    //   getSubTerms(event, route, 'product_series_group', 'product_submodel_group', 'product_model_sub');
-    // }
-    
-    function getSubTerms(e, route, parent_group_id, sub_group_id, sub_id){
-      
-      // Create an Array.
-      var selected = new Array();
-      var id = new Array();
+        	};
 
-      // Reference the Table.
-      var tblFruits = document.getElementById(parent_group_id);
-
-      // Reference all the CheckBoxes in Table.
-      var chks = tblFruits.getElementsByTagName("input");
-
-      // Loop and push the checked CheckBox value in Array.
-      for (var i = 0; i < chks.length; i++) {
-        if (chks[i].checked) {
-          selected.push(chks[i].value);
-          id.push(chks[i].id);
-        }
-      }
-      
-      // console.log(selected); // this should be an array!
-      
-      if (selected.length > 0 && Array.isArray(selected)) {
-        
-        document.getElementById(sub_id).classList.add("uk-hidden"); // hide the sub if not already hidden
-        document.getElementById('loader_' + sub_id).classList.remove("uk-hidden"); // unhide the loader, will be hidden after success or failure below!!!
-      
-        const parent_data = {
-          slug: selected,
-          id: id,
-        };
-      
-        fetch(route, {
-          method: "POST",
-          credentials: 'same-origin',
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(parent_data),
-        })
-      
-        .then((response) => response.json())
-      
-        .then((data) => {
-          if (data) {
-            console.log('Success, sub-terms have been found');
-            document.getElementById(sub_group_id).innerHTML = data;
-            document.getElementById('loader_' + sub_id).classList.add("uk-hidden");
-            document.getElementById(sub_id).classList.remove("uk-hidden");
-            // sel2.disabled = false;
-            // sel2.parentElement.hidden = false; // we should reenable sel2 only when we have valid subs, on successful fetch()
-          }
-        })
-      
-        .catch((error) => {
-          console.log('No sub-terms found for your query');
-          document.getElementById('loader_' + sub_id).classList.add("uk-hidden");
-          document.getElementById(sub_id).classList.add("uk-hidden");
-          // console.error(error);
         });
-      
-      }
-      
-    }
-    
-    window.addEventListener("load", start, false); // start the select element event listners
-  
+      }, true);
+
+  	};
+
   </script>
-  
+
   {# end() #}
 {% endblock %}

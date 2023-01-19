@@ -19,75 +19,30 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 Base Theme is built using Timber WP https://github.com/timber/timber
 */
 
-.page-load-status {
-  display: none; /* hidden by default */
-  padding-top: 20px;
-  border-top: 1px solid #DDD;
-  text-align: center;
-  color: #777;
+/* custom disabled checkboxes. uses js elsewhere to make the checkbox unclickable/ this is just to style. coz we still want custom disabled checkboxes to work in form */
+.prevent-unclick:checked, .prevent-unclick:checked:focus, .prevent-unclick:indeterminate:focus {
+  background-color: #f8f8f8;
+  border-color: #e5e5e5;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='14' height='11' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23b4b4b4' d='M12 1 5 7.5 2 5l-1 .5L5 10l8-8.5z'/%3E%3C/svg%3E");
 }
 
-.loader-ellips {
-  font-size: 20px; /* change size here */
-  position: relative;
-  width: 4em;
-  height: 1em;
-  margin: 10px auto;
+/* stops weird blue bg when clicking filter buttons */
+.filter-btn::-moz-selection { /* Code for Firefox */
+  color: inherit;
+  background: none;
+}
+.filter-btn::selection {
+  color: inherit;
+  background: none;
 }
 
-.loader-ellips__dot {
-  display: block;
-  width: 1em;
-  height: 1em;
-  border-radius: 0.5em;
-  background: #555; /* change color here */
-  position: absolute;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
-  animation-iteration-count: infinite;
+.uk-button-small.uk-button-wide {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.loader-ellips__dot:nth-child(1),
-.loader-ellips__dot:nth-child(2) {
-  left: 0;
-}
-.loader-ellips__dot:nth-child(3) { left: 1.5em; }
-.loader-ellips__dot:nth-child(4) { left: 3em; }
-
-@keyframes reveal {
-  from { transform: scale(0.001); }
-  to { transform: scale(1); }
-}
-
-@keyframes slide {
-  to { transform: translateX(1.5em) }
-}
-
-.loader-ellips__dot:nth-child(1) {
-  animation-name: reveal;
-}
-
-.loader-ellips__dot:nth-child(2),
-.loader-ellips__dot:nth-child(3) {
-  animation-name: slide;
-}
-
-.loader-ellips__dot:nth-child(4) {
-  animation-name: reveal;
-  animation-direction: reverse;
-}
-
-/*!
-
-ANIMATIONS
-
-*/
-
-@keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
+.border-full {
+  border-radius: 100%;
 }
 
 /*!
@@ -99,14 +54,26 @@ TEXT FONTS BASE
 html {
   font-size: 17px;
 }
-html,
-.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle,
-.uk-logo {
-  font-family: 'Source Sans Pro', sans-serif, Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
-}
+/* font-family: headings */
 .uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6 {
-  font-family: 'Arima Madurai', cursive, Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
-  font-weight: 700;
+  /* font-family: 'Arima Madurai', Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+  font-weight: 800; */
+}
+/* font-family: logo */
+.uk-logo {
+  /* font-family: 'Arima Madurai', Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif; */
+}
+/* font-family: all the rest */
+html,
+.uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+  font-family: 'Source Sans Pro', Lato,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+}
+
+html {
+  /* font-family: 'Work Sans', sans-serif; */
+}
+.uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6, .uk-logo, .playfair-display {
+  font-family: 'Playfair Display', serif;
 }
 
 /*!
@@ -133,6 +100,9 @@ UIKIT MODS
 }
 .uk-label {
   text-transform: capitalize;
+}
+.uk-h1.uk-card-title {
+  font-size: 2.2rem;
 }
 
 /*!
@@ -167,7 +137,7 @@ UIKIT EXTENDS
   color: #fff;
 }
 .uk-text-boldest {
-  font-weight: 900;
+  font-weight: 600;
 }
 .uk-position-top-right.outside {
   top: -50px;
@@ -235,10 +205,7 @@ a.dont-underline:hover, a.dont-underline:focus {
 .dont-underline:hover, .dont-underline:focus {
   text-decoration: none;
 }
-.uk-hiddenn {
-  visibility: hidden;
-}
-.uk-hiddennn {
+.theme-hidden {
   visibility: hidden;
   position: absolute;
 }
@@ -249,9 +216,6 @@ SWIPER: GENERAL
 
 */
 
-.swiper-pagination {
-  position: relative!important;
-}
 .swiper {
   /* width: 100%;
   height: 100%; */
@@ -280,6 +244,9 @@ SWIPER: GENERAL
   width: 100%;
   height: 100%;
   object-fit: cover; */
+}
+.swiper-pagination {
+  position: relative!important;
 }
 .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
   bottom: -15px;
@@ -383,22 +350,24 @@ SPECIFIC SECTIONS
 }
 
 /* new: archive-header */
-.style-header img.uk-height-large {
-  height: 520px;
-  margin-bottom: -100px!important;
-}
 @media (max-width: 639px) {
+  .style-header img.uk-height-large {
+    height: 220px;
+  }
   .style-header .uk-container {
     padding: 0px;
   }
   .style-header .content {
     position: relative;
-    padding: 30px 0 30px 0;
-    margin-top: 25px;
-    margin-right: 25px;
+    margin-top: -50px;
+    padding: 0px 25px 25px 25px;
   }
 }
 @media (min-width: 640px) {
+  .style-header img.uk-height-large {
+    height: 520px;
+    margin-bottom: -100px!important;
+  }
   .style-header .content {
     position: absolute;
     width: 40%;
@@ -440,6 +409,69 @@ LOADERS
   border-top-color: #cf372d;
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+.page-load-status {
+  display: none; /* hidden by default */
+  padding-top: 20px;
+  /* border-top: 1px solid #DDD; */
+  text-align: center;
+  color: #777;
+}
+.loader-ellips {
+  font-size: 20px; /* change size here */
+  position: relative;
+  width: 4em;
+  height: 1em;
+  margin: 10px auto;
+}
+.loader-ellips__dot {
+  display: block;
+  width: 1em;
+  height: 1em;
+  border-radius: 0.5em;
+  background: #555; /* change color here */
+  position: absolute;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+}
+.loader-ellips__dot:nth-child(1),
+.loader-ellips__dot:nth-child(2) {
+  left: 0;
+}
+.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+.loader-ellips__dot:nth-child(4) { left: 3em; }
+@keyframes reveal {
+  from { transform: scale(0.001); }
+  to { transform: scale(1); }
+}
+@keyframes slide {
+  to { transform: translateX(1.5em) }
+}
+.loader-ellips__dot:nth-child(1) {
+  animation-name: reveal;
+}
+.loader-ellips__dot:nth-child(2),
+.loader-ellips__dot:nth-child(3) {
+  animation-name: slide;
+}
+.loader-ellips__dot:nth-child(4) {
+  animation-name: reveal;
+  animation-direction: reverse;
+}
+
+/*!
+
+ANIMATIONS
+
+*/
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
 }
 
 /*!

@@ -1,4 +1,43 @@
-{# contact 
+{# theme new
+
+#}
+
+{% macro featured_items() %}{{ _x('Featured Items', 'Homepage', 'base-theme') }}{% endmacro %}
+{% macro popular_categories() %}{{ _x('Popular Categories', 'Homepage', 'base-theme') }}{% endmacro %}
+{% macro all_the_rest() %}{{ _x('All The Rest', 'Homepage', 'base-theme') }}{% endmacro %}
+
+{% macro nothing_here() %}{{ _x('Sorry, nothing to display here...', 'Base', 'base-theme') }}{% endmacro %}
+
+{% macro header_top() %}{{ _x('No Content. Add a custom UIKIT HTML Widget to the Header Top Widget Area.', 'Header', 'base-theme') }}{% endmacro %}
+{% macro no_menu_main() %}{{ _x('Add a menu to the Main Menu slot in Appearance > Menus.', 'Header', 'base-theme') }}{% endmacro %}
+{% macro no_menu_mobile() %}{{ _x('Add a menu to the Mobile Menu slot in Appearance > Menus.', 'Header', 'base-theme') }}{% endmacro %}
+{% macro search_toggle_text() %}{{ _x('Open the Search Box', 'Header', 'base-theme') }}{% endmacro %}
+{% macro mobile_menu_toggle_text() %}{{ _x('Open the Mobile Menu', 'Header', 'base-theme') }}{% endmacro %}
+{% macro search_placeholder() %}{{ _x('Start typing...', 'Header', 'base-theme') }}{% endmacro %}
+{% macro search_offcanvas_placeholder() %}{{ _x('Search...', 'Header', 'base-theme') }}{% endmacro %}
+{% macro mobile_menu_close_text() %}{{ _x('Close the Mobile Menu', 'Header', 'base-theme') }}{% endmacro %}
+{% macro menu_text() %}{{ _x('Menu', 'Header', 'base-theme') }}{% endmacro %}
+
+{% macro footer_bottom() %}{{ _x('No Content. Add a custom UIKIT HTML Widget to the Footer Bottom Widget Area.', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro iconnav_text() %}{{ _x('Follow & Like us on Social Media', 'Footer', 'base-theme') }}{% endmacro %}
+
+{% macro posted_text() %}{{ _x('Posted in:', 'Single', 'base-theme') }}{% endmacro %}
+{% macro go_home() %}{{ _x('Back to Homepage', 'Single', 'base-theme') }}{% endmacro %}
+
+{% macro pagi_left_icon_small() %}<i class="fa-solid fa-arrow-left"></i>{% endmacro %}
+{% macro pagi_right_icon_small() %}<i class="fa-solid fa-arrow-right"></i>{% endmacro %}
+
+{% macro read_more() %}{{ _x('Continue reading...', 'Archive', 'base-theme') }}{% endmacro %}
+
+{% macro prev_page() %}{{ _x('Newer posts', 'Pagination', 'base-theme') }}{% endmacro %}
+{% macro next_page() %}{{ _x('Older posts', 'Pagination', 'base-theme') }}{% endmacro %}
+{% macro prev_post() %}{{ _x('Newer Article', 'Single Pagination', 'base-theme') }}{% endmacro %}
+{% macro next_post() %}{{ _x('Older Article', 'Single Pagination', 'base-theme') }}{% endmacro %}
+
+{% macro infinite_end() %}{{ _x('End of posts', 'Pagination', 'base-theme') }}{% endmacro %}
+{% macro infinite_none() %}{{ _x('No more posts to load', 'Pagination', 'base-theme') }}{% endmacro %}
+
+{# contact
 
 #}
 
@@ -7,7 +46,7 @@
 {% macro contact_hours() %}{{ _x('Mon-Fri 8:00 to 19:00', 'Contact - hours', 'base-theme') }}{% endmacro %}
 {% macro contact_email() %}{{ _x('example@example.com', 'Contact - email', 'base-theme') }}{% endmacro %}
 
-{# other 
+{# other
 
 #}
 
@@ -16,13 +55,13 @@
 {% macro mobile_menu_icon() %}<i class="fa-solid fa-bars"></i>{% endmacro %}
 {% macro header_left_text() %}{{ _x('Please call our office on +353 53 9388 646 to get a shipping quote and make payment over the phone.', 'Navigations: Header top', 'base-theme') }}{% endmacro %}
 
-{# base 
+{# base
 
 #}
 
 {% macro nothing_here() %}{{ _x('Sorry, nothing to display here...', 'Base', 'base-theme') }}{% endmacro %}
 
-{# footer 
+{# footer
 
 #}
 
@@ -32,13 +71,13 @@
 {% macro copy_text() %}{{ _x('Copyright © 2022. All Rights Reserved', 'Footer', 'base-theme') }}{% endmacro %}
 
 
-{# archive 
+{# archive
 
 #}
 
 {% macro no_posts() %}{{ _x('No posts found...', 'Archive', 'base-theme') }}{% endmacro %}
 
-{# password protect form 
+{# password protect form
 
 #}
 
@@ -46,7 +85,7 @@
 {% macro pword_protect_label() %}{{ _x('Password', 'Password-protected content', 'base-theme') }}{% endmacro %}
 {% macro pword_protect_enter_text() %}{{ _x('Enter', 'Password-protected content', 'base-theme') }}{% endmacro %}
 
-{# pagination 
+{# pagination
 
 #}
 
@@ -55,14 +94,14 @@
 {% macro prev_post() %}{{ _x('Newer Article', 'Single', 'base-theme') }}{% endmacro %}
 {% macro next_post() %}{{ _x('Older Article', 'Single', 'base-theme') }}{% endmacro %}
 
-{# post meta (single & tease) 
+{# post meta (single & tease)
 
 #}
 
 {% macro written_on() %}{{ _x('Written on %s.', 'Single', 'base-theme') }}{% endmacro %}
 {% macro posted_in() %}{{ _x('Posted in %s.', 'Single', 'base-theme') }}{% endmacro %}
 
-{# search form 
+{# search form
 
 #}
 
@@ -70,13 +109,13 @@
 {% macro search_form_placeholder() %}{{ _x('Start typing...', 'Search form', 'base-theme') }}{% endmacro %}
 {% macro search_btn_text() %}{{ _x('Submit', 'Search form', 'base-theme') }}{% endmacro %}
 
-{# tease 
+{# tease
 
 #}
 
 {% macro read_more() %}{{ _x('Read more', 'Tease', 'base-theme') }}{% endmacro %}
 
-{# woo 
+{# woo
 
 #}
 
@@ -114,7 +153,7 @@
 {# tabs #}
 {% macro custom_tab_title() %}{{ _x('Parts information', 'Custom product tab', 'base-theme') }}{% endmacro %}
 
-{# blocks  
+{# blocks
 
 #}
 
@@ -134,7 +173,7 @@
 {% macro adv_adv_search() %}{{ _x('Advanced search', 'Advanced search form', 'base-theme') }}{% endmacro %}
 {% macro adv_placeholder() %}{{ _x('Search by sku, title or anything else!', 'Advanced search form', 'base-theme') }}{% endmacro %}
 
-{# icons 
+{# icons
 
 #}
 

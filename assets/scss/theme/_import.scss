@@ -8,7 +8,7 @@ $theme_solid_border: 2px solid 1px solid #e5e5e591;
 
 // red: #cf372d
 // deep red: #a9231a
-// _blue: #120287 
+// _blue: #120287
 
 // colours
 $theme_primary: #131441; // purple
@@ -24,11 +24,11 @@ $text_color: #666;
 $footer_overlay: rgba(34,34,34,.40);
 
 // colours
-$heading_weight: 800;
-$super_boldest_weight: 900;
-$boldest_weight: 900;
-$bolder_weight: 800;
-$bold_weight: 700;
+$heading_weight: 500;
+$super_boldest_weight: 600;
+$boldest_weight: 600;
+$bolder_weight: 500;
+$bold_weight: 500;
 $navbar_item_weight: 500;
 
 // $theme_font: 'DM Sans', sans-serif;
@@ -58,6 +58,10 @@ $page_header_overlay: rgba(34,34,34,.4);
 @import "node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
 @import "node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
 @import "node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
+
+// Import swiper styles
+// @import "../../node_modules/swiper/swiper-bundle.min.css";
+@import "node_modules/swiper/swiper-bundle.min";
 
 // import woocommerce sass
 @import "../lib/woocommerce/woocommerce.scss";

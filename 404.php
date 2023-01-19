@@ -7,7 +7,7 @@
 * @package Rmcc_Theme
 *
 */
- 
+
 // namespace & use
 namespace Rmcc;
 

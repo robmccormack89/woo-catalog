@@ -6,7 +6,7 @@
  * @package Rmcc_Theme
  *
  */
- 
+
 namespace Rmcc;
 use Timber\Post;
 use Timber\PostQuery;
@@ -19,45 +19,60 @@ if (!class_exists('Timber')) {
 $context = Theme::context();
 
 if (is_singular('product')) {
-  
+
   $templates = array('product.twig', 'single.twig', 'base.twig');
-  
+
   $context['post'] = new Post();
   $context['product'] = wc_get_product($context['post']->ID);
-  
+
   $related_limit = 12;
   $related_ids = wc_get_related_products($context['post']->id, $related_limit);
   $context['related_products_title'] = apply_filters('woocommerce_product_related_products_heading', _x('Related products', 'Related products: title', 'base-theme'));
   $context['related_products'] = null;
   if ($related_ids) $context['related_products'] = new PostQuery($related_ids);
-  
+
   $upsell_ids = $context['post']->_upsell_ids;
   $context['up_sells_title'] = apply_filters('woocommerce_product_upsells_products_heading', _x('You may also like', 'Upsell products: title', 'base-theme'));
   $context['up_sells'] = null;
   if ($upsell_ids) $context['up_sells'] = new PostQuery($upsell_ids);
-  
+
   wp_reset_postdata();
-  
+
   Theme::render($templates, $context);
-  
-} 
+
+}
 
 else {
-  
+
   $context['posts'] = new PostQuery();
-  
+
   $templates = array('shop.twig', 'archive.twig', 'base.twig');
   $tease_template = array('_tease-product.twig');
   $products_grid_columns = wc_get_loop_prop('columns');
-  
+  $context['is_parent_term_archive'] = false;
+  $context['is_child_term_archive'] = false;
+  $context['is_child_product_cat_archive'] = false;
+  $context['is_child_product_range_archive'] = false;
+
   if (get_query_var('grid_list') == 'list-view') {
     $products_grid_columns = 1;
   	array_unshift($tease_template, '_tease-product-wide.twig');
   };
-  
+
   if (is_tax()) {
     $queried_object = get_queried_object();
     if(is_object($queried_object)){
+      if($queried_object->parent == '0'){
+        $context['is_parent_term_archive'] = true;
+      } else {
+        $context['is_child_term_archive'] = true;
+        $parent_term = get_term($queried_object->parent);
+        if($parent_term->taxonomy == 'product_cat'){
+          $context['is_child_product_cat_archive'] = true;
+        } elseif($parent_term->taxonomy == 'pa_range') {
+          $context['is_child_product_range_archive'] = true;
+        }
+      }
       $term_id = $queried_object->term_id;
       $context['term_slug'] = $queried_object->slug;
       $context['term_id'] = $term_id;
@@ -65,15 +80,16 @@ else {
     $context['title'] = single_term_title('', false); // e.g: 'Clothing'
     $context['description'] = get_the_archive_description();
   };
-  
+
   if (is_shop()) {
-    $shop_page_id = wc_get_page_id('shop'); 
+    $shop_page_id = wc_get_page_id('shop');
     $context['title'] = get_the_title($shop_page_id);  // e.g: 'Shop'
     $context['description'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud';
+    // $context['description'] = null;
   };
-  
-  $context['tease_template'] = $tease_template; 
-  
+
+  $context['tease_template'] = $tease_template;
+
   if($products_grid_columns == 1) {
     $context['grid_classes'] = 'uk-child-width-1-1';
   }
@@ -89,7 +105,7 @@ else {
   elseif($products_grid_columns >= 5) {
     $context['grid_classes'] = 'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-child-width-1-'.$products_grid_columns.'@xl';
   }
-  
+
   Theme::render($templates, $context);
-  
+
 }

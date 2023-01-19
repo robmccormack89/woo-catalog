@@ -1,0 +1,50 @@
+{% extends 'single.twig' %}
+
+{% block single_header %}
+
+  <section id="StyleHeaderPink" class="itsa-header style-header uk-background-muted muted-pink">
+    <div class="uk-container">
+      <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
+        <li class="uk-width-1-1 uk-width-4-5@m">
+          <img class="uk-height-large cover-img" src="https://picsum.photos/960/520?random=1" width="960" height="520">
+        </li>
+        <li class="content">
+          <div class="uk-position-relative">
+            <!-- <span class="uk-position-top-right outside" hidden><img class="" src="{{ theme.link }}/assets/img/two.jpg" width="120" height="120"></span> -->
+            <div class="uk-card uk-card-default uk-card-body uk-text-center uk-text-left@m">
+              <h1 class="uk-h3 uk-card-title uk-text-boldest uk-margin-small">{{ post.title|e('esc_html') }}</h1>
+              {% if post.the_excerpt %}
+                <p class="uk-margin-small">{{ post.the_excerpt|e('esc_html') }}</p>
+              {% endif %}
+            </div>
+            <!-- <span class="uk-label uk-label-success uk-position-absolute" hidden>Price Promise <i class="fa-solid fa-euro-sign push-left-5"></i></span> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <header class="single-header uk-background-muted" hidden>
+    <div class="uk-container uk-padding-small">
+      <h1 class="uk-margin-remove">{{ post.title|e('esc_html') }}</h1>
+      {% if post.categories or (post.date and post.post_type == 'post') %}
+        <div class="uk-text-meta">
+
+          {% set _post_date %}{% spaceless %}
+            <time class="post-date">{{ post.date|date('j F Y')|e('esc_html') }}</time>
+          {% endspaceless %}{% endset %}
+          {{ snippets.written_on|e('esc_html')|format(_post_date) }}
+
+          {% if post.categories %}
+            {% set _post_cats %}{% spaceless %}
+              <span class="post-terms">{{ post.categories|join(', ') }}</span>
+            {% endspaceless %}{% endset %}
+            {{ snippets.posted_in|e('esc_html')|format(_post_cats) }}
+          {% endif %}
+
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+{% endblock %}

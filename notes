@@ -1,0 +1,9 @@
+if on a term archive page, the term's checkbox in filters show be both checked AND INACTIVE
+
+when on a term, archive page, we can hide:
+- if its a sub term; hide the parent filter dropdown (dont need to further filter by parent term, but can filter by other sub terms, as this will add to current query)
+- if its a parent term; ...we now need to modify the JS for the check against stopping parents being part of form submission when childs are selected... this should only happen when the childs parent is selected, not ANY parent
+
+where to continue....
+
+shop.twig: line 355

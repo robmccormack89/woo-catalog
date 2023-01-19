@@ -1,47 +1,90 @@
-{% extends 'base.twig' %}
 {% import "_snippets.twig" as snippets %}
+{% extends "index.twig" %}
+
+{% block styles %}
+  {{ parent() }}
+{% endblock %}
 
 {% block main %}
-  <div class="theme-archive uk-sectionnn uk-background-default" data-template="archive.twig">
+  <div class="uk-margin-medium-bottom" data-template="archive.twig">
 
-    {% block archive_header %}
-      <header class="single-header uk-background-muted">
-        <div class="uk-container uk-padding-small">
-          <h1 class="uk-margin-remove">{{ title|e('esc_html') }}</h1>
-          {% if description %}
-            <p class="uk-text-lead uk-margin-small-top">{{ description|e('esc_html') }}</p>
+    {% if (not fn('is_paged')) and (archive.highlight_post) %}
+      <div class="cat-upper uk-background-muted mmmuted-pink"></div>
+    {% endif %}
+
+    <div class="uk-container {{ (fn('is_paged') or not archive.highlight_post) ? '' : 'cat-container' }}">
+
+      {% block archive_header %}
+        <header class="uk-container uk-container-xsmall uk-padding-remove-horizontal uk-text-center uk-margin-bottom {{ (fn('is_paged') or not archive.highlight_post) ? 'uk-margin-top' }}">
+          <h1 class="">{{ archive.title }}</h1>
+          {% if archive.description %}
+            <p class="excerpt uk-text-muted uk-padding uk-padding-remove-vertical">{{ archive.description|e('esc_html') }}</p>
           {% endif %}
-        </div>
-      </header>
-    {% endblock %}
-    
-    {% block breads %}
-      {% include '_breads.twig' %}
-    {% endblock %}
+        </header>
+      {% endblock %}
 
-    {% block archive_content %}
-      <div class="archive-content uk-container uk-section uk-section-small">
-        <div class="archive-loop">
-          {% if posts is not empty %}
-            <ul class="uk-child-width-1-1 uk-grid-large" uk-grid>
-              {% for post in posts %}
-                <li>
-                  {% include '_tease.twig' %}
-                </li>
+      {% block archive_content %}
+        {% block archive_pre_posts %}
+          {% if (not fn('is_paged')) and (archive.highlight_post) %}
+            <div class="uk-container uk-container-xsmall uk-padding-remove-horizontal">
+
+              {% if archive.highlight_post %}
+                <div class="first-sticky-posts uk-child-width-1-1 uk-grid-medium" uk-grid>
+                  <article id="post-{{ archive.highlight_post.id|e('esc_html') }}" class="uk-section uk-section-small uk-padding-remove-top {{ archive.highlight_post.class|e('esc_html') }}">
+                    {% include '_tease.twig' with { post: archive.highlight_post, preview_length: 35, thumb_w: "800", thumb_h: "500", thumb_pos: "center" } %}
+                  </article>
+                </div>
+              {% endif %}
+
+              {% if archive.rest_of_highlights is not empty %}
+                <div class="second-sticky-posts uk-grid-medium uk-flex-center" uk-grid>
+                  {% for post in archive.rest_of_highlights %}
+                    {% set width_class = ( (archive.rest_of_highlights|length is not divisible by(2)) and (loop.last) ) ? 'uk-width-1-1' : 'uk-width-1-2@m' %}
+                    <article id="post-{{post.ID}}" class="uk-section uk-section-small uk-padding-remove-top {{ width_class }} {{ post.class }} ">
+                      {% include '_tease.twig' with { post: post, preview_length: 22, thumb_w: 750, thumb_h: 400, thumb_pos: 'center' } %}
+                    </article>
+                  {% endfor %}
+                </div>
+              {% endif %}
+
+            </div>
+          {% endif %}
+        {% endblock %}
+
+        {% block archive_main_posts %}
+          {% if archive.posts is not empty %}
+            <div class="archive-posts uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-medium" uk-grid="masonry: true">
+              {% for post in archive.posts %}
+                <article id="post-{{ post.id|e('esc_html') }}" class="item uk-section uk-section-small uk-padding-remove-top {{ post.class|e('esc_html') }}">
+                  {% include '_tease.twig' with {post: post, preview_length: 20, thumb_w: 600} %}
+                </article>
               {% endfor %}
-            </ul>
+            </div>
           {% else %}
-            {{ snippets.no_posts()|e('esc_html') }}
+            {% if not archive.highlight_post %}
+              <p class="uk-text-emphasis">No posts found. Add some posts!</p>
+            {% endif %}
           {% endif %}
-        </div>
-      </div>
-    {% endblock %}
-    
-    {% block archive_footer %}
-      <footer class="archive-footer">
-        {% include '_pagination.twig' with {container_class: 'uk-margin-remove-top uk-margin-medium-bottom'} %}
-      </footer>
-    {% endblock %}
-  
+        {% endblock %}
+      {% endblock %}
+
+      {% block archive_footer %}
+        {{ parent() }}
+      {% endblock %}
+
+    </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ parent() }}
+  <!-- // infinite scroll pagination script - scroll.js -->
+  <script type='text/javascript'>
+    var themePagination = document.getElementById("themePagination");
+    if(themePagination){
+      window.addEventListener('load', (event) => {
+        archivePagination();
+      });
+    }
+  </script>
 {% endblock %}
