@@ -1,4 +1,4 @@
-// ajax search 
+// ajax search
 jQuery(function($) {
 
 	// helper function to highlight search results text
@@ -32,6 +32,8 @@ jQuery(function($) {
 
 		if (req != null) req.abort();
 
+		$('#loaderSearchToggle').show();
+
 		req = $.ajax({
 			type: 'post',
 			url: myAjax.ajaxurl,
@@ -43,10 +45,12 @@ jQuery(function($) {
 				if (!response) {
 					alert('empty');
 					$('#response_search_results').hide();
+					$('#loaderSearchToggle').show();
 					return;
 				}
 				var obj = JSON.parse(response);
 				if (obj.result == 1) {
+					$('#loaderSearchToggle').show();
 					document.getElementById("response_search_results").innerHTML = obj.response;
 					$('#response_search_results').show();
 				}
@@ -55,9 +59,11 @@ jQuery(function($) {
 				});
 			},
 			error: function(request, status, error) {
+				$('#loaderSearchToggle').show();
 				$('#response_search_results').hide();
 			}
 		});
+
 	}, 500));
 
 	// search results hide on additional click away
@@ -82,7 +88,7 @@ function start(){
 	if(bar){
 		bar.addEventListener("click", mehhhh, false);
 	}
-	
+
   // document.getElementById("product_series").addEventListener("change", getModelFromSeries, false);
   // document.getElementById("adv_reset").addEventListener("click", mehhhh, false);
 }
@@ -103,23 +109,23 @@ function getModelFromSeries(event){
   getSubTerms(event, route);
 }
 function getSubTerms(e, route){
-  
+
   var sel = e.target; // target the parent select element, which is target of the change event
   var opt = sel.options[sel.selectedIndex]; // look at the options of the parent select element & get the selected one
-  
+
   var sel2_id = e.target.id +  '_sub';
   var sel2 = document.getElementById(sel2_id); // target the sub select dynamically
   sel2.disabled = true;
   // sel2.parentElement.hidden = true; // sub select should be disabled by default
-  
+
   // we only want to continue if the select has a value to start...
   if(opt.value) {
-    
+
     const parent_data = {
       slug: opt.value,
       id: opt.id,
     };
-    
+
     fetch(route, {
       method: "POST",
       credentials: 'same-origin',
@@ -144,9 +150,9 @@ function getSubTerms(e, route){
     .catch((error) => {
       console.error(error);
     });
-    
+
   }
-  
+
 }
 
 window.addEventListener("load", start, false); // start the select element event listners

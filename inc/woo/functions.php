@@ -7,6 +7,46 @@
 *
 */
 
+function custom_wc_taxonomy_args_product_cat($args){
+	$args['label'] = __('Collections', 'woocommerce');
+	$args['labels'] = array(
+    'name' => __('Collections', 'woocommerce'),
+    'singular_name' => __('Collection', 'woocommerce'),
+    'menu_name' => _x('Collections', 'Admin menu name', 'woocommerce'),
+    'search_items' => __('Search Collections', 'woocommerce'),
+    'all_items' => __('All Collections', 'woocommerce'),
+    'parent_item' => __('Parent Collection', 'woocommerce'),
+    'parent_item_colon' => __('Parent Collection:', 'woocommerce'),
+    'edit_item' => __('Edit Collection', 'woocommerce'),
+    'update_item' => __('Update Collection', 'woocommerce'),
+    'add_new_item' => __('Add New Collection', 'woocommerce'),
+    'new_item_name' => __('New Collection Name', 'woocommerce')
+	);
+	return $args;
+}
+
+function custom_wc_taxonomy_args_product_tag($args){
+	$args['label'] = __('Features', 'woocommerce');
+	$args['labels'] = array(
+    'name' => __('Features', 'woocommerce'),
+    'singular_name' => __('Feature', 'woocommerce'),
+    'menu_name' => _x('Features', 'Admin menu name', 'woocommerce'),
+    'search_items' => __('Search Features', 'woocommerce'),
+    'all_items' => __('All Features', 'woocommerce'),
+    'parent_item' => __('Parent Feature', 'woocommerce'),
+    'parent_item_colon' => __('Parent Feature:', 'woocommerce'),
+    'edit_item' => __('Edit Feature', 'woocommerce'),
+    'update_item' => __('Update Feature', 'woocommerce'),
+    'add_new_item' => __('Add New Feature', 'woocommerce'),
+    'new_item_name' => __('New Feature Name', 'woocommerce')
+	);
+	return $args;
+}
+
+function custom_attribute_label( $label, $name ) {
+  return '$label';
+}
+
 // add grid_list to the query_vars
 function add_grid_list_query_vars($vars){
   $vars[] .= 'grid_list';
@@ -275,16 +315,32 @@ function ajax_live_search() {
 
   $query = $_POST['query'];
   $query_string_upper = ucwords($query);
+	$context['query_string_upper'] = $query_string_upper;
 
   if (!empty($query)) {
 
     $data['result'] = 1;
 
-    $cat_args = array(
+    $ranges_args = array(
       'fields' => 'all',
       'name__like' => $query,
     );
-    $product_categories = get_terms( 'product_cat', $cat_args );
+    $ranges = get_terms( 'pa_range', $ranges_args );
+		$context['ranges'] = $ranges;
+
+		$collections_args = array(
+      'fields' => 'all',
+      'name__like' => $query,
+    );
+    $collections = get_terms( 'product_cat', $collections_args );
+		$context['collections'] = $collections;
+
+		$features_args = array(
+      'fields' => 'all',
+      'name__like' => $query,
+    );
+    $features = get_terms( 'product_tag', $features_args );
+		$context['features'] = $features;
 
     $products = wc_get_products( array(
       'status' => 'publish',
@@ -297,13 +353,41 @@ function ajax_live_search() {
         ),
       )
     ));
+		$context['products'] = $products;
 
     $matching_terms = get_terms( array(
+      'taxonomy' => 'pa_range',
+      'fields' => 'slugs',
+      'name__like' => $query,
+    ));
+    $products_in_range_args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'product',
+      'orderby' => 'title',
+      'meta_query' => array(
+        array(
+          'key' => '_stock_status',
+          'value' => 'instock'
+        ),
+      ),
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'pa_range',
+          'field' => 'slug',
+          'terms' => $matching_terms
+        ),
+      ),
+    );
+    $products_in_range = new Timber\PostQuery($products_in_range_args);
+		$context['products_in_range'] = $products_in_range;
+
+		$matching_terms_collection = get_terms( array(
       'taxonomy' => 'product_cat',
       'fields' => 'slugs',
       'name__like' => $query,
     ));
-    $products_in_cat_args = array(
+    $products_in_collection_args = array(
       'posts_per_page' => -1,
       'post_type' => 'product',
       'orderby' => 'title',
@@ -318,23 +402,40 @@ function ajax_live_search() {
         array(
           'taxonomy' => 'product_cat',
           'field' => 'slug',
-          'terms' => $matching_terms
+          'terms' => $matching_terms_collection
         ),
       ),
     );
-    $products_in_cat = new Timber\PostQuery($products_in_cat_args);
+    $products_in_collection = new Timber\PostQuery($products_in_collection_args);
+		$context['products_in_collection'] = $products_in_collection;
 
-    $products_with_sku = wc_get_products( array(
-      'status' => 'publish',
-      'limit' => -1,
-      'sku' => $query
+		$matching_terms_feature = get_terms( array(
+      'taxonomy' => 'product_tag',
+      'fields' => 'slugs',
+      'name__like' => $query,
     ));
+    $products_in_feature_args = array(
+      'posts_per_page' => -1,
+      'post_type' => 'product',
+      'orderby' => 'title',
+      'meta_query' => array(
+        array(
+          'key' => '_stock_status',
+          'value' => 'instock'
+        ),
+      ),
+      'tax_query' => array(
+        'relation' => 'AND',
+        array(
+          'taxonomy' => 'product_tag',
+          'field' => 'slug',
+          'terms' => $matching_terms_feature
+        ),
+      ),
+    );
+    $products_in_feature = new Timber\PostQuery($products_in_feature_args);
+		$context['products_in_feature'] = $products_in_feature;
 
-    $context['product_categories'] = $product_categories;
-    $context['products'] = $products;
-    $context['products_in_cat'] = $products_in_cat;
-    $context['products_with_sku'] = $products_with_sku;
-    $context['query_string_upper'] = $query_string_upper;
     $response = Timber::compile(array('_live-search-results.twig'), $context);
 
     $data['response'] = $response;

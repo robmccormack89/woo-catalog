@@ -1,0 +1,35 @@
+<header id="StyleHeaderPink" class="itsa-header style-header uk-background-muted uk-position-relative theme-border-bottom" hidden>
+  <div class="uk-container">
+    <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative uk-position-z-index" uk-grid>
+      <li class="uk-width-1-1 uk-width-3-4@m">
+        <img class="uk-height-large cover-img uk-box-shadow-large uk-border-rounded rounded-bottom-only" src="{{ archive.thumbnail.src|resize(850, 320, 'center')|e('esc_url') }}" width="850" height="320">
+      </li>
+      <li class="content">
+        <div class="uk-position-relative">
+          <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
+            <h1 class="uk-card-title uk-margin-small {{ (archive.description) ? '' : 'uk-h1' }}">{{ archive.title|e('esc_html') }}</h1>
+            {% if archive.description %}
+              <p class="uk-margin-small">{{ archive.description|e('esc_html') }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<header class="itsa-header style-header new uk-background-muted uk-position-relative theme-border-bottom">
+  <div class="uk-container">
+    <div class="uk-inline">
+      <img class="uk-height-large cover-img uk-box-shadow-large uk-border-rounded rounded-bottom-only" src="{{ archive.thumbnail.src|resize(1200, 320, 'center')|e('esc_url') }}" width="1200" height="320">
+      <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle uk-position-small uk-overlay uk-overlay-faint uk-border-rounded uk-light uk-text-center">
+        <div class="uk-width-1-1 uk-width-1-2@m">
+          <h1 class="uk-margin-small {{ (archive.description) ? 'uk-h2' : 'uk-h1' }}">{{ archive.title|e('esc_html') }}</h1>
+          {% if archive.description %}
+            <p class="uk-margin-small">{{ archive.description|e('esc_html') }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

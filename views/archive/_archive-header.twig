@@ -1,0 +1,7 @@
+{% import "_snippets.twig" as snippets %}
+
+<h1 class="">{{ archive.title }}</h1>
+
+{% if archive.description %}
+  <p class="excerpt uk-text-muted uk-padding uk-padding-remove-vertical">{{ archive.description|e('esc_html') }}</p>
+{% endif %}

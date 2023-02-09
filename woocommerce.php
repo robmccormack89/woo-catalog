@@ -44,48 +44,54 @@ if (is_singular('product')) {
 
 else {
 
+  $is_sub_collection = false;
+  $is_sub_range = false;
+
+  global $configs;
+  $thumb_src = $configs['theme_defaults']->thumbnail['src'];
+  $thumb_alt = $configs['theme_defaults']->thumbnail['alt'];
+  $thumb_caption = $configs['theme_defaults']->thumbnail['caption'];
+
   $context['posts'] = new PostQuery();
 
   $templates = array('shop.twig', 'archive.twig', 'base.twig');
   $tease_template = array('_tease-product.twig');
   $products_grid_columns = wc_get_loop_prop('columns');
-  $context['is_parent_term_archive'] = false;
-  $context['is_child_term_archive'] = false;
-  $context['is_child_product_cat_archive'] = false;
-  $context['is_child_product_range_archive'] = false;
-
-  if (get_query_var('grid_list') == 'list-view') {
-    $products_grid_columns = 1;
-  	array_unshift($tease_template, '_tease-product-wide.twig');
-  };
 
   if (is_tax()) {
     $queried_object = get_queried_object();
-    if(is_object($queried_object)){
-      if($queried_object->parent == '0'){
-        $context['is_parent_term_archive'] = true;
-      } else {
-        $context['is_child_term_archive'] = true;
-        $parent_term = get_term($queried_object->parent);
-        if($parent_term->taxonomy == 'product_cat'){
-          $context['is_child_product_cat_archive'] = true;
-        } elseif($parent_term->taxonomy == 'pa_range') {
-          $context['is_child_product_range_archive'] = true;
-        }
-      }
-      $term_id = $queried_object->term_id;
-      $context['term_slug'] = $queried_object->slug;
-      $context['term_id'] = $term_id;
+
+    // general term vars
+    $term_id = $queried_object->term_id;
+    $context['term_slug'] = $queried_object->slug;
+    $context['term_id'] = $term_id;
+
+    // set conditionals for shop filters functionality on child term archives
+    if(is_child_term_archive($queried_object)){
+      $parent_term = get_term($queried_object->parent);
+      if($parent_term->taxonomy == 'product_cat') $is_sub_collection = true;
+      if($parent_term->taxonomy == 'pa_range') $is_sub_range = true;
     }
-    $context['title'] = single_term_title('', false); // e.g: 'Clothing'
-    $context['description'] = get_the_archive_description();
+
+    // getting the archive thumb
+    $term_thumb = get_product_term_attachments($term_id);
+    if(!empty($term_thumb['src'])) $thumb_src = $term_thumb['src'];
+    if(!empty($term_thumb['alt'])) $thumb_alt = $term_thumb['alt'];
+    if(!empty($term_thumb['caption'])) $thumb_caption = $term_thumb['caption'];
+
+    $title = single_term_title('', false); // e.g: 'Clothing'
+    $description = get_the_archive_description();
   };
 
   if (is_shop()) {
     $shop_page_id = wc_get_page_id('shop');
-    $context['title'] = get_the_title($shop_page_id);  // e.g: 'Shop'
-    $context['description'] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud';
-    // $context['description'] = null;
+    $title = get_the_title($shop_page_id);  // e.g: 'Shop'
+    $description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud';
+  };
+
+  if (get_query_var('grid_list') == 'list-view') {
+    $products_grid_columns = 1;
+  	// array_unshift($tease_template, '_tease-product-wide.twig');
   };
 
   $context['tease_template'] = $tease_template;
@@ -105,6 +111,20 @@ else {
   elseif($products_grid_columns >= 5) {
     $context['grid_classes'] = 'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-child-width-1-'.$products_grid_columns.'@xl';
   }
+
+  // create the archive object, and fill it
+  $context['archive'] = (object) [
+    "posts" => $context['posts'],
+    "title" => (is_paged()) ? $title . ' - Page ' . get_query_var('paged') : $title,
+    "description" => $description,
+    "thumbnail" => [
+      "src" => $thumb_src,
+      "alt" => $thumb_alt,
+      "caption" => $thumb_caption
+    ],
+    "is_sub_collection" => $is_sub_collection,
+    "is_sub_range" => $is_sub_range
+  ];
 
   Theme::render($templates, $context);
 

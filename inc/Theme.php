@@ -388,6 +388,7 @@ class Theme extends Timber {
       'flex-width' => true,
       'flex-height' => true
     ));
+    add_image_size( 'single-product-main', 500, 500, true ); // 220 pixels wide by 180 pixels tall, hard crop mode
     load_theme_textdomain('base-theme', get_template_directory() . '/languages');
   }
   public function add_to_twig($twig) {

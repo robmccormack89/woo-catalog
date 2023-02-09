@@ -1,9 +1,41 @@
-if on a term archive page, the term's checkbox in filters show be both checked AND INACTIVE
+1. be cool if woo archive's featured image was a random one from the current queried product's featured images. if none, then use the default.
 
-when on a term, archive page, we can hide:
-- if its a sub term; hide the parent filter dropdown (dont need to further filter by parent term, but can filter by other sub terms, as this will add to current query)
-- if its a parent term; ...we now need to modify the JS for the check against stopping parents being part of form submission when childs are selected... this should only happen when the childs parent is selected, not ANY parent
+2. single product metas logic....
 
-where to continue....
+  Ranges (attribute: range)
 
-shop.twig: line 355
+    can be in a parent or a sub (blinds -> roller)
+    can be in 2 at collections at once like roller & vertical. e.g: variable products
+
+    check the terms the product has attached...
+
+    if terms contain children...
+
+      if term is a child, show other products within this term --- roller products carousel, minus current product
+
+      if term is a child, show other products within this term --- vertical products carousel, minus current product
+
+      get parents of all children in terms & remove any duplicates. loop thru parents and....
+
+        if parent has subs, show the subs minus the product's attached subs (roller & vertical) --- carousel with subs of blinds (venetain, day-night...)
+
+        if parent has subs, show the subs minus the product's attached subs --- carousel with subs of shutters (there is none, just maybe....)
+
+    elseif terms contains no children...
+
+      if term is a parent & the parent has NO subs, show other products within the parent term (minus current product) --- shutters products
+
+      if term is a parent & the parent has NO subs, show other products within the parent term (minus current product) --- blinds, maybe
+
+      if term is a parent & the parent has subs, show the subs --- blinds -> vertical, venetian etc... maybe
+
+  Collections (product_cat)
+
+    can be in a parent or a sub (perfect-fit -> softshade)
+    will only ever be in 1 range (or parent/child range-set) at once.
+
+  Features (product_tag)
+
+    loop thru the product features as a carousel
+
+    maybe give motorized its own section if product has that as feature etc

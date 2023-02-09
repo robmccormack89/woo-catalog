@@ -4,6 +4,13 @@
 
   {% include '_html-head.twig' %}
     {% block styles %}
+      <style>
+        .uk-background-muted.bg-img {
+          /* background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/45degreee_fabric.png"); */
+          /* background-image: url("{{ theme.link }}/assets/img/bgs/brickwall.png"); */
+          background-image: url("{{ theme.link }}/assets/img/bgs/solaris-blinds-day-night-1920x1200.jpg");
+        }
+      </style>
     {% endblock %}
   </head>
   {% endblock %}
@@ -54,7 +61,7 @@
 
     <div id="MiniCartModal" class="minicart-modal" uk-modal>
       <div class="uk-modal-dialog">
-        <div class="uk-modal-body height-content uk-padding-remove" uk-overflow-auto>
+        <div class="uk-modal-body min-height-content uk-padding-remove" uk-overflow-auto>
           <div class="widget_shopping_cart_content">
             {{ fn('woocommerce_mini_cart') }}
           </div>

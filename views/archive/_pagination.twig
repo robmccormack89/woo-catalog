@@ -34,7 +34,7 @@
   </nav>
 {% endif %}
 
-{% if _posts.pagination.next %}
+{% if _posts.pagination.next and (configs.inf_pagination) %}
   <div class="page-load-status">
     <div class="loader-ellips infinite-scroll-request">
       <span class="loader-ellips__dot"></span>

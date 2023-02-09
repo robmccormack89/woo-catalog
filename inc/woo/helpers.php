@@ -10,6 +10,57 @@ function get_parent_term_slug_from_child($child, $tax = 'product_cat'){
 	return '';
 }
 
+function get_values_from_array_using_key($array, $key = 'term_id'){
+	if($array && count($array) > 0) {
+		$new_arr = array();
+		foreach($array as $item){
+			if($item->$key){
+				$new_arr[] = $item->$key;
+			} else {
+				return null;
+			}
+		}
+		return $new_arr;
+	}
+	return null;
+}
+
+function get_parents_of_terms_no_repeat($terms){
+	if($terms && count($terms) > 0) {
+		$parents = array();
+		foreach($terms as $term){
+			if(!($term->parent == '0')){
+				$parents[] = get_term($term->parent);
+			}
+		}
+		// removes duplicates in multi-dimensional array  - https://stackoverflow.com/questions/307674/how-to-remove-duplicate-values-from-a-multi-dimensional-array-in-php
+		return array_map("unserialize", array_unique(array_map("serialize", $parents)));
+	}
+}
+
+function get_children_terms_from_terms_list($terms){
+	if($terms && count($terms) > 0) {
+		$arr = array();
+		foreach($terms as $term){
+			if(!($term->parent == '0')){
+				$arr[] = $term;
+			}
+		}
+		return $arr;
+	}
+}
+
+function if_terms_contains_child($terms, $tax_key = 'product_cat') {
+	if($terms && count($terms) > 0) {
+		foreach($terms as $term){
+			if(!($term->parent == '0')){
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
 function does_term_have_children($term_id, $tax_key = 'product_cat') {
 	// check to see if 'product_cat' has children
   if (count(get_term_children($term_id, $tax_key)) > 0) return true;
@@ -211,6 +262,15 @@ function product_ranges_for_filters() {
   );
   return get_terms($cats_args);
 }
+function product_tags_for_filters() {
+	// get the product cat filters
+  $cats_args = array(
+    'taxonomy' => 'product_tag',
+    'hide_empty' => true,
+    'orderby' => 'slug',
+  );
+  return get_terms($cats_args);
+}
 
 /* Getting the links for the product filters using add_query_args/remove_query-args;
 
@@ -376,7 +436,7 @@ function get_parent_product_terms($tax = 'product_cat') {
 	this function will be called when getting the thumbnail attachment of a given term
 
 */
-function get_product_term_attachments($term_id) {
+function get_product_term_attachments($term_id, $key = 'product_cat', $thumb_key = 'thumbnail_id') {
 
 	$thumb_src = null;
   $thumb_alt = null;
@@ -384,54 +444,31 @@ function get_product_term_attachments($term_id) {
   // we will only ever be using this function to get term attachments for product_cats or product_series
   // in each case we must target different term meta: thumbnail_id & series_thumbnail
 
-  // if the term_id exists in product_cats, we will get the thumbnail_id
-  if (term_exists($term_id, 'product_cat')) {
+  // if term_id exists in given taxonomy, we will get the thumbnail_id using the thumb_key
+  if (term_exists($term_id, $key)) {
 
-    $thumbnail_id = get_term_meta($term_id, 'thumbnail_id', true);
+    $thumbnail_id = get_term_meta($term_id, $thumb_key, true);
 
     if($thumbnail_id){
       $thumb_src = wp_get_attachment_url($thumbnail_id);
       $thumb_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     }
 
-    // when no thumbnail_id (when no thumbnail is set, we will default using this)
+    // when no thumbnail_id (when no thumbnail is set, we will default to parent's)
     if(!$thumbnail_id) {
 
       // if no thumb set, get the whole term first
-      $term = get_term_by('id', $term_id, 'product_cat');
+      $term = get_term_by('id', $term_id, $key);
 
       // if term has parent,
       if ($term->parent > 0) {
-        $parent = get_term_by('id', $term->parent, 'product_cat'); // set the parent term
-        $parent_thumbnail_id = get_term_meta($parent->term_id, 'thumbnail_id', true); // get the thumbnail id from that instead
+        $parent = get_term_by('id', $term->parent, $key); // set the parent term
+        $parent_thumbnail_id = get_term_meta($parent->term_id, $thumb_key, true); // get the thumbnail id from that instead
         $thumb_src = wp_get_attachment_url($parent_thumbnail_id);
         $thumb_alt = get_post_meta($parent_thumbnail_id, '_wp_attachment_image_alt', true);
-      }
-    }
-
-  }
-
-  // if the term_id exists instead in product_series, we will get the series_thumbnail
-  if (term_exists($term_id, 'product_series')) {
-
-    $thumbnail_id = get_term_meta($term_id, 'series_thumbnail', true);
-
-    if($thumbnail_id){
-      $thumb_src = wp_get_attachment_url($thumbnail_id);
-      $thumb_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
-    }
-
-    // when no thumbnail_id (when no thumbnail is set, we will default using this)
-    if(!$thumbnail_id){
-
-      $term = get_term_by('id', $term_id, 'product_series');
-
-      if ($term->parent > 0) {
-        $parent = get_term_by('id', $term->parent, 'product_series');
-        $parent_thumbnail_id = get_term_meta($parent->term_id, 'series_thumbnail', true);
-        $thumb_src = wp_get_attachment_url($parent_thumbnail_id);
-        $thumb_alt = get_post_meta($parent_thumbnail_id, '_wp_attachment_image_alt', true);
-      }
+			} else {
+				// what should we default to when its a child??
+			}
 
     }
 

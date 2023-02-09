@@ -2,6 +2,7 @@
 {% import "_snippets.twig" as snippets %}
 
 {% block styles %}
+  {{ parent() }}
   <link rel='stylesheet' href='{{theme.link}}/assets/css/editor.css' type='text/css' media='all' />
 {% endblock %}
 

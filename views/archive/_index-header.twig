@@ -1,0 +1,33 @@
+{% import "_snippets.twig" as snippets %}
+
+<div class="uk-grid-match uk-grid-collapse uk-flex" uk-grid>
+
+  {% block archive_header_left %}
+    <div class="slider-content single-header-content uk-background-muted bg-img uk-width-small@s uk-width-medium@m uk-width-large@l">
+      <div class="uk-flex uk-flex-center uk-flex-middle">
+        <div class="uk-text-left uk-width-3-4@m">
+          <h1 class="uk-margin-remove">{{archive.title|e('esc_html')}}</h1>
+          {% if archive.description %}
+            <p class="excerpt">{{ archive.description|e('esc_html') }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
+  {% block archive_header_right %}
+    <div class="single-header-image uk-width-expand@s">
+      <figure class="uk-position-relative uk-margin-remove">
+        <img class="cover-img uk-width-1-1 uk-height-1-1" src="{{ archive.thumbnail.src|e('esc_url')|default(theme_defaults.thumbnail.src)|resize(1920, 540, 'center') }}"
+        width="1920" height="540"
+        alt="{{ archive.thumbnail.alt|e('esc_html')|default(theme_defaults.thumbnail.alt) }}">
+        {% if archive.thumbnail.caption %}
+          <figcaption class="uk-text-center uk-text-small">
+            {{ archive.thumbnail.caption|e('esc_html')|default(theme_defaults.thumbnail.caption) }}
+          </figcaption>
+        {% endif %}
+      </figure>
+    </div>
+  {% endblock %}
+
+</div>

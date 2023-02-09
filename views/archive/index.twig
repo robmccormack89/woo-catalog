@@ -2,231 +2,14 @@
 {% extends "base.twig" %}
 
 {% block styles %}
-  <style>
-
-    html {
-      /* font-family: 'Work Sans', sans-serif; */
-    }
-    .uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, h1, h2, h3, h4, h5, h6, .uk-logo, .playfair-display {
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* uikit: links hover */
-    .uk-link-toggle:focus .uk-link, .uk-link-toggle:hover .uk-link, .uk-link:hover, a:hover {
-      text-decoration: none;
-    }
-
-    /* uikit: divider */
-    .uk-light hr,
-    hr.uk-light {
-      border-top-color: rgba(255, 255, 255, .5);
-    }
-
-    /* uikit: text */
-    .uk-text-small.uk-text-uppercase.uk-text-bold {
-    	font-size: .75rem;
-    	line-height: 1.5;
-      font-weight: 500;
-    }
-    .uk-text-small {
-      font-size: .875rem;
-    }
-
-    /* custom */
-    .latest-title {
-      padding: 20px 0 10px 0;
-    }
-    .latest-image img {
-      width: 100%;
-      height: 100%;
-      max-height: 420px;
-      object-fit: cover;
-    }
-    .home-mason-post img {
-      width: 100%;
-      height: 100%;
-      max-height: 300px;
-      object-fit: cover;
-    }
-    .masonry-post-title {
-      margin: 0 0 20px 0;
-    }
-    .cat-container {
-      margin-top: -35vh;
-    }
-    .cat-upper {
-      /* background-color: #f8f7f3; */
-      height: 40vh;
-    }
-    .single-image {
-      max-height: 750px;
-    }
-
-    /* Fading animation */
-    .fade {
-      -webkit-animation-name: fade;
-      -webkit-animation-duration: 1.5s;
-      animation-name: fade;
-      animation-duration: 1.5s;
-    }
-    @-webkit-keyframes fade {
-      from {
-        opacity: 0.4;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-    @keyframes fade {
-      from {
-        opacity: 0.4;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* utility */
-    .pull-right-15 {
-      margin-right: -15px;
-    }
-    .customtext {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-    }
-    .numbertext {
-      color: #f2f2f2;
-      font-size: 12px;
-      padding: 8px 12px;
-      position: absolute;
-      top: 0;
-    }
-    .dot {
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #bbb;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-    .active {
-      background-color: #717171;
-    }
-    .mySlides {
-      display: none;
-    }
-    @media only screen and (max-width: 300px) {
-      .customtext {
-        font-size: 11px;
-      }
-    }
-
-    /*!
-
-    SWIPER: MEW
-
-    */
-
-    .swiper {
-      /* width: 100%;
-      height: 100%; */
-    }
-    .swiper-slide {
-      /* text-align: center; */
-      /* font-size: 18px;
-      background: #fff; */
-
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-    .swiper-slide img {
-      /* display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover; */
-    }
-    .swiper-pagination {
-      position: relative!important;
-    }
-    .swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
-      bottom: -15px;
-    }
-
-    .home-slider-image {
-      height: 100%;
-      object-fit: cover;
-      width: 100%;
-    }
-    .slider-item {
-      height: fit-content;
-    }
-    .slider-image-wrap:after {
-      background-color: none;
-      bottom: 0;
-      content: "";
-      display: block;
-      height: 100%;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: .5s ease;
-      width: 100%;
-    }
-    .slider-image-wrap:hover:after {
-      background-color: #ffffff7a;
-    }
-
-  </style>
+  {{ parent() }}
 {% endblock %}
 
 {% block main %}
   <div data-template="index.twig">
     {% block archive_header %}
-      <header class="slider-item">
-        <div class="uk-grid-match uk-grid-collapse uk-flex" uk-grid>
-          {% block archive_header_left %}
-            <div class="slider-content single-header-content uk-background-muted uk-width-small@s uk-width-medium@m uk-width-large@l">
-              <div class="uk-flex uk-flex-center uk-flex-middle">
-                <div class="uk-text-left uk-width-3-4@m">
-                  <h1 class="uk-margin-remove">{{archive.title|e('esc_html')}}</h1>
-                  {% if archive.description %}
-                    <p class="excerpt">{{ archive.description|e('esc_html') }}</p>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          {% endblock %}
-          {% block archive_header_right %}
-            <div class="single-header-image uk-width-expand@s">
-              <figure class="slider-image-wrap uk-position-relative uk-margin-remove">
-                <img class="home-slider-image" src="{{ archive.thumbnail.src|resize(1920, 540, 'center')|e('esc_url')|default(theme_defaults.thumbnail.src) }}" width="1920" height="540" alt="{{ archive.thumbnail.alt|e('esc_html')|default(theme_defaults.thumbnail.alt) }}">
-                {% if archive.thumbnail.caption %}
-                  <figcaption class="uk-text-center uk-text-small">
-                    {{ archive.thumbnail.caption|e('esc_html')|default(theme_defaults.thumbnail.caption) }}
-                  </figcaption>
-                {% endif %}
-              </figure>
-            </div>
-          {% endblock %}
-        </div>
+      <header class="height-content">
+        {% include '_index-header.twig' %}
       </header>
     {% endblock %}
     {% block archive_main %}
@@ -237,13 +20,13 @@
             {% if archive.posts is not empty %}
               <div class="archive-posts uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-medium" uk-grid="masonry: true">
                 {% for post in archive.posts %}
-                  <article id="post-{{ post.id|e('esc_html') }}" class="item uk-section uk-section-small uk-padding-remove-top {{ post.class|e('esc_html') }}">
+                  <article id="post-{{ post.id|e('esc_html') }}" class="post item uk-section uk-section-small uk-padding-remove-top {{ post.class|e('esc_html') }}">
                     {% include '_tease.twig' with {post: post, preview_length: 20, thumb_w: 600} %}
                   </article>
                 {% endfor %}
               </div>
             {% else %}
-              <p class="uk-text-emphasis">No posts found. Add some posts!</p>
+              <p class="uk-text-emphasis">{{ snippets.no_posts()|e('esc_html') }}</p>
             {% endif %}
           {% endblock %}
         {% endblock %}

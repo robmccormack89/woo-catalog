@@ -13,6 +13,9 @@ use Timber\User;
 use Timber\Helper;
 use Timber\Term;
 
+$highlight_post = null;
+$rest_of_highlights = null;
+
 // set templates variable as an array
 $templates = array('index.twig', 'base.twig');
 

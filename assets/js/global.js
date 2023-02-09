@@ -9,17 +9,17 @@
 // this code also needs to know which parent - child groupings there will be, in advance
 function filtersFormSubmitCustom(event, form){
 
-	// prevent default submit event
-	// event.preventDefault();
+	var demoProductsGrid = document.getElementById('DemoProductsGrid');
+	var productsGrid = document.getElementById('ProductsGrid');
+	var theLoopContainer = document.getElementById('TheLoopContainer');
+	var theOldLoop = document.querySelector('#TheLoop');
+
+	// event.preventDefault(); // prevent default submit event. this is done when calling this function instead
 
 	// disable any checked parent checkboxes when subs are also selected.
 	// must do this for each parent -> sub grouping. e.g: categories/sub-categories & series/model
 	disableParentWhenParentAndChildSelected('product_cat_group', 'product_subcat_group');
 	disableParentWhenParentAndChildSelected('product_range_group', 'product_subrange_group');
-
-	// console.log('hello');
-
-	// die();
 
 	// process form data into URLSearchParams
 	const formData = new FormData(form);
@@ -35,7 +35,7 @@ function filtersFormSubmitCustom(event, form){
 	// do this for every field grouping
 	if(formParams.has('product_cat')) formParams.set('product_cat', formParams.getAll('product_cat'));
 	if(formParams.has('pa_range')) formParams.set('pa_range', formParams.getAll('pa_range'));
-	// if(formParams.has('product_series')) formParams.set('product_series', formParams.getAll('product_series'));
+	if(formParams.has('product_tag')) formParams.set('product_tag', formParams.getAll('product_tag'));
 
 	// the encoded/decoded uri & query strings
 	const encodedParams = formParams.toString();
@@ -43,10 +43,9 @@ function filtersFormSubmitCustom(event, form){
 	const queryString = form.action + '?' + decodedParams;
 	// console.log('query string: ' + queryString);
 
-	// the loaders: start
-	document.getElementById('DemoProductsGrid').classList.remove("uk-hidden");
-	document.getElementById('ProductsGrid').textContent = '';
-	// document.getElementById('ProductsGrid').classList.remove();
+	// start the loaders! unhide the demo products grid
+	demoProductsGrid.classList.remove("uk-hidden");
+	productsGrid.textContent = ''; // proper products grid becomes empty, for now
 
 	// the fetch request.
 	// we need to grab only a certain HTML element from the returned request...
@@ -55,26 +54,35 @@ function filtersFormSubmitCustom(event, form){
 	// we will also want to replace the url in the browser when we're done...
 	fetch(queryString)
 	.then(function(response) {
-		// window.history.pushState({}, '', queryString);
+
+		// window.history.pushState({}, '', queryString); // change the url to reflect, not needed here
 		return response.text();
+
 	})
 	.then(function(html) {
+
 		// console.log('success!!!');
+
+		// setup the data
 		var parser = new DOMParser();
 		var newDocObj = parser.parseFromString(html, 'text/html');
-		var newContent = newDocObj.querySelector('#TheLoop');
-		document.getElementById('DemoProductsGrid').classList.add("uk-hidden");
-		document.getElementById("TheLoopContainer").replaceChild(newContent, document.querySelector('#TheLoop'));
-		wooGlobalStyles();
-		reEnableDisabledCheckboxes('FiltersFormDropArea');
-		var themePagination = document.getElementById("themePagination");
-		if(themePagination){
-			shopPagination();
-		}
+
+		// replace the old content with the new (whilst hiding the demo products grid)
+		var theNewLoop = newDocObj.querySelector('#TheLoop');
+		demoProductsGrid.classList.add("uk-hidden");
+		theLoopContainer.replaceChild(theNewLoop, theOldLoop);
+
+		// dispatch a new event
+		const filtersFormSubmissionSuccess = new Event('filtersFormSubmissionSuccess');
+		form.dispatchEvent(filtersFormSubmissionSuccess);
+
 		// console.log('the content has been replaced');
+
 	})
 	.catch(error => {
+
 		// console.error('Somethings gone wrong...', error);
+
 	});
 
 }
@@ -156,7 +164,7 @@ function getSubDropsFromParentSelection(event, type_vars, location = '/wp-json/g
 
 // FILTERS BUTTONS TO DROP AREAS - TOGGLE FUNCTIONALITY
 // this function makes the filter buttons (dropdowns) toggle'able with the filter drop areas
-function toggleDropsAndAreas(btn_sel = '.filter-btn', drop_target = 'drop_target', hide_cls = 'theme-hidden', area_sel = '.filter-area'){
+function toggleDropsAndAreas(btn_sel = '.filter-btn', drop_target = 'drop_target', hide_cls = 'theme-show', area_sel = '.filter-area'){
 
 	const filterButtons = document.querySelectorAll(btn_sel);
 
@@ -166,6 +174,8 @@ function toggleDropsAndAreas(btn_sel = '.filter-btn', drop_target = 'drop_target
 
 			var id = filterButtons[i].id;
 			var target = filterButtons[i].getAttribute(drop_target);
+			var targetsButton = document.querySelector('a[drop_target="' + target + '"]');
+			var filterBtns = document.querySelectorAll('.filter-btn');
 
 			// add UIkit.toggle to the filterButton item
 			UIkit.toggle('#' + id, {
@@ -177,23 +187,28 @@ function toggleDropsAndAreas(btn_sel = '.filter-btn', drop_target = 'drop_target
 			document.querySelector(target).addEventListener('beforeshow', function(event) {
 				// function which loops thru the filter drop areas & hides them where they are not hidden already.
 				// this should be fired prior to the toggling on/off of a particular drop area
-				addClassToElements(area_sel, hide_cls)
-				// console.log('beforeshow');
+				// addClassToElements(area_sel, hide_cls)
+				removeClassFromElements(area_sel, hide_cls) // removes the show class on any shown items prior to a toggle on
 			})
 			document.querySelector(target).addEventListener('beforehide', function(event) {
 				// function which loops thru the filter drop areas & hides them where they are not hidden already.
 				// this should be fired prior to the toggling on/off of a particular drop area
-				addClassToElements(area_sel, hide_cls)
-				// console.log('beforehide: ' + event.target.id);
+				// addClassToElements(area_sel, hide_cls)
+				removeClassFromElements(area_sel, hide_cls) // removes the show class on any shown items prior to a toggle off
 			})
 			document.querySelector(target).addEventListener('click', function(event) {
-				// console.log('click');
 			})
 			document.querySelector(target).addEventListener('shown', function(event) {
-				// console.log('shown');
+				// filterBtns.classList.remove('theme-active');
+				removeClassFromElements('.filter-btn', 'theme-active')
+				// console.log();
+				// setTimeout(() => {
+				//
+				// })
+				targetsButton.classList.add('theme-active') // adding active class to drop button with active drop
 			})
 			document.querySelector(target).addEventListener('hidden', function(event) {
-				// console.log('hidden');
+				targetsButton.classList.remove('theme-active') // removing active class from drop button with active drop
 			});
 
 		}()); // immediate invocation
@@ -335,7 +350,7 @@ function disableParentWhenParentAndChildSelected(parent_group, child_group){
 	// NEW
 	//
 
-	console.log('youve just tried to do a filtering, but youve been stopped in your tracks...')
+	// console.log('youve just tried to do a filtering, but youve been stopped in your tracks...')
 
 	var _parent_group = document.getElementById(parent_group); // Reference the Table.
 	var chks_parent_group = _parent_group.getElementsByTagName("INPUT"); // Reference all the CheckBoxes in Table.
@@ -351,7 +366,7 @@ function disableParentWhenParentAndChildSelected(parent_group, child_group){
 		}
 	}
 
-	console.log(arr) // should be now an array just with perfect fit in it
+	// console.log(arr) // should be now an array just with perfect fit in it
 
 	// need to now get second array of checked boxes's values in parent group
 	// and look thru that, for any matches to the first array...
@@ -361,10 +376,10 @@ function disableParentWhenParentAndChildSelected(parent_group, child_group){
 	var arrTwo = [];
 	for (var i = 0; i < chks_parent_group.length; i++) {
 		if(arr.includes(chks_parent_group[i].value) &&  chks_parent_group[i].checked){
-			console.log('its checked');
+			// console.log('its checked');
 			chks_parent_group[i].disabled = true;
-			console.log('its disabled');
-			console.log(chks_parent_group[i]);
+			// console.log('its disabled');
+			// console.log(chks_parent_group[i]);
 		}
 		// if (chks_parent_group[i].value) {
 		// 	checked_parent++;
@@ -439,6 +454,14 @@ function addClassToElements(ele, cls){
 	for (var i = 0; i < elementsToTarget.length; i++) {
 		if(!(elementsToTarget[i].classList.contains(cls))){
 			elementsToTarget[i].classList.add(cls)
+		}
+	}
+}
+function removeClassFromElements(ele, cls){
+	var elementsToTarget = document.querySelectorAll(ele);
+	for (var i = 0; i < elementsToTarget.length; i++) {
+		if(elementsToTarget[i].classList.contains(cls)){
+			elementsToTarget[i].classList.remove(cls)
 		}
 	}
 }

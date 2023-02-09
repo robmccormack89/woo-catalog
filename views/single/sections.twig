@@ -3,24 +3,6 @@
 
 {% block styles %}
   {{ parent() }}
-  <style>
-    .with-dot {
-      position: relative;
-      margin-right: 40px;
-    }
-    .with-dot:after {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      margin-left: 17.5px;
-      background: #2e2c2c;
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  </style>
 {% endblock %}
 
 {% block header %}
@@ -87,7 +69,7 @@
 
         </section>
 
-        <section id="StyleHeaderPink" class="itsa-header style-header uk-background-muted muted-pink">
+        <section id="StyleHeaderPink" class="itsa-header style-header uk-background-muted">
           <div class="uk-container">
             <ul class="uk-flex uk-flex-middle uk-grid-collapse uk-grid uk-grid-stack uk-position-relative" uk-grid>
               <li class="uk-width-1-1 uk-width-3-4@m">
@@ -99,7 +81,7 @@
                     <img class="" src="{{ theme.link }}/assets/img/two.jpg" width="120" height="120">
                   </span>
                   <div class="uk-card uk-card-default uk-card-body uk-text-center uk-text-left@m">
-                    <h3 class="uk-card-title uk-text-boldest uk-margin-small">This is a Title</h3>
+                    <h3 class="uk-card-title uk-margin-small">This is a Title</h3>
                     <p class="uk-margin-small">Our stunning made-to-measure curtain fabrics include voiles and velvets, plus performance linings for a blend of style and function. Your local advisor will take care of all the measuring and fitting - its all included in the price</p>
                   </div>
                   <span class="uk-label uk-label-success uk-position-absolute uk-hidden">Price Promise <i class="fa-solid fa-euro-sign push-left-5"></i></span>

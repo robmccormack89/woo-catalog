@@ -1,29 +1,33 @@
 {% import "_snippets.twig" as snippets %}
 
 {% if post.thumbnail %}
-  <header>
+  <header class="tease-header">
     <figure>
       <a title="{{ post.thumbnail.title|e('esc_html') }}" href="{{ post.link|e('esc_url') }}">
-        <img src="{{ post.thumbnail.src|resize(thumb_w|default(600), thumb_h|default(null), thumb_pos|default(null))|e('esc_url')|default(theme_defaults.thumbnail.src) }}" width="{{ thumb_w|default(600) }}" alt="{{ post.thumbnail.alt|e('esc_html')|default(theme_defaults.thumbnail.alt) }}">
+        <img
+        class="uk-box-shadow-large"
+        src="{{ post.thumbnail.src|resize(thumb_w|default(600), thumb_h|default(null), thumb_pos|default(null))|e('esc_url')|default(theme_defaults.thumbnail.src) }}"
+        width="{{ thumb_w|default(600) }}"
+        alt="{{ post.thumbnail.alt|e('esc_html')|default(theme_defaults.thumbnail.alt) }}">
       </a>
     </figure>
   </header>
 {% endif %}
 
-<p class="uk-text-small uk-text-uppercase uk-text-bold uk-margin-remove">
+<p class="tease-cats uk-margin-remove">
   {% for cat in post.categories %}
-    {% for cat in post.categories %}
-      <a title="{{ cat|e('esc_html') }}" href="{{ cat.link|e('esc_url') }}">{{ cat|e('esc_html') }}</a>{{ loop.last ? '' : ',' }}
-    {% endfor %}
+    <a title="{{ cat|e('esc_html') }}" href="{{ cat.link|e('esc_url') }}">
+      {{ cat|e('esc_html') }}
+    </a>{{ loop.last ? '' : ',' }}
   {% endfor %}
 </p>
 
-<h3 class="uk-margin-remove-top uk-margin-small-bottom">
+<h3 class="tease-title uk-margin-remove-top uk-margin-small-bottom">
   <a class="uk-link-heading" title="{{post.title|e('esc_html')}}" href="{{post.link|e('esc_url')}}">{{post.title|e('esc_html')}}</a>
 </h3>
 
-<p class="excerpt uk-text-small">{{ post.preview.length(preview_length|default(20)).force.read_more('')|e('esc_html') }}</p>
+<p class="tease-excerpt excerpt uk-text-small">{{ post.preview.length(preview_length|default(20)).force.read_more('')|e('esc_html') }}</p>
 
-<a href="{{ post.link|e('esc_url') }}" class="uk-button uk-button-link uk-animation-toggle">
+<a href="{{ post.link|e('esc_url') }}" class="tease-link uk-button uk-button-link uk-animation-toggle">
   {{ snippets.read_more()|e('esc_html') }} <span class="slider-link-icon uk-margin-small-left uk-animation-slide-left-small" uk-icon="arrow-right"></span>
 </a>

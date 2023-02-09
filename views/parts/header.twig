@@ -2,7 +2,7 @@
 
 <header class="site-header uk-background-default">
 
-  <div class="top-header uk-background-primary uk-light padding-10 uk-padding-remove-horizontal">
+  <div class="top-header uk-background-primary theme-muted-primary-bg uk-light padding-5 uk-padding-remove-horizontal">
     <div class="uk-container uk-container-small">
 
       <div class="swiper header-icons-swiper">
@@ -240,13 +240,16 @@
                 <input class="uk-search-input" type="search" placeholder="Search" autofocus>
               </form>
               <form id="form_validate_search" class="form_search_main uk-width-1-1 uk-position-relative uk-inline uk-flex uk-flex-center" role="search" method="get" action="{{ site.url|e('esc_url') }}" accept-charset="utf-8" novalidate="novalidate">
-                <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark">
+                <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark uk-position-relative">
                   <a href="#" title="Submit" class="uk-search-icon-flip uk-icon uk-search-icon" hidden>
                     {{ snippets.search_icon_large()|e('wp_kses_post') }}
                   </a>
                   <input class="form-control uk-searchhh-input uk-input uk-background-default" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search" value="" placeholder="{{ snippets.adv_placeholder()|e('esc_html') }}" required="" autocomplete="off"
                     aria-invalid="true">
                   <input type="hidden" name="post_type" value="product" />
+                  <div id="loaderSearchToggle" class="uk-position-center-right uk-position-small" style="display:none;">
+                    <div id="loaderSearch"></div>
+                  </div>
                 </div>
                 <div id="response_search_results" class="search-results-ajax uk-height-max-medium uk-overflow-auto"></div>
               </form>
@@ -291,8 +294,8 @@
                     {% if child.children %}
                       <ul class="uk-nav-sub">
                         {% for third in child.children %}
-                          <li class="{{ child.classes|join(' ')|e('esc_html') }}">
-                            <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                          <li class="{{ third.classes|join(' ')|e('esc_html') }}">
+                            <a href="{{ third.get_link|e('esc_url') }}">- {{ third.title|e('esc_html')}}</a>
                           </li>
                         {% endfor %}
                       </ul>
@@ -319,8 +322,8 @@
                     {% if child.children %}
                       <ul class="uk-nav-sub">
                         {% for third in child.children %}
-                          <li class="{{ child.classes|join(' ')|e('esc_html') }}">
-                            <a href="{{ child.get_link|e('esc_url') }}">- {{ child.title|e('esc_html')}}</a>
+                          <li class="{{ third.classes|join(' ')|e('esc_html') }}">
+                            <a href="{{ third.get_link|e('esc_url') }}">- {{ third.title|e('esc_html')}}</a>
                           </li>
                         {% endfor %}
                       </ul>
@@ -382,8 +385,11 @@
   		var query = input_value;
   		var req;
 
+      $('#loaderSearchToggle').show();
+
   		if (query.length < 2) {
   			$('#response_search_results').hide();
+        $('#loaderSearchToggle').hide();
   			return false;
   		}
 
@@ -400,10 +406,12 @@
   				if (!response) {
   					alert('empty');
   					$('#response_search_results').hide();
+            $('#loaderSearchToggle').hide();
   					return;
   				}
   				var obj = JSON.parse(response);
   				if (obj.result == 1) {
+            $('#loaderSearchToggle').hide();
   					document.getElementById("response_search_results").innerHTML = obj.response;
   					$('#response_search_results').show();
   				}
@@ -412,6 +420,7 @@
   				});
   			},
   			error: function(request, status, error) {
+          $('#loaderSearchToggle').hide();
   				$('#response_search_results').hide();
   			}
   		});
