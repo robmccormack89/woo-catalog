@@ -53,6 +53,7 @@
                     var swiper{{term.term_id|e('esc_html')}} = new Swiper("#swiper{{term.term_id|e('esc_html')}}", {
                       slidesPerView: 1,
                       spaceBetween: 0,
+                      centerInsufficientSlides: true,
                       pagination: {
                         el: "#swiperPagi{{term.term_id|e('esc_html')}}",
                         dynamicBullets: true,
@@ -113,6 +114,7 @@
                     var swiper{{parent.term_id|e('esc_html')}} = new Swiper("#swiper{{parent.term_id|e('esc_html')}}", {
                       slidesPerView: 1,
                       spaceBetween: 0,
+                      centerInsufficientSlides: true,
                       pagination: {
                         el: "#swiperPagi{{parent.term_id|e('esc_html')}}",
                         dynamicBullets: true,
@@ -168,11 +170,12 @@
                 <footer class="product-meta-item-footer">
                   <script>
                     // 1col on mobile up to 4cols on desktop
-                    var swiper{{parent.term_id|e('esc_html')}} = new Swiper("#swiper{{parent.term_id|e('esc_html')}}", {
+                    var swiper{{term.term_id|e('esc_html')}} = new Swiper("#swiper{{term.term_id|e('esc_html')}}", {
                       slidesPerView: 1,
                       spaceBetween: 0,
+                      centerInsufficientSlides: true,
                       pagination: {
-                        el: "#swiperPagi{{parent.term_id|e('esc_html')}}",
+                        el: "#swiperPagi{{term.term_id|e('esc_html')}}",
                         dynamicBullets: true,
                       },
                       // autoplay: {
@@ -219,6 +222,7 @@
                     var swiper{{term.term_id|e('esc_html')}} = new Swiper("#swiper{{term.term_id|e('esc_html')}}", {
                       slidesPerView: 1,
                       spaceBetween: 0,
+                      centerInsufficientSlides: true,
                       pagination: {
                         el: "#swiperPagi{{term.term_id|e('esc_html')}}",
                         dynamicBullets: true,
