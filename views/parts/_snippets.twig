@@ -1,3 +1,111 @@
+{# OLD
+
+#}
+
+{# contact #}
+{% macro contact_hours() %}{{ _x('Mon-Fri 8:00 to 19:00', 'Contact - hours', 'base-theme') }}{% endmacro %}
+{# other #}
+{% macro mobile_menu_icon_small() %}<i class="fa-solid fa-bars fa-lg"></i>{% endmacro %}
+{% macro close_mobile_menu_icon() %}<i class="fa-solid fa-circle-xmark"></i>{% endmacro %}
+{% macro mobile_menu_icon() %}<i class="fa-solid fa-bars"></i>{% endmacro %}
+{% macro header_left_text() %}{{ _x('Please call our office on +353 53 9388 646 to get a shipping quote and make payment over the phone.', 'Navigations: Header top', 'base-theme') }}{% endmacro %}
+{# footer #}
+{% macro back_to_home() %}{{ _x('Back to Homepage', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro go_to_top() %}{{ _x('Go to Top', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro copyright() %}{{ _x('©', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro copy_text() %}{{ _x('© Copyright. All Rights Reserved', 'Footer', 'base-theme') }}{% endmacro %}
+{# password protect form #}
+{% macro pword_protect_text() %}{{ _x('This content is password protected. To view it please enter your password below:', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{% macro pword_protect_label() %}{{ _x('Password', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{% macro pword_protect_enter_text() %}{{ _x('Enter', 'Password-protected content', 'base-theme') }}{% endmacro %}
+{# post meta (single & tease) #}
+{% macro written_on() %}{{ _x('Written on %s.', 'Single', 'base-theme') }}{% endmacro %}
+{% macro posted_in() %}{{ _x('Posted in %s.', 'Single', 'base-theme') }}{% endmacro %}
+{# search form #}
+{% macro search_form_msg() %}{{ _x('Try using the search form below to search this website for something else.', 'Search form', 'base-theme') }}{% endmacro %}
+{% macro search_form_placeholder() %}{{ _x('Start typing...', 'Search form', 'base-theme') }}{% endmacro %}
+{% macro search_btn_text() %}{{ _x('Submit', 'Search form', 'base-theme') }}{% endmacro %}
+{# woo #}
+{# shop filters #}
+{% macro sorting_text() %}{{ _x('Sorting', 'Shop filters: sorting label', 'base-theme') }}{% endmacro %}
+{% macro filter_cat_text() %}{{ _x('Category', 'Shop filters: filter by category label', 'base-theme') }}{% endmacro %}
+{% macro filter_series_text() %}{{ _x('Series/Model', 'Shop filters: filter by series label', 'base-theme') }}{% endmacro %}
+{% macro reset_text() %}{{ _x('Reset', 'Shop filters: reset label', 'base-theme') }}{% endmacro %}
+{% macro empty_cats() %}{{ _x('Add some products to some categories', 'Shop filters: no products in categories text', 'base-theme') }}{% endmacro %}
+{% macro empty_series() %}{{ _x('Add some products to some series/models', 'Shop filters: no products in series label', 'base-theme') }}{% endmacro %}
+{% macro filter_text() %}{{ _x('Filters', 'Shop filters: filter button label', 'base-theme') }}{% endmacro %}
+{% macro series_txt() %}{{ _x('Series', 'Series', 'base-theme') }}{% endmacro %}
+{% macro models_txt() %}{{ _x('Models', 'Models', 'base-theme') }}{% endmacro %}
+{# minicart #}
+{% macro no_products_cart_text() %}{{ _x('No products in the cart.', 'Minicart: no items text', 'base-theme') }}{% endmacro %}
+{% macro remove_item_text() %}{{ _x('Remove this item', 'Minicart: remove item label', 'base-theme') }}{% endmacro %}
+{# shop  #}
+{% macro no_products_found_text() %}{{ _x('Sorry, no products found...', 'Shop: no products text', 'base-theme') }}{% endmacro %}
+{# navigations: fixednav #}
+{% if not fn('is_user_logged_in') %}
+  {% macro login_account_txt() %}{{ _x('Login/Signup', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{% else %}
+  {% macro login_account_txt() %}{{ _x('Account', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{% endif %}
+{# labels #}
+{% macro shop_page_txt() %}{{ _x('Parts', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{% macro cart_txt() %}{{ _x('Basket', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{% macro contact_link() %}{{ _x('/contact', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{% macro contact_txt() %}{{ _x('Contact', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
+{# tabs #}
+{% macro custom_tab_title() %}{{ _x('Parts information', 'Custom product tab', 'base-theme') }}{% endmacro %}
+{# blocks #}
+{# live search #}
+{% macro live_search_cat_label() %}{{ _x('Category', 'Live search: product category label', 'base-theme') }}{% endmacro %}
+{% macro live_search_part_label() %}{{ _x('Product', 'Live search: Product label', 'base-theme') }}{% endmacro %}
+{% macro live_search_empty() %}{{ _x('Sorry, there are no results for this query. Please try again', 'Live search: no results text', 'base-theme') }}{% endmacro %}
+{# advanced search #}
+{% macro adv_sel_cat() %}{{ _x('Select Category', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_sel_subcat() %}{{ _x('Select Sub-category', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_sel_series() %}{{ _x('Select Series', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_sel_model() %}{{ _x('Select Model', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_live_search() %}{{ _x('Live search', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_search_parts() %}{{ _x('Search Parts', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_reset() %}{{ _x('Reset', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_adv_search() %}{{ _x('Advanced search', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{% macro adv_placeholder() %}{{ _x('Search by range, collection, feature, title or anything else!', 'Advanced search form', 'base-theme') }}{% endmacro %}
+{# icons #}
+{# grid_list #}
+{% macro _grid_icon() %}<span uk-icon="icon: grid"></span>{% endmacro %}
+{% macro _list_icon() %}<span uk-icon="icon: list"></span>{% endmacro %}
+{% macro grid_icon() %}<span uk-icon="icon: grid"></span>{% endmacro %}
+{% macro list_icon() %}<span uk-icon="icon: list"></span>{% endmacro %}
+{# menu bars #}
+{% macro menu_bars_icon() %}<i class="fa-solid fa-bars fa-lg"></i>{% endmacro %}
+{% macro close_menu_icon() %}<i class="fa-solid fa-xmark"></i>{% endmacro %}
+{% macro close_menu_icon_large() %}<i class="fa-solid fa-xmark fa-2x"></i>{% endmacro %}
+{% macro close_menu_icon_small() %}<i class="fa-solid fa-xmark fa-sm"></i>{% endmacro %}
+{# pagi #}
+{% macro pagi_left_icon() %}<i class="fa-solid fa-angles-left"></i>{% endmacro %}
+{% macro pagi_right_icon() %}<i class="fa-solid fa-angles-right"></i>{% endmacro %}
+{# shop & account #}
+{% macro shop_icon() %}<i class="fas fa-tractor fa-lg"></i>{% endmacro %}
+{% macro contact_icon() %}<i class="far fa-envelope fa-lg"></i>{% endmacro %}
+{% macro account_icon() %}<i class="fa-solid fa-user-gear"></i>{% endmacro %}
+{% macro search_icon() %}<i class="fa-solid fa-magnifying-glass"></i>{% endmacro %}
+{% macro search_icon_large() %}<i class="fa-solid fa-magnifying-glass fa-lg"></i>{% endmacro %}
+{% macro basket_icon() %}<i class="fa-solid fa-basket-shopping"></i>{% endmacro %}
+{% macro cart_icon() %}<i class="fa-solid fa-cart-shopping"></i>{% endmacro %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {# theme new
 
 #}
@@ -23,7 +131,7 @@
 
 {# footer #}
 {% macro footer_bottom() %}{{ _x('No Content. Add a custom UIKIT HTML Widget to the Footer Bottom Widget Area.', 'Footer', 'base-theme') }}{% endmacro %}
-{% macro iconnav_text() %}{{ _x('Follow & Like us on Social Media', 'Footer', 'base-theme') }}{% endmacro %}
+{% macro iconnav_text() %}{{ _x('Follow us on:', 'Footer', 'base-theme') }}{% endmacro %}
 
 {# single #}
 {% macro posted_text() %}{{ _x('Posted in:', 'Single', 'base-theme') }}{% endmacro %}
@@ -57,172 +165,18 @@
 {# single product range meta #}
 
 {% macro single_product_range_meta_heading() %}{{ _x('You might also like to try...', 'Single Product', 'base-theme') }}{% endmacro %}
-{% macro single_product_range_meta_products_text() %}{{ _x('A selection of items from the %1$s', 'Single Product', 'base-theme') }}{% endmacro %}
-{% macro single_product_range_meta_terms_text() %}{{ _x('Some of our other %1$s', 'Single Product', 'base-theme') }}{% endmacro %}
+{% macro single_product_range_meta_products_text() %}{{ _x('A selection of items from our %s', 'Single Product', 'base-theme') }}{% endmacro %}
+{% macro single_product_range_meta_terms_text() %}{{ _x('Some of our other %s', 'Single Product', 'base-theme') }}{% endmacro %}
+
 
 {# contact
 
 #}
 
-{% macro contact_text() %}{{ _x('Contact us', 'Contact - text', 'base-theme') }}{% endmacro %}
 {% macro contact_phone() %}{{ _x('+27 34 66 2455-198', 'Contact - phone no.', 'base-theme') }}{% endmacro %}
-{% macro contact_hours() %}{{ _x('Mon-Fri 8:00 to 19:00', 'Contact - hours', 'base-theme') }}{% endmacro %}
 {% macro contact_email() %}{{ _x('example@example.com', 'Contact - email', 'base-theme') }}{% endmacro %}
-
-{# other
-
-#}
-
-{% macro mobile_menu_icon_small() %}<i class="fa-solid fa-bars fa-lg"></i>{% endmacro %}
-{% macro close_mobile_menu_icon() %}<i class="fa-solid fa-circle-xmark"></i>{% endmacro %}
-{% macro mobile_menu_icon() %}<i class="fa-solid fa-bars"></i>{% endmacro %}
-{% macro header_left_text() %}{{ _x('Please call our office on +353 53 9388 646 to get a shipping quote and make payment over the phone.', 'Navigations: Header top', 'base-theme') }}{% endmacro %}
-
-{# base
-
-#}
-
-{% macro nothing_here() %}{{ _x('Sorry, nothing to display here...', 'Base', 'base-theme') }}{% endmacro %}
-
-{# footer
-
-#}
-
-{% macro back_to_home() %}{{ _x('Back to Homepage', 'Footer', 'base-theme') }}{% endmacro %}
-{% macro go_to_top() %}{{ _x('Go to Top', 'Footer', 'base-theme') }}{% endmacro %}
-{% macro copyright() %}{{ _x('©', 'Footer', 'base-theme') }}{% endmacro %}
-{% macro copy_text() %}{{ _x('Copyright © 2022. All Rights Reserved', 'Footer', 'base-theme') }}{% endmacro %}
-
-
-{# archive
-
-#}
-
-{% macro no_posts() %}{{ _x('No posts found...', 'Archive', 'base-theme') }}{% endmacro %}
-
-{# password protect form
-
-#}
-
-{% macro pword_protect_text() %}{{ _x('This content is password protected. To view it please enter your password below:', 'Password-protected content', 'base-theme') }}{% endmacro %}
-{% macro pword_protect_label() %}{{ _x('Password', 'Password-protected content', 'base-theme') }}{% endmacro %}
-{% macro pword_protect_enter_text() %}{{ _x('Enter', 'Password-protected content', 'base-theme') }}{% endmacro %}
-
-{# pagination
-
-#}
-
-{% macro prev_page() %}{{ _x('Newer posts', 'Archive', 'base-theme') }}{% endmacro %}
-{% macro next_page() %}{{ _x('Older posts', 'Archive', 'base-theme') }}{% endmacro %}
-{% macro prev_post() %}{{ _x('Newer Article', 'Single', 'base-theme') }}{% endmacro %}
-{% macro next_post() %}{{ _x('Older Article', 'Single', 'base-theme') }}{% endmacro %}
-
-{# post meta (single & tease)
-
-#}
-
-{% macro written_on() %}{{ _x('Written on %s.', 'Single', 'base-theme') }}{% endmacro %}
-{% macro posted_in() %}{{ _x('Posted in %s.', 'Single', 'base-theme') }}{% endmacro %}
-
-{# search form
-
-#}
-
-{% macro search_form_msg() %}{{ _x('Try using the search form below to search this website for something else.', 'Search form', 'base-theme') }}{% endmacro %}
-{% macro search_form_placeholder() %}{{ _x('Start typing...', 'Search form', 'base-theme') }}{% endmacro %}
-{% macro search_btn_text() %}{{ _x('Submit', 'Search form', 'base-theme') }}{% endmacro %}
-
-{# tease
-
-#}
-
-{% macro read_more() %}{{ _x('Read more', 'Tease', 'base-theme') }}{% endmacro %}
-
-{# woo
-
-#}
-
-{# shop filters #}
-{% macro sorting_text() %}{{ _x('Sorting', 'Shop filters: sorting label', 'base-theme') }}{% endmacro %}
-{% macro filter_cat_text() %}{{ _x('Category', 'Shop filters: filter by category label', 'base-theme') }}{% endmacro %}
-{% macro filter_series_text() %}{{ _x('Series/Model', 'Shop filters: filter by series label', 'base-theme') }}{% endmacro %}
-{% macro reset_text() %}{{ _x('Reset', 'Shop filters: reset label', 'base-theme') }}{% endmacro %}
-{% macro empty_cats() %}{{ _x('Add some products to some categories', 'Shop filters: no products in categories text', 'base-theme') }}{% endmacro %}
-{% macro empty_series() %}{{ _x('Add some products to some series/models', 'Shop filters: no products in series label', 'base-theme') }}{% endmacro %}
-{% macro filter_text() %}{{ _x('Filters', 'Shop filters: filter button label', 'base-theme') }}{% endmacro %}
-{% macro series_txt() %}{{ _x('Series', 'Series', 'base-theme') }}{% endmacro %}
-{% macro models_txt() %}{{ _x('Models', 'Models', 'base-theme') }}{% endmacro %}
-
-{# minicart #}
-{% macro no_products_cart_text() %}{{ _x('No products in the cart.', 'Minicart: no items text', 'base-theme') }}{% endmacro %}
-{% macro remove_item_text() %}{{ _x('Remove this item', 'Minicart: remove item label', 'base-theme') }}{% endmacro %}
-
-{# shop  #}
-{% macro no_products_found_text() %}{{ _x('Sorry, no products found...', 'Shop: no products text', 'base-theme') }}{% endmacro %}
-
-{# navigations: fixednav #}
-{% if not fn('is_user_logged_in') %}
-  {% macro login_account_txt() %}{{ _x('Login/Signup', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-{% else %}
-  {% macro login_account_txt() %}{{ _x('Account', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-{% endif %}
-
-{# labels #}
-{% macro shop_page_txt() %}{{ _x('Parts', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-{% macro cart_txt() %}{{ _x('Basket', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-{% macro contact_link() %}{{ _x('/contact', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-{% macro contact_txt() %}{{ _x('Contact', 'Navigations: Shop mobile nav', 'base-theme') }}{% endmacro %}
-
-{# tabs #}
-{% macro custom_tab_title() %}{{ _x('Parts information', 'Custom product tab', 'base-theme') }}{% endmacro %}
-
-{# blocks
-
-#}
-
-{# live search #}
-{% macro live_search_cat_label() %}{{ _x('Category', 'Live search: product category label', 'base-theme') }}{% endmacro %}
-{% macro live_search_part_label() %}{{ _x('Product', 'Live search: Product label', 'base-theme') }}{% endmacro %}
-{% macro live_search_empty() %}{{ _x('Sorry, there are no results for this query. Please try again', 'Live search: no results text', 'base-theme') }}{% endmacro %}
-
-{# advanced search #}
-{% macro adv_sel_cat() %}{{ _x('Select Category', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_sel_subcat() %}{{ _x('Select Sub-category', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_sel_series() %}{{ _x('Select Series', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_sel_model() %}{{ _x('Select Model', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_live_search() %}{{ _x('Live search', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_search_parts() %}{{ _x('Search Parts', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_reset() %}{{ _x('Reset', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_adv_search() %}{{ _x('Advanced search', 'Advanced search form', 'base-theme') }}{% endmacro %}
-{% macro adv_placeholder() %}{{ _x('Search by sku, title or anything else!', 'Advanced search form', 'base-theme') }}{% endmacro %}
-
-{# icons
-
-#}
-
-{# grid_list #}
-{% macro _grid_icon() %}<span uk-icon="icon: grid"></span>{% endmacro %}
-{% macro _list_icon() %}<span uk-icon="icon: list"></span>{% endmacro %}
-{% macro grid_icon() %}<span uk-icon="icon: grid"></span>{% endmacro %}
-{% macro list_icon() %}<span uk-icon="icon: list"></span>{% endmacro %}
-
-{# menu bars #}
-{% macro menu_bars_icon() %}<i class="fa-solid fa-bars fa-lg"></i>{% endmacro %}
-{% macro close_menu_icon() %}<i class="fa-solid fa-xmark"></i>{% endmacro %}
-{% macro close_menu_icon_large() %}<i class="fa-solid fa-xmark fa-2x"></i>{% endmacro %}
-{% macro close_menu_icon_small() %}<i class="fa-solid fa-xmark fa-sm"></i>{% endmacro %}
-
-{# pagi #}
-{% macro pagi_left_icon() %}<i class="fa-solid fa-angles-left"></i>{% endmacro %}
-{% macro pagi_right_icon() %}<i class="fa-solid fa-angles-right"></i>{% endmacro %}
-{% macro pagi_left_icon_small() %}<i class="fa-solid fa-angles-left fa-sm"></i>{% endmacro %}
-{% macro pagi_right_icon_small() %}<i class="fa-solid fa-angles-right fa-sm"></i>{% endmacro %}
-
-{# shop & account #}
-{% macro shop_icon() %}<i class="fas fa-tractor fa-lg"></i>{% endmacro %}
-{% macro contact_icon() %}<i class="far fa-envelope fa-lg"></i>{% endmacro %}
-{% macro account_icon() %}<i class="fa-solid fa-user-gear"></i>{% endmacro %}
-{% macro search_icon() %}<i class="fa-solid fa-magnifying-glass"></i>{% endmacro %}
-{% macro search_icon_large() %}<i class="fa-solid fa-magnifying-glass fa-lg"></i>{% endmacro %}
-{% macro basket_icon() %}<i class="fa-solid fa-basket-shopping"></i>{% endmacro %}
-{% macro cart_icon() %}<i class="fa-solid fa-cart-shopping"></i>{% endmacro %}
+{% macro contact_freephone() %}{{ _x('1800 34 11 66', 'Contact - freephone no.', 'base-theme') }}{% endmacro %}
+{% macro freephone_label() %}{{ _x('Freephone', 'Contact - Freephone label', 'base-theme') }}{% endmacro %}
+{% macro whatsapp_label() %}{{ _x('Whatsapp', 'Contact - Whatsapp label', 'base-theme') }}{% endmacro %}
+{% macro phone_us_text() %}{{ _x('%1$s us on %2$s to request an appointment', 'Contact - cta text', 'base-theme') }}{% endmacro %}
+{% macro whatsapp_web_link() %}{{ _x('https://wa.me/353892154278?text=Hello,%20Solaris%20Blinds', 'Contact - whatsapp web link', 'base-theme') }}{% endmacro %}

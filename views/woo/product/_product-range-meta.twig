@@ -89,7 +89,8 @@
             {% for parent in parents_of_children_in_product_range_terms if (fn('does_term_have_children', parent.term_id, 'pa_range')) %}
               <li class="product-range-meta-item">
                 {% set children_ids = fn('array_diff', fn('get_term_children', parent.term_id, 'pa_range'), product_range_terms_ids) %} {# this excludes the current product's range terms #}
-                {% set children = fn('get_terms', {include: children_ids}) %}
+                {% set _children = fn('get_terms', {include: children_ids}) %}
+                {% set children = fn('set_terms_thumbs', _children, 'pa_range', 'range_thumbnail') %}
                 <header class="product-meta-item-header uk-text-center">
                   <p class="uk-text-lead uk-text-muted uk-margin-small">{{ snippets.single_product_range_meta_terms_text()|format(parent.name)|e('esc_html') }} <span class="uk-text-lowercase">{{ range_labels.singular_name|e('esc_html') ~ 's' }}</span></p>
                 </header>

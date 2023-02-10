@@ -422,8 +422,12 @@ class Theme extends Timber {
     $foot_menu_args = array( 'depth' => 1 );
     $context['menu_footer_one'] = new \Timber\Menu( 'footer_menu_one', $foot_menu_args );
     $context['menu_footer_two'] = new \Timber\Menu( 'footer_menu_two', $foot_menu_args );
+    $context['menu_footer_three'] = new \Timber\Menu( 'footer_menu_three', $foot_menu_args );
+    $context['menu_footer_four'] = new \Timber\Menu( 'footer_menu_four', $foot_menu_args );
+    $context['menu_footer_five'] = new \Timber\Menu( 'footer_menu_five', $foot_menu_args );
     $context['menu_iconnav'] = new \Timber\Menu( 'iconnav_menu', $foot_menu_args );
     $context['menu_contact'] = new \Timber\Menu( 'contact_menu', $foot_menu_args );
+    $context['topheader_menu'] = new \Timber\Menu( 'topheader_menu', $foot_menu_args );
 
     $context['has_menu_main'] = has_nav_menu( 'main_menu' );
     $context['has_menu_secondary'] = has_nav_menu( 'secondary_menu' );
@@ -432,6 +436,10 @@ class Theme extends Timber {
     $context['has_menu_contact'] = has_nav_menu( 'contact_menu' );
     $context['has_menu_footer_one'] = has_nav_menu( 'footer_menu_one' );
     $context['has_menu_footer_two'] = has_nav_menu( 'footer_menu_two' );
+    $context['has_menu_footer_three'] = has_nav_menu( 'footer_menu_three' );
+    $context['has_menu_footer_four'] = has_nav_menu( 'footer_menu_four' );
+    $context['has_menu_footer_five'] = has_nav_menu( 'footer_menu_five' );
+    $context['has_menu_topheader'] = has_nav_menu( 'topheader_menu' );
 
     $context['sidebar_footer']   = Timber::get_widgets(esc_html__('Footer sidebar', 'base-theme'));
 
@@ -476,10 +484,14 @@ class Theme extends Timber {
       'main_menu' => _x( 'Main Menu', 'Menu locations', 'base-theme' ),
       'secondary_menu' => _x( 'Secondary Menu', 'Menu locations', 'base-theme' ),
       'mobile_menu' => _x( 'Mobile Menu', 'Menu locations', 'base-theme' ),
+      'topheader_menu' => _x( 'Top Header Menu', 'Menu locations', 'base-theme' ),
       'iconnav_menu' => _x( 'Iconnav Menu', 'Menu locations', 'base-theme' ),
       'contact_menu' => _x( 'Contact Menu', 'Menu locations', 'base-theme' ),
-      'footer_menu_one' => _x( 'Footer One Menu', 'Menu locations', 'base-theme' ),
-      'footer_menu_two' => _x( 'Footer Two Menu', 'Menu locations', 'base-theme' ),
+      'footer_menu_one' => _x( 'Footer Nav Area: One', 'Menu locations', 'base-theme' ),
+      'footer_menu_two' => _x( 'Footer Nav Area: Two', 'Menu locations', 'base-theme' ),
+      'footer_menu_three' => _x( 'Footer Nav Area: Three', 'Menu locations', 'base-theme' ),
+      'footer_menu_four' => _x( 'Footer Nav Area: Four', 'Menu locations', 'base-theme' ),
+      'footer_menu_five' => _x( 'Footer Nav Area: Five', 'Menu locations', 'base-theme' ),
     ));
   }
   public function theme_enqueue_assets() {

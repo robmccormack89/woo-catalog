@@ -430,6 +430,17 @@ function get_parent_product_terms($tax = 'product_cat') {
 	return $terms;
 }
 
+function set_terms_thumbs($terms, $key = 'product_cat', $thumb_key = 'thumbnail_id'){
+	if(!empty($terms)){
+	  foreach($terms as $item) {
+	    $item->thumbnail = get_product_term_attachments($item->term_id, $key, $thumb_key);
+	    $item->link = get_term_link($item->term_id);
+	  };
+		return $terms;
+	};
+	return null;
+}
+
 /* Getting the thumb attachments of a product term, like 'Series ABC'
 
 	product_series uses acf field & product_cat uses built-in meta field

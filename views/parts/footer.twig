@@ -1,12 +1,13 @@
 {% import "_snippets.twig" as snippets %}
 
 <footer class="site-footer">
-  <div class="footer-top uk-background-muteddd theme-border-toppp">
-    <div class="uk-container">
+  <div class="uk-container uk-container-sssmall">
+
+    {% if has_menu_footer_one or has_menu_footer_two or has_menu_footer_three or has_menu_footer_four or has_menu_footer_five %}
       <hr>
-      <div class="uk-section uk-section-small">
-        <ul class="" uk-grid="masonry:true">
-          <li class="uk-width-1-4@m" hidden>
+      <div class="footer-top uk-section uk-section-small">
+        <ul class="uk-child-width-1-5@m uk-grid-small uk-flex uk-flex-center" uk-grid>
+          <li class="uk-flex-first" hidden>
             <div class="uk-margin-right">
               <a class="uk-logo uk-text-bold" href="{{ site.link|e('esc_url') }}">
                 {% if theme.logo %}
@@ -18,52 +19,67 @@
               <p>Our expert team have been established for over 20 years, we are proud to say that we know our business inside & out.</p>
             </div>
           </li>
-          <li class="uk-width-1-4@m">
-            <h4 class="uk-h5 uk-margin-small-bottom">Navigation</h4>
-            <ul class="uk-list uk-list-collapse uk-margin-remove">
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-            </ul>
-          </li>
-          <li class="uk-width-1-4@m">
-            <h4 class="uk-h5 uk-margin-small-bottom">Navigation</h4>
-            <ul class="uk-list uk-list-collapse uk-margin-remove">
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-            </ul>
-          </li>
-          <li class="uk-width-1-4@m">
-            <h4 class="uk-h5 uk-margin-small-bottom">Our range</h4>
-            <ul class="uk-list uk-list-collapse uk-margin-remove">
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-            </ul>
-          </li>
-          <li class="uk-width-1-4@m">
-            <h4 class="uk-h5 uk-margin-small-bottom">Information</h4>
-            <ul class="uk-list uk-list-collapse uk-margin-remove">
-              <!-- <li>Find Your Local Advisor</li> -->
-              <li><a href="#" class="uk-link-text">Homepage</a></li>
-              <li><a href="#" class="uk-link-text">Contact</a></li>
-              <li><a href="#" class="uk-link-text">About</a></li>
-            </ul>
-          </li>
-          <li class="uk-width-1-4@m" hidden>
+          {% if has_menu_footer_one %}
+            <li class="">
+              <h4 class="uk-h4">{{ menu_footer_one.title|e('esc_html') }}</h4>
+              <ul class="uk-list uk-list-collapse uk-margin-remove">
+                {% for item in menu_footer_one.get_items %}
+                  <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ item.link|e('esc_html') }}" class="uk-link-text">{{ item.title|e('esc_html') }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if has_menu_footer_two %}
+            <li class="">
+              <h4 class="uk-h4">{{ menu_footer_two.title|e('esc_html') }}</h4>
+              <ul class="uk-list uk-list-collapse uk-margin-remove">
+                {% for item in menu_footer_two.get_items %}
+                  <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ item.link|e('esc_html') }}" class="uk-link-text">{{ item.title|e('esc_html') }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if has_menu_footer_three %}
+            <li class="">
+              <h4 class="uk-h4">{{ menu_footer_three.title|e('esc_html') }}</h4>
+              <ul class="uk-list uk-list-collapse uk-margin-remove">
+                {% for item in menu_footer_three.get_items %}
+                  <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ item.link|e('esc_html') }}" class="uk-link-text">{{ item.title|e('esc_html') }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if has_menu_footer_four %}
+            <li class="">
+              <h4 class="uk-h4">{{ menu_footer_four.title|e('esc_html') }}</h4>
+              <ul class="uk-list uk-list-collapse uk-margin-remove">
+                {% for item in menu_footer_four.get_items %}
+                  <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ item.link|e('esc_html') }}" class="uk-link-text">{{ item.title|e('esc_html') }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          {% if has_menu_footer_five %}
+            <li class="">
+              <h4 class="uk-h4">{{ menu_footer_five.title|e('esc_html') }}</h4>
+              <ul class="uk-list uk-list-collapse uk-margin-remove">
+                {% for item in menu_footer_five.get_items %}
+                  <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+                    <a href="{{ item.link|e('esc_html') }}" class="uk-link-text">{{ item.title|e('esc_html') }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+          <li class="uk-flex-last" hidden>
             <div class="uk-padding-small uk-border-rounded uk-background-default theme-border">
               <h4 class="uk-margin-small-bottom">Contact us</h4>
               <p>Contact us today so we can help guide your decisions to redesigning your home or office</p>
@@ -78,39 +94,30 @@
           </li>
         </ul>
       </div>
-      <hr>
-      <div class="uk-padding">
-        <h4 class="uk-text-center uk-margin-small">Follow us:</h4>
+    {% endif %}
+
+    <hr>
+    <div class="footer-bottom uk-padding">
+      {% if has_menu_iconnav %}
+        <h4 class="uk-text-center uk-margin-small">{{ menu_iconnav.title|e('esc_html') }}</h4>
         <ul class="uk-iconnav uk-flex uk-flex-center">
-          <li><a href="#" uk-icon="icon: facebook"><span class="uk-flex uk-flex-last">Facebook</span></a></li>
-          <li><a href="#" uk-icon="icon: twitter"><span class="uk-flex uk-flex-last">Twitter</span></a></li>
-          <li><a href="#" uk-icon="icon: pinterest"><span class="uk-flex uk-flex-last">Pinterest</span></a></li>
-          <li><a href="#" uk-icon="icon: youtube"><span class="uk-flex uk-flex-last">Youtube</span></a></li>
-          <li><a href="#" uk-icon="icon: instagram"><span class="uk-flex uk-flex-last">Instagram</span></a></li>
-          <li><a href="#" uk-icon="icon: whatsapp"><span class="uk-flex uk-flex-last">Whatsapp</span></a></li>
+          {% for item in menu_iconnav.get_items %}
+            <li class="{{ item.classes|join(' ')|e('esc_html') }}">
+              <a href="{{ item.get_link|e('esc_url') }}" target="_blank" class="">
+                {{ item.title|e('wp_kses_post')}}
+              </a>
+            </li>
+          {% endfor %}
         </ul>
         <hr class="uk-divider-small uk-text-center">
-        <p class="uk-text-center uk-text-small">All Rights Reserved © Copyright 2022 Hillarys. Made with Computerlove</p>
-      </div>
+      {% endif %}
+      <!-- <p class="uk-text-center uk-text-small">All Rights Reserved © Copyright 2022 Hillarys. Made with Computerlove</p> -->
+      <p class="uk-text-center uk-text-small">
+        {{ snippets.copy_text()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} - <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
+        <br>
+        Made by <a href="https://github.com/robmccormack89/" uk-tooltip="Check me out on github" target="_blank">robmccormack89 <span uk-icon="icon: github"></span></a>
+      </p>
     </div>
+
   </div>
-  <!-- <div class="footer-bottom uk-background-default theme-border-top uk-padding-small uk-padding-remove-horizontal" hidden>
-    <div class="uk-container">
-      <ul class="uk-flex uk-flex-middle" uk-grid>
-
-        {# copyright #}
-        <li class="uk-width-1-2">
-          <p class="uk-margin-remove">
-            {{ snippets.copyright()|e('esc_html') }} {{ now|date('Y')|e('esc_html') }} <a href="{{ site.link|e('esc_url') }}" uk-tooltip="{{ snippets.back_to_home()|e('esc_html') }}">{{ site.title|e('esc_html') }}</a>
-          </p>
-        </li>
-
-        {# back to top #}
-        <li class="uk-width-1-2 uk-flex uk-flex-right uk-text-right">
-          <a href="#" uk-totop uk-scroll uk-tooltip="{{ snippets.go_to_top()|e('esc_html') }}"></a>
-        </li>
-
-      </ul>
-    </div>
-  </div> -->
 </footer>

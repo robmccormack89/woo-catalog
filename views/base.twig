@@ -43,13 +43,13 @@
       {% include 'footer.twig' %}
     {% endblock %}
 
-    <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top" hidden>
-      <a class="close" uk-toggle="target: #QuickCallEnquiryContainer">x</a>
-      <a href="tel:{{ options.company_number }}" id="CallNowButton" style="width:50%;display:inline-block;float:left">
-        <span uk-icon="icon: receiver"></span> Freephone us
+    <div id="QuickCallEnquiryContainer" class="rmcc-box-shadow-top">
+      <a class="close quickcall-close" uk-toggle="target: #QuickCallEnquiryContainer">x</a>
+      <a href="tel:{{ snippets.contact_freephone()|e('esc_html') }}" id="CallNowButton" style="width:50%;display:inline-block;float:left">
+        <span uk-icon="icon: receiver"></span> {{ snippets.freephone_label()|e('esc_html') }}
       </a>
-      <a href="https://wa.me/353892154278?text=Hello,%20Solaris%20Blinds" id="CallNowButton" style="width:50%;display:inline-block;float:right;background-color:#25D366;">
-        <span uk-icon="icon: whatsapp"></span> Whatsapp
+      <a href="{{ snippets.whatsapp_web_link()|e('esc_html') }}" id="CallNowButton" style="width:50%;display:inline-block;float:right;background-color:#25D366;">
+        <span uk-icon="icon: whatsapp"></span> {{ snippets.whatsapp_label()|e('esc_html') }}
       </a>
     </div>
 
@@ -78,8 +78,8 @@
     {% endblock %}
 
     {% block scripts %}
+      <!-- header swiper -->
       <script>
-        // header swiper
         var headerIconsSwiper = new Swiper(".header-icons-swiper", {
           slidesPerView: 1,
           spaceBetween: 0,
@@ -103,6 +103,38 @@
             },
           },
         });
+      </script>
+      <!-- cookies for quickcall: 1 day expiry -->
+      <script>
+
+        var disableQuickcallCookie = getCookie("disablequickcallcookie");
+
+        if (disableQuickcallCookie) {
+          setCookie('disablequickcallcookie', true, 7);
+          disableQuickCall('QuickCallEnquiryContainer');
+        } else {
+          unsetCookie('disablequickcallcookie');
+          enableQuickcall('QuickCallEnquiryContainer');
+        }
+
+        document.querySelectorAll('.quickcall-close').forEach(item => {
+          item.addEventListener('mousedown', event => {
+
+            event.preventDefault();
+
+            var disableQuickcallCookie = getCookie("disablequickcallcookie");
+
+            if (disableQuickcallCookie != "" && disableQuickcallCookie != null) {
+              unsetCookie('disablequickcallcookie');
+              enableQuickcall('QuickCallEnquiryContainer');
+            } else {
+              setCookie('disablequickcallcookie', true, 1);
+              disableQuickCall('QuickCallEnquiryContainer');
+            }
+
+          })
+        })
+
       </script>
     {% endblock %}
 
