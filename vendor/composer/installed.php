@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-solaris-shop',
-        'version' => 'dev-solaris-shop',
-        'reference' => '6b00663c07ab3cb1768daf45d70fb9fe184d2f17',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '83eac3c5cfb570116d2ce3af105146c12954da64',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-solaris-shop',
-            'version' => 'dev-solaris-shop',
-            'reference' => '6b00663c07ab3cb1768daf45d70fb9fe184d2f17',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '83eac3c5cfb570116d2ce3af105146c12954da64',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
