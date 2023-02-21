@@ -4,16 +4,16 @@
 
 // custom
 .theme-primary-bg {
-  background-color: $theme_purple;
+  background-color: $theme_primary;
+}
+.theme-muted-primary-bg {
+  background-color: $theme_grey_primary;
 }
 .theme-primary-bg-dark {
-  background-color: $theme_dark_purple;
+  background-color: $theme_dark_primary;
 }
 .theme-dark-bg {
   background: $theme_black;
-}
-.theme-muted-primary-bg {
-  background-color: $theme_greypurple;
 }
 
 // UIKIT EXTENDS utilities
@@ -37,23 +37,23 @@
 }
 
 // a psuedo hover-effect overlay - default style
-.purple-overlay-hover:after,
-.white-overlay-hover:after {
+.primary-overlay-hover:after,
+.default-overlay-hover:after {
   background-color: none;
   transition: .5s ease;
 }
-.purple-overlay-hover:hover:after {
+.primary-overlay-hover:hover:after {
   background-color: $overlay-primary-background;
 }
-.white-overlay-hover:hover:after {
+.default-overlay-hover:hover:after {
   background-color: $overlay-default-background;
 }
 
 // custom pseudo overlays - works with above
-.purple-overlay:after {
+.primary-overlay:after {
   background-color: $overlay-primary-background;
 }
-.white-overlay:after {
+.default-overlay:after {
   background-color: $overlay-default-background;
 }
 
@@ -65,5 +65,5 @@
   background: $theme_medium_black_overlay;
 }
 .uk-overlay-greypurple {
-  background: $theme_greypurple_overlay;
+  background: $theme_grey_primary_overlay;
 }

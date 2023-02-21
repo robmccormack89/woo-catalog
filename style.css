@@ -1,5 +1,5 @@
 /*!
-Theme Name: Base Theme
+Theme Name: Tartar Theme
 Theme URI: https://github.com/robmccormack89/base-theme
 Author: RobertMcCormack
 Author URI: https://github.com/robmccormack89
@@ -18,7 +18,3 @@ Underscores is distributed under the terms of the GNU GPL v2 or later.
 
 Base Theme is built using Timber WP https://github.com/timber/timber
 */
-
-.top-header.uk-light .uk-link-text:hover {
-  color: #cebd9b;
-}

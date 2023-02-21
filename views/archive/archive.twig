@@ -1,54 +1,28 @@
 {% import "_snippets.twig" as snippets %}
-{% extends "index.twig" %}
+{% extends "base.twig" %}
 
 {% block styles %}
   {{ parent() }}
 {% endblock %}
 
 {% block main %}
-  <div class="uk-margin-medium-bottom" data-template="archive.twig">
+  <div data-template="archive.twig">
 
-    {% if (not fn('is_paged')) and (archive.highlight_post) %}
-      <div class="cat-upper uk-background-muted bg-img overlay-wrap white-overlay uk-position-relative theme-border-bottom"></div>
-    {% endif %}
-
-    <div class="uk-container {{ (fn('is_paged') or not archive.highlight_post) ? '' : 'cat-container uk-position-relative uk-position-z-index' }}">
-
-      {% block archive_header %}
-        <header class="uk-container uk-container-xsmall uk-padding-remove-horizontal uk-text-center uk-margin-bottom {{ (fn('is_paged') or not archive.highlight_post) ? 'uk-margin-top' }}">
-          {% include '_archive-header.twig' %}
-        </header>
-      {% endblock %}
-
-      {% block archive_content %}
-        {% block archive_pre_posts %}
-          {% if (not fn('is_paged')) and (archive.highlight_post) %}
-            <div class="uk-container uk-container-xsmall uk-padding-remove-horizontal">
-
-              {% if archive.highlight_post %}
-                <div class="first-sticky-posts uk-child-width-1-1 uk-grid-medium" uk-grid>
-                  <article id="post-{{ archive.highlight_post.id|e('esc_html') }}" class="post uk-section uk-section-small uk-padding-remove-top {{ archive.highlight_post.class|e('esc_html') }}">
-                    {% include '_tease.twig' with { post: archive.highlight_post, preview_length: 35, thumb_w: "800", thumb_h: "500", thumb_pos: "center" } %}
-                  </article>
-                </div>
-              {% endif %}
-
-              {% if archive.rest_of_highlights is not empty %}
-                <div class="second-sticky-posts uk-grid-medium uk-flex-center" uk-grid>
-                  {% for post in archive.rest_of_highlights %}
-                    {% set width_class = ( (archive.rest_of_highlights|length is not divisible by(2)) and (loop.last) ) ? 'uk-width-1-1' : 'uk-width-1-2@m' %}
-                    <article id="post-{{post.ID}}" class="post uk-section uk-section-small uk-padding-remove-top {{ width_class }} {{ post.class }} ">
-                      {% include '_tease.twig' with { post: post, preview_length: 22, thumb_w: 750, thumb_h: 400, thumb_pos: 'center' } %}
-                    </article>
-                  {% endfor %}
-                </div>
-              {% endif %}
-
-            </div>
+    {% block archive_header %}
+      <header class="uk-section uk-section-muted">
+        <div class="uk-container uuuk-container-xsmall">
+          <h1 class="">{{ archive.title }}</h1>
+          {% if archive.description %}
+            <p class="excerpt uk-text-muted uk-padding uk-padding-remove-vertical">{{ archive.description|e('esc_html') }}</p>
           {% endif %}
-        {% endblock %}
+        </div>
+      </header>
+    {% endblock %}
 
-        {% block archive_main_posts %}
+    {% block archive_content %}
+
+      {% block archive_main_posts %}
+        <div class="uk-section uk-container">
           {% if archive.posts is not empty %}
             <div class="archive-posts uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-medium" uk-grid="masonry: true">
               {% for post in archive.posts %}
@@ -58,18 +32,21 @@
               {% endfor %}
             </div>
           {% else %}
-            {% if not archive.highlight_post %}
-              <p class="uk-text-emphasis">{{ snippets.no_posts()|e('esc_html') }}</p>
-            {% endif %}
+            <p class="uk-text-emphasis">{{ snippets.no_posts()|e('esc_html') }}</p>
           {% endif %}
-        {% endblock %}
+        </div>
       {% endblock %}
+    {% endblock %}
 
-      {% block archive_footer %}
-        {{ parent() }}
-      {% endblock %}
+    {% block archive_footer %}
+        {% if (posts.pagination.next or posts.pagination.prev) %}
+          <footer>
+            {% set _posts = archive.posts %}
+            {% include '_pagination.twig' with { pagination: _posts.pagination({show_all: false, mid_size: 3, end_size: 2}), container_class: '' } %}
+          </footer>
+        {% endif %}
+    {% endblock %}
 
-    </div>
   </div>
 {% endblock %}
 

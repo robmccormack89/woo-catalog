@@ -1,5 +1,4 @@
 {% import "_snippets.twig" as snippets %}
-
 <header class="site-header uk-background-default">
 
   {% if has_menu_topheader %}
@@ -33,12 +32,11 @@
           </a>
         </li>
         <li class="middle-header-content uk-width-expand uk-flex uk-flex-center uk-text-center uk-visible@m">
-          {{ snippets.phone_us_text()|format(snippets.freephone_label(), snippets.contact_freephone())|e('esc_html') }}
+          {{ snippets.phone_us_text()|e('esc_html') }}
         </li>
         <li class="middle-header-contact uk-width-expand uk-width-auto@m uk-flex uk-flex-right uk-text-right">
           <div class="">
-            <a href="tel:{{ snippets.contact_freephone()|e('esc_html') }}" class="uk-button uk-label-danger uk-button-small uk-border-rounded uk-visible@m">{{ snippets.freephone_label()|e('esc_html') }} <i class="fa-solid fa-phone-flip padding-left-3"></i></a>
-            <a href="{{ snippets.whatsapp_web_link()|e('esc_html') }}" class="uk-button uk-label-success uk-button-small uk-border-rounded uk-visible@m">{{ snippets.whatsapp_label()|e('esc_html') }} <i class="fa-brands fa-whatsapp padding-left-3"></i></a>
+            <a href="#" class="uk-button uk-label-danger uk-button-small uk-border-rounded uk-visible@m">Contact us <i class="fa-solid fa-phone-flip padding-left-3"></i></a>
             <a uk-toggle="target: #SlideInMenu" class="uk-hidden@m"><span uk-icon="icon: menu; ratio: 1.3"></span></a>
             <a class="uk-margin-left uk-hidden@m" uk-toggle="target: #MobileSearch; animation: uk-animation-fade" uk-search-icon ></a>
           </div>
@@ -147,66 +145,9 @@
           </ul>
         </li>
 
-        <li class="search-item uk-width-1-1 nav-overlay" hidden>
-          <ul class="uk-flex uk-flex-middle" uk-grid>
-            <li class="uk-width-expand">
-              <!-- <form class="uk-search uk-search-navbar uk-width-1-1" hidden>
-                <input class="uk-search-input" type="search" placeholder="Search" autofocus>
-              </form> -->
-              <form id="form_validate_search" class="form_search_main uk-width-1-1 uk-position-relative uk-inline uk-flex uk-flex-center" role="search" method="get" action="{{ site.url|e('esc_url') }}" accept-charset="utf-8" novalidate="novalidate">
-                <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark uk-position-relative">
-                  <a href="#" title="Submit" class="uk-search-icon-flip uk-icon uk-search-icon" hidden>
-                    {{ snippets.search_icon_large()|e('wp_kses_post') }}
-                  </a>
-                  <input class="form-control uk-searchhh-input uk-input uk-background-default" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search" value="" placeholder="{{ snippets.adv_placeholder()|e('esc_html') }}" required="" autocomplete="off"
-                    aria-invalid="true">
-                  <input type="hidden" name="post_type" value="product" />
-                  <div id="loaderSearchToggle" class="uk-position-center-right uk-position-small" style="display:none;">
-                    <div id="loaderSearch"></div>
-                  </div>
-                </div>
-                <div id="response_search_results" class="search-results-ajax uk-height-max-medium uk-overflow-auto"></div>
-              </form>
-            </li>
-            <li class="uk-width-auto">
-              <a class="" uk-close uk-toggle="target: .nav-overlay; animation: uk-animation-fade" href="#"></a>
-            </li>
-          </ul>
-        </li>
-
       </ul>
     </div>
   </nav>
-
-  <div id="MobileSearch" hidden>
-    <div class="uk-background-default padding-10 uk-padding-remove-horizontal theme-border-bottom uk-width-1-1">
-      <div class="uk-container">
-        <div>
-          <ul class="uk-flex uk-flex-middle" uk-grid>
-            <li class="uk-width-expand">
-              <form id="form_validate_search" class="form_search_main uk-width-1-1 uk-position-relative uk-inline uk-flex uk-flex-center" role="search" method="get" action="{{ site.url|e('esc_url') }}" accept-charset="utf-8" novalidate="novalidate">
-                <div class="uk-search uk-search-default uk-search-medium uk-width-1-1 uk-dark uk-position-relative">
-                  <a href="#" title="Submit" class="uk-search-icon-flip uk-icon uk-search-icon" hidden>
-                    {{ snippets.search_icon_large()|e('wp_kses_post') }}
-                  </a>
-                  <input class="form-control uk-searchhh-input uk-input uk-background-default" type="text" name="s" maxlength="300" pattern=".*\S+.*" id="input_search_mob" value="" placeholder="{{ snippets.adv_placeholder()|e('esc_html') }}" required="" autocomplete="off"
-                    aria-invalid="true">
-                  <input type="hidden" name="post_type" value="product" />
-                  <div id="loaderSearchToggleMob" class="uk-position-center-right uk-position-small" style="display:none;">
-                    <div id="loaderSearch"></div>
-                  </div>
-                </div>
-                <div id="response_search_results_mob" class="search-results-ajax uk-height-max-medium uk-overflow-auto"></div>
-              </form>
-            </li>
-            <li class="uk-width-auto">
-              <a class="" uk-close uk-toggle="target: #MobileSearch; animation: uk-animation-fade" href="#"></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </header>
 
@@ -395,145 +336,3 @@
     </div>
   </nav>
 {% endif %}
-
-<!-- modal search - unused, check -->
-<div id="ModalSearch" class="uk-modal-full uk-modal" uk-modal>
-  <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-    <a class="uk-modal-close-full uk-close">{{ snippets.close_menu_icon_large()|e('wp_kses_post') }}</a>
-    <form class="uk-search uk-search-large" role="search" method="get" action="{{ site.url|e('esc_url') }}">
-      <input id="header-search" class="uk-search-input uk-text-center" type="search" name="s" placeholder="{{ snippets.search_form_placeholder|e('esc_html') }}"
-      required maxlength="100" pattern=".*\S+.*" autocomplete="off" autofocus>
-      <!-- <input type="hidden" name="post_type" value="product" /> -->
-    </form>
-  </div>
-</div>
-
-<!-- advanced search script -->
-<script>
-
-  // ajax search
-  jQuery(function($) {
-
-  	// helper function to highlight search results text
-  	$.fn.wrapInTag = function(opts) {
-  		function getText(obj) {
-  			return obj.textContent ? obj.textContent : obj.innerText;
-  		}
-  		var tag = opts.tag || 'strong',
-  			words = opts.words || [],
-  			regex = RegExp(words.join('|'), 'gi'),
-  			replacement = '<' + tag + '>$&</' + tag + '>';
-  		$(this).contents().each(function() {
-  			if (this.nodeType === 3) {
-  				$(this).replaceWith(getText(this).replace(regex, replacement));
-  			} else if (!opts.ignoreChildNodes) {
-  				$(this).wrapInTag(opts);
-  			}
-  		});
-  	};
-
-    // ajax search js
-  	$(document).on("input", "#input_search", debounce(function() {
-  		var input_value = $(this).val();
-  		var query = input_value;
-  		var req;
-
-      $('#loaderSearchToggle').show();
-
-  		if (query.length < 2) {
-  			$('#response_search_results').hide();
-        $('#loaderSearchToggle').hide();
-  			return false;
-  		}
-
-  		if (req != null) req.abort();
-
-  		req = $.ajax({
-  			type: 'post',
-  			url: myAjax.ajaxurl,
-  			data: {
-  				action: 'ajax_live_search',
-  				query: query
-  			},
-  			success: function(response) {
-  				if (!response) {
-  					// alert('empty');
-  					$('#response_search_results').hide();
-            $('#loaderSearchToggle').hide();
-  					return;
-  				}
-  				var obj = JSON.parse(response);
-  				if (obj.result == 1) {
-            $('#loaderSearchToggle').hide();
-  					document.getElementById("response_search_results").innerHTML = obj.response;
-  					$('#response_search_results').show();
-  				}
-  				$('#response_search_results ul li a').wrapInTag({
-  					words: [input_value]
-  				});
-  			},
-  			error: function(request, status, error) {
-          $('#loaderSearchToggle').hide();
-  				$('#response_search_results').hide();
-  			}
-  		});
-  	}, 500));
-
-  	// ajax search js
-  	$(document).on("input", "#input_search_mob", debounce(function() {
-  		var input_value = $(this).val();
-  		var query = input_value;
-  		var req;
-
-      $('#loaderSearchToggleMob').show();
-
-  		if (query.length < 2) {
-  			$('#response_search_results_mob').hide();
-        $('#loaderSearchToggleMob').hide();
-  			return false;
-  		}
-
-  		if (req != null) req.abort();
-
-  		req = $.ajax({
-  			type: 'post',
-  			url: myAjax.ajaxurl,
-  			data: {
-  				action: 'ajax_live_search',
-  				query: query
-  			},
-  			success: function(response) {
-  				if (!response) {
-  					// alert('empty');
-  					$('#response_search_results_mob').hide();
-            $('#loaderSearchToggleMob').hide();
-  					return;
-  				}
-  				var obj = JSON.parse(response);
-  				if (obj.result == 1) {
-            $('#loaderSearchToggleMob').hide();
-  					document.getElementById("response_search_results_mob").innerHTML = obj.response;
-  					$('#response_search_results_mob').show();
-  				}
-  				$('#response_search_results_mob ul li a').wrapInTag({
-  					words: [input_value]
-  				});
-  			},
-  			error: function(request, status, error) {
-          $('#loaderSearchToggleMob').hide();
-  				$('#response_search_results_mob').hide();
-  			}
-  		});
-  	}, 500));
-
-  	// search results hide on additional click away - desktop & mobile
-  	$(document).on('click', function(e) {
-  		if ($(e.target).closest(".top-search-bar").length === 0) {
-  			$("#response_search_results").hide();
-        $("#response_search_results_mob").hide();
-  		}
-  	});
-
-  });
-
-</script>

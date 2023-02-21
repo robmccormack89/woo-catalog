@@ -1,18 +1,9 @@
 // 2. import the theme components
-@import "archive.scss";
 @import "backgrounds.scss";
-@import "blocks.scss";
 @import "borders.scss";
-@import "buttons.scss";
 @import "gutenberg.scss";
-@import "header.scss";
 @import "loaders.scss";
 @import "position.scss";
-@import "sections.scss";
-@import "swiper.scss";
-@import "text.scss";
-@import "uikit.scss";
-@import "woo.scss";
 
 // 3. import the outside sources. this may be done as a separate file in assets/scss folder, tho woocommerce uses some uikit variables at the moment
 
@@ -27,5 +18,5 @@
 @import "node_modules/swiper/swiper-bundle.min";
 
 // import woocommerce sass
-@import "../lib/woocommerce/woocommerce.scss";
-@import "../lib/woocommerce/woocommerce-layout.scss";
+// @import "../lib/woocommerce/woocommerce.scss";
+// @import "../lib/woocommerce/woocommerce-layout.scss";

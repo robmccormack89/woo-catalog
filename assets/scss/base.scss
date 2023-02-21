@@ -19,17 +19,18 @@
 // A CUSTOM UIKIT BUILD WITH SELECTIVE COMPONENTS (ALL SELECTED)
 
 // base colour variables
-$theme_purple: #131441; // solaris purple
-$theme_dark_purple: #0d0e27;
-$theme_very_dark_purple: #17161a;
-$theme_greypurple: #454556; // solaris grey_purple
-$theme_gold: #cebd9b; // solaris gold
-$theme_brown: #686058;
+$theme_primary: #23259c; // solaris purple
+$theme_dark_primary: #0d0e27;
+$theme_very_dark_primary: #17161a;
+$theme_grey_primary: #454556; // solaris grey_purple
+$theme_secondary: #cebd9b; // solaris gold
+$theme_dark_secondary: #686058;
 $theme_green: #21897E;
 $theme_whatsapp_green: #25D366;
 $theme_orange: #faa05a;
-$theme_pink: #E63462;
 $theme_red: #ee3131;
+$theme_pink: #E63462;
+$theme_blue: #1a4ace;
 $theme_muted_pink: #fdefef;
 $theme_white: #fff;
 $theme_lightest_grey: #f8f8f8;
@@ -54,8 +55,6 @@ $bolder_weight: 700;
 
 // fonts
 $theme_font: 'DM Sans', sans-serif;
-$theme_font_sourcesans: 'Source Sans Pro', sans-serif;
-$theme_font_playfair: 'Playfair Display', serif;
 
 // 1. set the theme variables
 
@@ -72,61 +71,63 @@ $theme_border_light_thick: 2px solid $theme_border_light_color;
 $navbar_dropdown_shadow: 0 5px 12px rgba(0,0,0,.15);
 
 // overlays
-$theme_primary_overlay: rgba($theme_purple, 0.8); // dark black strong
-$theme_faint_black_overlay: rgba($theme_greypurple, 0.35); // very faint black
+$theme_primary_overlay: rgba($theme_primary, 0.8); // dark black strong
+$theme_faint_black_overlay: rgba($theme_grey_primary, 0.35); // very faint black
 $theme_medium_black_overlay: rgba($theme_black, 0.4); // black medium
-$theme_greypurple_overlay: rgba($theme_greypurple, 0.45); // purple overlay
+$theme_grey_primary_overlay: rgba($theme_grey_primary, 0.45); // purple overlay
 
 // 1. first, do your overwrites of the uikit theme'd variables here...
 
 //
-// Colors
+// Uikit Font Size
 //
-$global-font-size: $theme-base-font-size;
+// $global-font-size: $theme-base-font-size;
 
 //
-// Colors
+// Uikit Colors
 //
-$global-color: $theme_darker_grey;
-$global-emphasis-color: $theme_greypurple;
-$global-muted-color: $theme_light_grey;
-$global-link-color: $theme_greypurple;
-$global-link-hover-color: $theme_gold;
-$button-link-hover-color: $theme_gold;
-$link-heading-hover-color: $theme_gold;
-$global-inverse-color: $theme_white;
-
-$base-heading-color: $theme_greypurple;
-$text-lead-color: $theme_darker_grey;
-
-//
-// Backgrounds
-//
-$global-background: $theme_white;
-$global-muted-background: $theme_lightest_grey;
-$global-primary-background: $theme_purple;
-// $global-primary-background: $theme_greypurple;
-// $card-default-title-color: $theme_greypurple;
-$card-default-title-color: $theme_greypurple;
-$global-secondary-background: $theme_gold;
-$global-success-background: $theme_green;
-$global-warning-background: $theme_orange;
-$global-danger-background: $theme_pink;
-
-$transition-scale: 1.08;
+// $global-color: $theme_darker_grey;
+// $global-emphasis-color: $theme_grey_primary;
+// $global-muted-color: $theme_light_grey;
+// $global-link-color: $theme_grey_primary;
+// $global-link-hover-color: $theme_secondary;
+// $button-link-hover-color: $theme_secondary;
+// $link-heading-hover-color: $theme_secondary;
+// $global-inverse-color: $theme_white;
+// $base-heading-color: $theme_grey_primary;
+// $text-lead-color: $theme_darker_grey;
 
 //
-// Overlays
+// Uikit Backgrounds
 //
-$overlay-default-background: rgba($global-background, 0.8) !default; // white overlay
-$overlay-primary-background: rgba($global-primary-background, 0.8) !default; // purple overlay
+// $global-background: $theme_white;
+// $global-muted-background: $theme_lightest_grey;
+// $global-primary-background: $theme_primary;
+// $global-primary-background: $theme_grey_primary;
+// $card-default-title-color: $theme_grey_primary;
+// $card-default-title-color: $theme_grey_primary;
+// $global-secondary-background: $theme_secondary;
+// $global-success-background: $theme_green;
+// $global-warning-background: $theme_orange;
+// $global-danger-background: $theme_pink;
+
+//
+// Uikit Transitions
+//
+// $transition-scale: 1.08;
+
+//
+// Uikit Overlays
+//
+$overlay-default-background: rgba($theme_white, 0.8) !default; // white overlay
+$overlay-primary-background: rgba($theme_primary, 0.8) !default; // purple overlay
 $overlay-primary-color-mode: light !default;
 
 //
-// Offcanvas
+// Uikit Offcanvas
 //
-$offcanvas-bar-background: #fff;
-$offcanvas-bar-color-mode: none;
+// $offcanvas-bar-background: #fff;
+// $offcanvas-bar-color-mode: none;
 
 // 2. Import themed variables & mixins
 @import "assets/scss/lib/uikit/variables-theme.scss";
